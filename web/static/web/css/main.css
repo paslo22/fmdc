@@ -57,12 +57,77 @@ textarea {
    ========================================================================== */
 
 
+body{
+    background:#310900;
+}
 
+.outside{
+    background: url('../img/fondo.jpg') no-repeat;
+}
 
+.main{
+    background: #ffffff;
+    width: 75%;
+}
 
+.navbar{
+    background: url('../img/fondo.jpg') no-repeat center;
+    height: 124px;
+	margin: 0px;
+}
 
+.navbar .row{
+	padding: 0px 15px;
+}
 
+.navbar-brand{
+	height: 100px;
+}
 
+#sadaic{
+    float:right;
+    padding: 0px;
+}
+
+#sadaic img{
+    height: 100px;
+    width: 264px;
+}
+
+.navbar-collapse{
+	background: rgb(100,49,18);
+	padding: 0px;
+}
+
+.nav{
+	margin: auto;
+}
+
+.nav li{
+	border:1px rgb(218,157,56) solid;
+}
+
+.nav :hover{
+	background-color: rgb(218,157,56);
+}
+
+.nav .active{
+    background-color: rgb(218,157,56);
+}
+
+.nav li a{
+	padding:0px 15px;
+}
+
+.footer{
+	background: rgb(100,49,18);
+	height: 124px;
+}
+
+.footer .separator{
+	height: 124px;
+	border-right: 1px #fff solid;
+}
 
 
 

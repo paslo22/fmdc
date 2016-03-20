@@ -1,1 +1,58 @@
 {% extends "web/base.html" %}
+{% load staticfiles %}
+
+{% block headPlus %}
+	<link rel="stylesheet" href="{% static 'web/css/index.css' %}">
+{% endblock headPlus %}
+
+{% block activeHome %}active{% endblock activeHome %}
+
+{% block content %}
+	<div class="jumbotron">
+		<div class="container">
+			<div class="col-xs-4">
+				<h1>MUSEO</h1>
+				<h2>VIRTUAL DEL CHAMAME</h2>
+			</div>
+			<div class="col-xs-8">
+				<div class="row">
+					<h4>¡Bienvenidos!</h4>
+					<h6>A este lugar donde encontrar&aacute;n la informaci&oacute;n referente a los autores, compositores, int&eacute;rpretes, escritores y poetas del chamam&eacute;.</h6>
+				</div>
+				<div class="row">
+					<a href="#">
+						<div class="panel panel-default col-xs-6">
+							<h5>Biograf&iacute;as</h5>
+							<h6>Vida y obra de los artistas.</h6>
+						</div>
+					</a>
+					<a href="#">
+						<div class="panel panel-default col-xs-6">
+							<h5>Fotos</h5>
+							<h6>Im&aacute;gentes de los creadores, paisajes y motivos de inspiraci&oacute;n.</h6>
+						</div>
+					</a>
+				</div>
+				<div class="row">
+					<a href="#">
+						<div class="panel panel-default col-xs-6">
+							<h5>Canciones</h5>
+							<h6>La m&uacute;sica y la poes&iacute;a en la expresi&oacute;n art&iacute;stica.</h6>
+						</div>
+					</a>
+					<a href="#">
+						<div class="panel panel-default col-xs-6">
+							<h5>Discograf&iacute;as</h5>
+							<h6>T&iacute;tulos y sonidos de las canciones.</h6>
+						</div>
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row" id="info">
+		<div class="panel panel-default col-xs-4">sd</div>
+		<div class="panel panel-default col-xs-4">asd</div>
+		<div class="panel panel-default col-xs-4">add</div>
+	</div>
+{% endblock content %}
