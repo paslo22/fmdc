@@ -26,14 +26,14 @@
             <div class="container main">
                 <nav class="navbar navbar-default">
                     <div class="container-fluid">
-                        <a href="#" class="navbar-brand col-xs-4">FMDC</a>
+                        <a href="{% url 'index' %}" class="navbar-brand col-xs-4">FMDC</a>
                         <a href="http://www.sadaic.org.ar/" target="_blank" class="navbar-brand col-xs-4 col-xs-offset-8" id="sadaic"><img src="{% static 'web/img/sadaic.png' %}" alt=""></a>
                     </div>
             		<div class="navbar-collapse">
             			<ul class="nav navbar-nav">
             				<li class="{% block activeHome %}{% endblock activeHome %}">
             					<div class="dropdown">
-									<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Inicio<span class="caret"></span></button>
+									<div class="dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Inicio<span class="caret"></span></div>
 									<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
 										<li><a href="#">¿Quienes somos?</a></li>
 										<li><a href="#">Información</a></li>
@@ -43,9 +43,9 @@
             				</li>
             				<li class="{% block activeMuseo %}{% endblock activeMuseo %}">
             					<div class="dropdown">
-									<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Museo virtual<span class="caret"></span></button>
+									<div class="dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Museo virtual<span class="caret"></span></div>
 									<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-										<li><a href="#">Biografías</a></li>
+										<li><a href="{% url 'biografias' %}">Biografías</a></li>
 										<li><a href="#">Letras</a></li>
 										<li><a href="#">Efemerides</a></li>
 									</ul>
@@ -70,9 +70,8 @@
                		</div>
                 </nav>
 
+				{% block content %}{% endblock content %}
 
-				{% block content %}asdsad{% endblock content %}
-        
 				<div class="footer">
 					<div class="col-xs-4 separator"></div>
 					<div class="col-xs-4 separator"></div>

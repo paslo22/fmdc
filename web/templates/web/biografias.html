@@ -1,0 +1,16 @@
+{% extends "web/base.html" %}
+
+{% block activeMuseo %}active{% endblock activeMuseo %}
+
+{% block content %}
+	<h4 class="text-center">Biograf&iacute;as</h4>
+	<div class="row">
+		<ul class="list-group col-xs-4 col-xs-offset-4">
+			{% for biografia in object_list %}
+				<a href="{% url 'biografia' biografia.id %}" class="list-group-item text-center">{{ biografia.name }}</a>
+				{% empty %}
+				<li>No hay biograf&iacute;as cargadas a&uacute;n.</li>
+			{% endfor %}
+		</ul>
+	</div>
+{% endblock content %}j

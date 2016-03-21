@@ -20,7 +20,7 @@
 					<h6>A este lugar donde encontrar&aacute;n la informaci&oacute;n referente a los autores, compositores, int&eacute;rpretes, escritores y poetas del chamam&eacute;.</h6>
 				</div>
 				<div class="row">
-					<a href="#">
+					<a href="{% url 'biografias' %}">
 						<div class="panel panel-default col-xs-6">
 							<h5>Biograf&iacute;as</h5>
 							<h6>Vida y obra de los artistas.</h6>
@@ -51,8 +51,29 @@
 		</div>
 	</div>
 	<div class="row" id="info">
-		<div class="panel panel-default col-xs-4">sd</div>
-		<div class="panel panel-default col-xs-4">asd</div>
-		<div class="panel panel-default col-xs-4">add</div>
+		<div class="panel panel-default col-xs-4">
+			<div class="panel-heading">
+				<h4 class="panel-title">Informaci&oacute;n</h4>
+			</div>
+			<div class="panel-body">
+				<p>Se abre esta p&aacute;gina con el deseo de llevar a quienes requieran, no una pila almacenada de nombres, fechas, canciones,etc. sino, eso mismo, pero amorosamente tra&iacute;da de los lugares m&aacute;s sensibles del alma</p>
+			</div>
+		</div>
+		<div class="panel panel-default col-xs-4">
+			<div class="panel-heading">
+				<h4 class="panel-title">Escritor</h4>
+			</div>
+			<div class="panel-body writer">
+				<img src="{% static 'web/img/t1.png' %}" alt="">
+			</div>
+		</div>
+		<div class="panel panel-default col-xs-4">
+			<div class="panel-heading">
+				<h4 class="panel-title">Informaci&oacute;n</h4>
+			</div>
+			<div class="panel-body">
+				<p>Se abre esta p&aacute;gina con el deseo de llevar a quienes requieran, no una pila almacenada de nombres, fechas, canciones,etc. sino, eso mismo, pero amorosamente tra&iacute;da de los lugares m&aacute;s sensibles del alma</p>
+			</div>
+		</div>
 	</div>
 {% endblock content %}

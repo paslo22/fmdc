@@ -1,6 +1,9 @@
 .jumbotron{
 	border-bottom: 5px rgb(218,157,56) solid;
 }
-#info{
-	padding: 0px 15px;
+.panel{
+	padding: 0px;
+}
+.writer {
+	padding: 22px 0px;
 }

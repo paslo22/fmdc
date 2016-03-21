@@ -70,6 +70,10 @@ body{
     width: 75%;
 }
 
+.row{
+    padding: 0px 15px;
+}
+
 .navbar{
     background: url('../img/fondo.jpg') no-repeat center;
     height: 124px;
