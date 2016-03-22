@@ -1,2 +1,3 @@
 *.sqlite3
 *.pyc
+web/static/web/archive/*
