@@ -16,7 +16,7 @@ class Biografia(models.Model):
 		texto = texto.replace('<p>\r</p>','')
 		texto = texto.replace('<p>IM\xc1GENES\r</p>','<h3>Imagenes</h3>')
 		texto = texto.replace('<p>MUSICAS\r</p>','<h3>Musicas</h3>')
-		texto = re.sub(r'<p>\[audio:(?P<path>[a-zA-Z0-9/\.]+)\|titles=[a-zA-Z0-9]+\]\r</p>',r'<audio controls><source src="\1" type="audio/mpeg">Your browser does not support the audio element.</audio>',texto)
+		texto = re.sub(r'<p>\[audio:(?P<path>[a-zA-Z0-9/\.]+)\|titles=[a-zA-Z0-9]+\]\r</p>',r'<audio controls><source src="\1" type="audio/mpeg">Su explorador es antiguo\. Actualicelo para reproducir audios\.</audio>',texto)
 		return texto
 
 	def save(self, *args, **kwargs):
