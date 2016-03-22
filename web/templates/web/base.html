@@ -35,9 +35,9 @@
             					<div class="dropdown">
 									<div class="dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Inicio<span class="caret"></span></div>
 									<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-										<li><a href="quienesSomos">¿Quienes somos?</a></li>
-										<li><a href="informacion">Información</a></li>
-										<li><a href="objetivos">Objetivos</a></li>
+										<li><a href="{% url 'quienesSomos' %}">¿Quienes somos?</a></li>
+										<li><a href="{% url 'informacion' %}">Información</a></li>
+										<li><a href="{% url 'objetivos' %}">Objetivos</a></li>
 									</ul>
 								</div>
             				</li>
