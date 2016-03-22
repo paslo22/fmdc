@@ -4,5 +4,6 @@
 
 {% block content %}
 	<h4 class="text-center">{{object.name}}</h4>
+	{{object.text | safe}}
 	
 {% endblock content %}
