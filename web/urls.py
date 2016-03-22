@@ -7,5 +7,6 @@ urlpatterns = [
 	url(r'^biografias/(?P<pk>[0-9]+)/$', views.BiografiaDetailView.as_view(), name='biografia'),
 	url(r'^quienesSomos/$', views.quienesSomos, name='quienesSomos'),
 	url(r'^objetivos/$', views.objetivos, name='objetivos'),
-	url(r'^informacion/$', views.informacion, name='informacion'),
+	url(r'^contacto/$', views.contacto, name='contacto'),
+
 ]

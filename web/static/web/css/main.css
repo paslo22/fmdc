@@ -264,4 +264,22 @@ body{
     h3 {
         page-break-after: avoid;
     }
+
+    @media (min-width: 768px){
+  .seven-cols,
+  .seven-cols,
+  .seven-cols  {
+    width: 100%;
+    *width: 100%;
+  }
+}
+
+@media (min-width: 992px) {
+  .seven-cols,
+  .seven-cols,
+  .seven-cols {
+    width: 14.285714285714285714285714285714%;
+    *width: 14.285714285714285714285714285714%;
+  }
+}
 }

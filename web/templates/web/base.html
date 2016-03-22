@@ -36,35 +36,35 @@
 									<div class="dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Inicio<span class="caret"></span></div>
 									<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
 										<li><a href="{% url 'quienesSomos' %}">¿Quienes somos?</a></li>
-										<li><a href="{% url 'informacion' %}">Información</a></li>
+										
 										<li><a href="{% url 'objetivos' %}">Objetivos</a></li>
 									</ul>
 								</div>
             				</li>
-            				<li class="{% block activeMuseo %}{% endblock activeMuseo %}">
-            					<div class="dropdown">
-									<div class="dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Museo virtual<span class="caret"></span></div>
-									<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-										<li><a href="{% url 'biografias' %}">Biografías</a></li>
-										<li><a href="#">Letras</a></li>
-										<li><a href="#">Efemerides</a></li>
-									</ul>
-								</div>
-            				</li>
-            				<li class="{% block activeNov %}{% endblock activeNov %}">
-            					<a href="#">Novedades</a>
-            				</li>
+
+                            <li class="{% block activeDisc %}{% endblock activeDisc %}">
+                                <a href="#">Discoteca</a>
+                            </li>
+
+                            <li class="{% block activeBen %}{% endblock activeBen %}">
+                                <a href="#">Benefactores</a>
+                            </li>
+
             				<li class="{% block activeAct %}{% endblock activeAct %}">
             					<a href="#">Actividades</a>
             				</li>
-            				<li class="{% block activeBen %}{% endblock activeBen %}">
-            					<a href="#">Benefactores</a>
+            				
+            				<li class="{% block activeArt %}{% endblock activeArt %}">
+            					<a href="#">Artistas</a>
             				</li>
-            				<li class="{% block activeVyF %}{% endblock activeVyF %}">
-            					<a href="#">Videos y Fotos</a>
-            				</li>
+
+                            <li class="{% block activeEfe %}{% endblock activeEfe %}">
+                                <a href="#">Efemérides</a>
+                            </li>
+
+
             				<li class="{% block activeCont %}{% endblock activeCont %}">
-            					<a href="#">Contacto</a>
+            					<a href="{% url 'contacto' %}">Contacto</a>
             				</li>
             			</ul>
                		</div>
