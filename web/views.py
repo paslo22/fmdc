@@ -21,5 +21,5 @@ def quienesSomos(request):
 def objetivos(request):
 	return render(request, 'web/objetivos.html')
 
-def informacion(request):
-	return render(request, 'web/informacion.html')
+def contacto(request):
+	return render(request, 'web/contacto.html')
