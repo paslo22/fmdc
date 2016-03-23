@@ -30,3 +30,6 @@ def efemerides(request):
 	todayMonth = datetime.today().month
 	efemerides = Efemeride.objects.filter(date__day=todayDay,date__month=todayMonth)
 	return render(request, 'web/efemeride.html', {'efemerides':efemerides})
+
+def benefactores(request):
+	return render(request, 'web/benefactores.html')
