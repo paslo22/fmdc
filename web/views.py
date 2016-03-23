@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.views import generic
-from .models import Biografia
+from datetime import datetime
+from .models import Biografia, Efemeride
 
 def index(request):
 	return render(request, 'web/index.html')
@@ -23,3 +24,9 @@ def objetivos(request):
 
 def contacto(request):
 	return render(request, 'web/contacto.html')
+
+def efemerides(request):
+	todayDay = datetime.today().day
+	todayMonth = datetime.today().month
+	efemerides = Efemeride.objects.filter(date__day=todayDay,date__month=todayMonth)
+	return render(request, 'web/efemeride.html', {'efemerides':efemerides})

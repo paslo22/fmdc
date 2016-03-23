@@ -41,28 +41,21 @@
 									</ul>
 								</div>
             				</li>
-
                             <li class="{% block activeDisc %}{% endblock activeDisc %}">
                                 <a href="#">Discoteca</a>
                             </li>
-
                             <li class="{% block activeBen %}{% endblock activeBen %}">
                                 <a href="#">Benefactores</a>
                             </li>
-
             				<li class="{% block activeAct %}{% endblock activeAct %}">
             					<a href="#">Actividades</a>
             				</li>
-            				
             				<li class="{% block activeArt %}{% endblock activeArt %}">
-            					<a href="#">Artistas</a>
+            					<a href="{% url 'biografias' %}">Artistas</a>
             				</li>
-
                             <li class="{% block activeEfe %}{% endblock activeEfe %}">
-                                <a href="#">Efemérides</a>
+                                <a href="{% url 'efemerides' %}">Efem&eacute;rides</a>
                             </li>
-
-
             				<li class="{% block activeCont %}{% endblock activeCont %}">
             					<a href="{% url 'contacto' %}">Contacto</a>
             				</li>

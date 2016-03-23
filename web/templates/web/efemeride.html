@@ -1,0 +1,12 @@
+{% extends "web/base.html" %}
+
+{% block activeEfe %}active{% endblock activeEfe %}
+
+{% block content %}
+	<h4 class="text-center">Un d&iacute;a como hoy</h4>
+	{% for efe in efemerides %}
+		<h4>{{efe.bio.name}}:</h4>
+		<p>{{efe.date.year}}: {{efe.event}}</p>
+	{% endfor %}
+	
+{% endblock content %}
