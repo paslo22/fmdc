@@ -5,5 +5,9 @@
 {% block content %}
 	<h4 class="text-center">{{object.name}}</h4>
 	{{object.text | safe}}
+	<h3>Imagenes</h3>
+	{% for imagen in object.image_set.all %}
+		<img style="diplay:block;max-width:150px;max-height:150px;width:auto;height:auto;" src="{{imagen.image.url}}" alt="">
+	{% endfor %}
 	
 {% endblock content %}

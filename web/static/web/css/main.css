@@ -91,11 +91,22 @@ body{
 #sadaic{
     float:right;
     padding: 0px;
+    padding-top: 5px;
 }
 
 #sadaic img{
-    height: 100px;
-    width: 264px;
+    height: 90px;
+    width: 278px;
+}
+
+#logo{
+    padding: 0px;
+    padding-left: 5px;
+}
+
+#logo img{
+    height: 90px;
+    width: 278px;
 }
 
 .navbar-collapse{
