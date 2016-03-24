@@ -19,6 +19,7 @@
 		{% block headPlus %}{% endblock headPlus %}
 	</head>
 	<body>
+		{% include "web/socialNetwork.html" %}
 		<!--[if lt IE 8]>
 			<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
 		<![endif]-->
@@ -48,6 +49,12 @@
 							<li class="{% block activeDisc %}{% endblock activeDisc %} seven text-center">
 								<a href="#">Discoteca</a>
 							</li>
+							<li class="{% block activeMat %}{% endblock activeMat %} seven text-center">
+								<a href="#">Material</a>
+							</li>
+							<li class="{% block activeIma %}{% endblock activeIma %} seven text-center">
+								<a href="#">Imagenes</a>
+							</li>
 							<li class="{% block activeBen %}{% endblock activeBen %} seven text-center">
 								<a href="#">Benefactores</a>
 							</li>
@@ -72,9 +79,22 @@
 			</div>
 			<div id='footer'>
 				<div class="footer">
-					<div class="col-xs-4 separator"></div>
-					<div class="col-xs-4 separator"></div>
-					<div class="col-xs-4"></div>
+					<div class="col-xs-12 col-sm-4 separator white-text">
+						<address>
+							<strong>Cont&aacute;ctenos</strong><br>
+							Direcci&oacute;n: Los calchaquies 4008<br>
+							<abbr title="Tel&eacute;fono">Tel:</abbr> +54(03794)-15447815
+						</address>
+					</div>
+					<div class="col-sm-4 hidden-xs separator" id="socialFooter">
+						<div class="fb-like" data-href="https://www.facebook.com/fundacion.memoriadelchamame" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div>
+						<a href="https://twitter.com/Chamamemoria" class="twitter-follow-button" data-show-count="false" data-lang="es">Seguir a @Chamamemoria</a>
+					</div>
+					<div class="col-sm-4 hidden-xs white-text">
+						<strong>Desarrollado por:</strong><br>
+						<a href="http://nabla.com.ar" target="_blank">&nabla; Nabla Sistemas</a><br>
+						En colaboraci&oacute;n con Manuel Zubieta						
+					</div>
 				</div>
 			</div>
 		</div>
