@@ -1,6 +1,11 @@
 {% extends "web/base.html" %}
+{% load staticfiles %}
 
-{% block activeMuseo %}active{% endblock activeMuseo %}
+{% block scriptPlus %}
+	<script src="{% static 'web/js/search.js' %}"></script>
+{% endblock scriptPlus %}
+
+{% block activeArt %}active{% endblock activeArt %}
 
 {% block content %}
 	<h4 class="text-center">Biograf&iacute;as</h4>
@@ -9,8 +14,15 @@
 			{% for biografia in object_list %}
 				<a href="{% url 'biografia' biografia.id %}" class="list-group-item text-center">{{ biografia.name }}</a>
 				{% empty %}
-				<li>No hay biograf&iacute;as cargadas a&uacute;n.</li>
+				<p>Su b&uacute;squeda no arroj&oacute; resultados.</p>
 			{% endfor %}
 		</ul>
+		<div class="col-xs-4">
+			<div class="form group">
+				<input id= "name" type="text" class="form-control" placeholder="Buscar">
+			</div>
+			<button id="buscar" class="btn btn-default">Buscar</button>
+		</div>
+
 	</div>
-{% endblock content %}j
+{% endblock content %}

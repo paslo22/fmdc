@@ -1,6 +1,7 @@
 from __future__ import unicode_literals
 import re
 from django.db import models
+from copy import copy
 from django.contrib.staticfiles.templatetags.staticfiles import static
 
 class Biografia(models.Model):
@@ -27,8 +28,8 @@ class Biografia(models.Model):
 
 	def save(self, *args, **kwargs):
 		self.name = self.name
-		self.text_org = self.text
-		self.text = self.htmlText(self.text)
+		self.text_org = self.text_org
+		self.text = self.htmlText(self.text_org)
 		super(Biografia, self).save(*args, **kwargs)
 
 	class Meta:
@@ -44,7 +45,7 @@ class Image(models.Model):
 		verbose_name_plural='Imagenes'
 
 class Efemeride(models.Model):
-	bio = models.OneToOneField(Biografia, default=None)
+	bio = models.ForeignKey(Biografia, default=None)
 	date = models.DateField('Fecha')
 	event = models.TextField('Efemeride')
 

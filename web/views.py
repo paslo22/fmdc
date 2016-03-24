@@ -13,7 +13,14 @@ class BiografiaView(generic.ListView):
 	template_name = 'web/biografias.html'
 
 	def get_queryset(self):
-		return Biografia.objects.all()
+		try:
+			filtro = self.kwargs['filtro']
+		except:
+			filtro = ''
+		if (filtro == '') | (filtro == None):
+			return Biografia.objects.all()
+		else:
+			return Biografia.objects.filter(name__contains=filtro[:-1])
 
 class BiografiaDetailView(generic.DetailView):
 	model = Biografia
