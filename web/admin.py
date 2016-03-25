@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Biografia, Image, Efemeride
+from .models import Biografia, Image, Efemeride, Artista
 
 class ImageInline(admin.StackedInline):
 	model = Image
@@ -16,3 +16,4 @@ class BiografiaAdmin(admin.ModelAdmin):
 	exclude = ('text',)
 
 admin.site.register(Biografia,BiografiaAdmin)
+admin.site.register(Artista)

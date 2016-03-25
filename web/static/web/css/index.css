@@ -28,3 +28,37 @@
 	max-width: 1643px;
 	width: 100%;
 }
+
+#jumbBrand h1{
+	font-size: 36px;
+}
+
+#jumbBrand h2{
+	font-size: 24px;
+}
+
+@media(min-width: 768px){
+	.vertical-align{
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+		align-items: center;
+	}
+
+	#jumbBrand h1{
+		font-size: 40px;
+	}
+
+	#jumbBrand h2{
+		font-size: 22px;
+	}
+}
+@media(min-width: 992px){
+	#jumbBrand h1{
+		font-size: 63px;
+	}
+
+	#jumbBrand h2{
+		font-size: 30px;
+	}
+}

@@ -15,9 +15,9 @@ class BiografiaView(generic.ListView):
 		except:
 			filtro = ''
 		if (filtro == '') | (filtro == None):
-			return Biografia.objects.all()
+			return Biografia.objects.all().order_by('name__name')
 		else:
-			return Biografia.objects.filter(name__contains=filtro[:-1])
+			return Biografia.objects.filter(name__name__contains=filtro[:-1]).order_by('name__name')
 
 class BiografiaDetailView(generic.DetailView):
 	model = Biografia

@@ -1,13 +1,25 @@
 {% extends "web/base.html" %}
+{% load staticfiles %}
 
 {% block activeMuseo %}active{% endblock activeMuseo %}
 
+{% block headPlus %}
+	<link rel="stylesheet" href="{% static 'web/css/biografia.css' %}">
+{% endblock headPlus %}
+
 {% block content %}
-	<h4 class="text-center">{{object.name}}</h4>
-	{{object.text | safe}}
-	<h3>Imagenes</h3>
-	{% for imagen in object.image_set.all %}
-		<img style="diplay:block;max-width:150px;max-height:150px;width:auto;height:auto;" src="{{imagen.image.url}}" alt="">
-	{% endfor %}
+	<div class="row" id='content'>
+		<h1 class="brown-text text-center"><strong>{{object.name}}</strong></h1>
+		<div class="col-sm-12 col-md-8">
+			{{object.text | safe}}
+			<h3>Imagenes</h3>
+			{% for imagen in object.image_set.all %}
+				<img src="{{imagen.image.url}}" alt="">
+			{% endfor %}
+		</div>
+		<div class="col-sm-12 col-md-4">
+			<h3>Discograf&iacute;a</h3>
+		</div>
+	</div>
 	
 {% endblock content %}

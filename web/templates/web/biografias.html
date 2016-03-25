@@ -8,21 +8,22 @@
 {% block activeArt %}active{% endblock activeArt %}
 
 {% block content %}
-	<h4 class="text-center">Biograf&iacute;as</h4>
-	<div class="row">
-		<ul class="list-group col-xs-4 col-xs-offset-4">
-			{% for biografia in object_list %}
-				<a href="{% url 'biografia' biografia.id %}" class="list-group-item text-center">{{ biografia.name }}</a>
-				{% empty %}
-				<p>Su b&uacute;squeda no arroj&oacute; resultados.</p>
-			{% endfor %}
-		</ul>
-		<div class="col-xs-4">
-			<div class="form group">
+	<div class="row">	
+		<h1 class="text-center brown-text"><strong>Biograf&iacute;as</strong></h1>
+		<form class="col-sm-4 col-sm-offset-8 form-inline">
+			<div class="form-group">
 				<input id= "name" type="text" class="form-control" placeholder="Buscar">
 			</div>
-			<button id="buscar" class="btn btn-default">Buscar</button>
+			<button id="buscar" class="btn btn-primary">Buscar</button>
+		</form>
+		<div class="row">
+			<ul class="list-group col-sm-8">
+				{% for biografia in object_list %}
+					<a href="{% url 'biografia' biografia.id %}" class="brown-text text-center"><h4><strong>{{ biografia.name }}</strong></h4></a>
+					{% empty %}
+					<p class="brown-text text-center">Su b&uacute;squeda no arroj&oacute; resultados.</p>
+				{% endfor %}
+			</ul>
 		</div>
-
 	</div>
 {% endblock content %}
