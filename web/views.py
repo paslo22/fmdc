@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.views import generic
 from datetime import datetime
-from .models import Biografia, Efemeride
+from .models import Biografia, Efemeride, Discoteca
 
 def index(request):
 	return render(request, 'web/index.html')
@@ -22,6 +22,23 @@ class BiografiaView(generic.ListView):
 class BiografiaDetailView(generic.DetailView):
 	model = Biografia
 	template_name = 'web/biografia.html'
+
+class DiscotecaView(generic.ListView):
+	template_name = 'web/discotecas.html'
+
+	def get_queryset(self):
+		try:
+			filtro = self.kwargs['filtro']
+		except:
+			filtro = ''
+		if (filtro == '') | (filtro == None):
+			return Discoteca.objects.all().order_by('name__name')
+		else:
+			return Discoteca.objects.filter(name__name__contains=filtro[:-1]).order_by('name__name')
+
+class DiscotecaDetailView(generic.DetailView):
+	model = Discoteca
+	template_name = 'web/discoteca.html'
 
 def quienesSomos(request):
 	return render(request, 'web/quienesSomos.html')
