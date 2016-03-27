@@ -1,6 +1,8 @@
-class ContactoForm(object):
-	"""docstring for ContactoForm"""
-	def __init__(self, arg):
-		super(ContactoForm, self).__init__()
-		self.arg = arg
-		
+from django import forms
+
+class ContactForm(forms.Form):
+	contact_name = forms.CharField(required=True)
+	contact_email = forms.EmailField(required=True)
+	content = forms.CharField(
+		required=True,
+		widget=forms.Textarea)
