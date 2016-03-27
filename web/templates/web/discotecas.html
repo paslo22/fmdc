@@ -1,25 +1,25 @@
 {% extends "web/base.html" %}
 {% load staticfiles %}
 
+{% block activeDisc %}active{% endblock activeDisc %}
+
 {% block scriptPlus %}
 	<script src="{% static 'web/js/search.js' %}"></script>
 {% endblock scriptPlus %}
 
-{% block activeArt %}active{% endblock activeArt %}
-
 {% block content %}
-	<div class="row">	
-		<h1 class="text-center brown-text"><strong>Biograf&iacute;as</strong></h1>
+	<div class="row" style="padding:0px 15px;">
+		<h1 class="brown-text text-center"><strong>Discoteca</strong></h1>
 		<form class="col-sm-4 col-sm-offset-8 form-inline">
 			<div class="form-group">
-				<input id= "name" type="text" data-source="biografias" class="form-control" placeholder="Buscar">
+				<input id= "name" type="text" data-source="discotecas" class="form-control" placeholder="Buscar">
 			</div>
 			<button id="buscar" class="btn btn-primary">Buscar</button>
 		</form>
 		<div class="row">
 			<ul class="col-sm-8">
-				{% for biografia in object_list %}
-					<a href="{% url 'biografia' biografia.id %}" class="brown-text text-center"><h4><strong>{{ biografia.name }}</strong></h4></a>
+				{% for discoteca in object_list %}
+					<a href="{% url 'discoteca' discoteca.id %}" class="brown-text text-center"><h4><strong>{{ discoteca.name }}</strong></h4></a>
 					{% empty %}
 					<p class="brown-text text-center">Su b&uacute;squeda no arroj&oacute; resultados.</p>
 				{% endfor %}

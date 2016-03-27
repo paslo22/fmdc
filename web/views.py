@@ -7,6 +7,7 @@ from django.template import Context
 from .models import Biografia, Efemeride
 from .forms import ContactForm
 from django.conf import settings
+from .models import Biografia, Efemeride, Discoteca
 
 def index(request):
 	return render(request, 'web/index.html')
@@ -20,13 +21,30 @@ class BiografiaView(generic.ListView):
 		except:
 			filtro = ''
 		if (filtro == '') | (filtro == None):
-			return Biografia.objects.all()
+			return Biografia.objects.all().order_by('name__name')
 		else:
-			return Biografia.objects.filter(name__contains=filtro[:-1])
+			return Biografia.objects.filter(name__name__contains=filtro[:-1]).order_by('name__name')
 
 class BiografiaDetailView(generic.DetailView):
 	model = Biografia
 	template_name = 'web/biografia.html'
+
+class DiscotecaView(generic.ListView):
+	template_name = 'web/discotecas.html'
+
+	def get_queryset(self):
+		try:
+			filtro = self.kwargs['filtro']
+		except:
+			filtro = ''
+		if (filtro == '') | (filtro == None):
+			return Discoteca.objects.all().order_by('name__name')
+		else:
+			return Discoteca.objects.filter(name__name__contains=filtro[:-1]).order_by('name__name')
+
+class DiscotecaDetailView(generic.DetailView):
+	model = Discoteca
+	template_name = 'web/discoteca.html'
 
 def quienesSomos(request):
 	return render(request, 'web/quienesSomos.html')
