@@ -58,12 +58,12 @@ def contacto(request):
 		form = form_class(data=request.POST)
 		if form.is_valid():
 			contact_name = request.POST.get(
-				'contact_name'
+				'nombre'
 			, '')
 			contact_email = request.POST.get(
-				'contact_email'
+				'email'
 			, '')
-			form_content = request.POST.get('content', '')
+			form_content = request.POST.get('mensaje', '')
 			email = EmailMessage(
 				"Nuevo Mensaje desde la web",
 				form_content,
