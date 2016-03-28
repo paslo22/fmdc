@@ -1,6 +1,8 @@
+# -*- coding: utf-8 -*- 
 from __future__ import unicode_literals
 import re
 from django.db import models
+from django.conf import settings
 from copy import copy
 from django.contrib.staticfiles.templatetags.staticfiles import static
 from django.utils.encoding import python_2_unicode_compatible
@@ -51,7 +53,7 @@ class Song(models.Model):
 		return self.name
 
 	def formatHelper(self,matchobj):
-		url = static('web/archive/Biografias/'+matchobj.group('path'))
+		url = static(settings.MEDIA_URL+'archive/Biografias/'+matchobj.group('path'))
 		return r'<audio controls><source src="'+url+'" type="audio/mpeg">Su explorador es antiguo\. Actualicelo para reproducir audios\.</audio>'
 
 	def save(self, *args, **kwargs):
@@ -80,22 +82,32 @@ class Efemeride(models.Model):
 		verbose_name='Efemeride'
 		verbose_name_plural='Efemerides'
 
-@python_2_unicode_compatible
-class Album(models.Model):
-	name = models.CharField('Nombre', max_length=100)
-	tapa = models.ImageField('Tapa', upload_to='images/', default='', blank=True)
-	lamina = models.ImageField('Lamina', upload_to='images/', default='', blank=True)
-	year = models.IntegerField('Anio')
-
-	def __str__(self):
-		return self.name
-
 class Discoteca(models.Model):
 	name = models.OneToOneField(Artista)
-	albumes = models.ManyToManyField(Album, default=None)
 
 	def __str__(self):
 		return "Discoteca de " + unicode(self.name)
+
+@python_2_unicode_compatible
+class Album(models.Model):
+	discoteca = models.ForeignKey(Discoteca)
+	name = models.CharField('Nombre', max_length=100)
+	tapa = models.ImageField('Tapa', upload_to='images/', default='', blank=True)
+	lamina = models.ImageField('Lamina', upload_to='images/', default='', blank=True)
+	year = models.IntegerField('Año', null=True,blank=True)
+	songString = models.TextField(blank=True)
+	songString_org = models.TextField('Listado de canciones',blank=True)
+
+	def save(self,*args,**kwargs):
+
+		super(Album,self).save(*args,**kwargs)
+
+	class Meta:
+		verbose_name='Album'
+		verbose_name_plural='Albumes'
+
+	def __str__(self):
+		return self.name
 
 @python_2_unicode_compatible
 class SongAlbum(models.Model):
@@ -109,7 +121,7 @@ class SongAlbum(models.Model):
 		return self.name
 
 	def formatHelper(self,matchobj):
-		url = static('web/archive/Biografias/'+matchobj.group('path'))
+		url = static(settings.MEDIA_URL+matchobj.group('path'))
 		return r'<audio controls><source src="'+url+'" type="audio/mpeg">Su explorador es antiguo\. Actualicelo para reproducir audios\.</audio>'
 
 	def save(self, *args, **kwargs):
