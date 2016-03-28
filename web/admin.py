@@ -26,16 +26,26 @@ class BiografiaAdmin(admin.ModelAdmin):
 admin.site.register(Biografia,BiografiaAdmin)
 admin.site.register(Artista)
 
+# class SongAlbumInline(admin.StackedInline):
+# 	model = SongAlbum
+# 	extra = 3
+# 	exclude = ('link',)
 
-class SongAlbumInline(admin.StackedInline):
-	model = SongAlbum
+# class AlbumAdmin(admin.ModelAdmin):
+# 	inlines = [
+# 		SongAlbumInline,
+# 	]
+
+# admin.site.register(Album, AlbumAdmin)
+
+class AlbumInline(admin.StackedInline):
+	model = Album
 	extra = 3
-	exclude = ('link',)
+	exclude = ('songString',)
 
-class AlbumAdmin(admin.ModelAdmin):
+class DiscotecaAdmin(admin.ModelAdmin):
 	inlines = [
-		SongAlbumInline,
+		AlbumInline,
 	]
 
-admin.site.register(Album, AlbumAdmin)
-admin.site.register(Discoteca)
+admin.site.register(Discoteca,DiscotecaAdmin)
