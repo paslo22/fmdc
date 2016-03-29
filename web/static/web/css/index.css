@@ -11,12 +11,12 @@
 }
 
 .panel{
-	height: 270px;
 	overflow: hidden;
 	padding: 0px;
 }
 
 .panel img{
+	height: 260px;
 	width: 100%;
 }
 
