@@ -11,12 +11,13 @@
 }
 
 .panel{
+	height: 270px;
+	overflow: hidden;
 	padding: 0px;
 }
 
 .panel img{
 	width: 100%;
-	height: 200px;
 }
 
 #president{

@@ -57,7 +57,7 @@ class Song(models.Model):
 		return r'<audio controls><source src="'+url+'" type="audio/mpeg">Su explorador es antiguo\. Actualicelo para reproducir audios\.</audio>'
 
 	def save(self, *args, **kwargs):
-		self.link = re.sub(r'^\[audio:(?P<path>[a-zA-Z0-9/\.]+)\]$',self.formatHelper,self.link_org)
+		self.link = re.sub(r'^\[audio:(?P<path>[a-zA-Z0-9/\.]+)\]$',self.formatHelper,self.link_org,flags=re.UNICODE)
 		super(Song,self).save(*args, **kwargs)
 
 	class Meta:	
@@ -95,12 +95,25 @@ class Album(models.Model):
 	tapa = models.ImageField('Tapa', upload_to='images/', default='', blank=True)
 	lamina = models.ImageField('Lamina', upload_to='images/', default='', blank=True)
 	year = models.IntegerField('Año', null=True,blank=True)
-	songString = models.TextField(blank=True)
-	songString_org = models.TextField('Listado de canciones',blank=True)
+	songString = models.TextField('Listado de canciones',blank=True)
+
+	def createSongs(self,matchobj):
+		song = SongAlbum()
+		song.album = self
+		song.tituloPrincipal = matchobj.group('tituloPrincipal')
+		song.numero = int(matchobj.group('numero'))
+		song.name = matchobj.group('nombre')
+		song.infoExtra = matchobj.group('infoExtra')
+		url = static(settings.MEDIA_URL+'archive/Discografias/'+matchobj.group('path'))
+		song.link = r'<audio controls preload="none"><source src="'+url+'" type="audio/mpeg">Su explorador es antiguo\. Actualicelo para reproducir audios\.</audio>'
+		song.save()
 
 	def save(self,*args,**kwargs):
-
 		super(Album,self).save(*args,**kwargs)
+		if (self.songalbum_set.all()!=[]):
+			self.songalbum_set.all().delete()
+		re.sub(r'(\[tituloPrincipal:(?P<tituloPrincipal>[\w/\. ]+)\])?(\[numero:(?P<numero>[\w/\.]+)\])?\[nombre:(?P<nombre>[\w/\.\-() ]+)\](\[infoExtra:(?P<infoExtra>[\w/\.\-() ]+)\])?\[audio:(?P<path>[\w/\.]+)\]',self.createSongs,self.songString.replace('\n','').replace('\r',''),flags=re.UNICODE)
+		#self.link = re.sub(r'(\[tituloPrincipal:(?P<tituloPrincipal>[\w/\. ]+)\])?(\[numero:(?P<numero>[\w/\.]+)\])?\[nombre:(?P<nombre>[\w/\.\-() ]+)\](\[infoExtra:(?P<infoExtra>[\w/\.]+)\])?\[audio:(?P<path>[\w/\.]+)\]',self.formatHelper,self.link_org,flags=re.UNICODE)
 
 	class Meta:
 		verbose_name='Album'
@@ -112,10 +125,11 @@ class Album(models.Model):
 @python_2_unicode_compatible
 class SongAlbum(models.Model):
 	album = models.ForeignKey(Album, default=None)
+	tituloPrincipal = models.CharField('Titulo principal', max_length=100, null=True, blank=True)
+	numero = models.IntegerField('Numero',null= True, blank=True)
 	name = models.CharField('Nombre',max_length=70)
-	extraInfo = models.TextField('Informacion extra',blank=True)
+	infoExtra = models.TextField('Informacion extra',null=True,blank=True)
 	link = models.CharField('Enlace',max_length=100)
-	link_org = models.CharField('Enlace',max_length=100)
 
 	def __str__(self):
 		return self.name
@@ -123,10 +137,6 @@ class SongAlbum(models.Model):
 	def formatHelper(self,matchobj):
 		url = static(settings.MEDIA_URL+matchobj.group('path'))
 		return r'<audio controls><source src="'+url+'" type="audio/mpeg">Su explorador es antiguo\. Actualicelo para reproducir audios\.</audio>'
-
-	def save(self, *args, **kwargs):
-		self.link = re.sub(r'^\[audio:(?P<path>[a-zA-Z0-9/\.]+)\]$',self.formatHelper,self.link_org)
-		super(Song,self).save(*args, **kwargs)
 
 	class Meta:	
 		verbose_name='Cancion'

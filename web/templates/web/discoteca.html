@@ -12,43 +12,28 @@
 		<h1 class="brown-text text-center"><strong>{{object}}</strong></h1>
 		{% for album in object.album_set.all|dictsort:'year' %}
 			<div>
-				<a data-toggle="collapse" href="#collapseExample{{album.pk}}" aria-expanded="false" aria-controls="collapseExample"><h3 class='brown-text'><strong>{{album.name}} - {{album.year|default_if_none:''}}</strong></h3></a>
+				{% if album.year %}
+					<a data-toggle="collapse" href="#collapseExample{{album.pk}}" aria-expanded="false" aria-controls="collapseExample"><h3 class='brown-text'><strong>{{album.name}} - {{album.year}}</strong></h3></a>
+				{% else %}
+					<a data-toggle="collapse" href="#collapseExample{{album.pk}}" aria-expanded="false" aria-controls="collapseExample"><h3 class='brown-text'><strong>{{album.name}}</strong></h3></a>
+				{% endif %}
 				<div class="collapse" id="collapseExample{{album.pk}}">
 					<div class="well">
 						<div class="row clearfix">
 							<div class="col-xs-12 col-sm-9">
-								<br>
-								<br>
-								<br>
-								<br>
-								<br>
-								<br>
-								<br>
-								<br>
-								<br>
-								<br>
-								<br>
-								<br>
-								<br>
-								<br>
-								<br>
-								<br>
-								<br>
-								<br>
-								<br>
-								<br>
-								<br>
-								<br>
-								<br>
-								<br>
-								<br>
-								<br>
-								<br>
-								<br>
-								<br>
-								<br>
-
-								{{album.songAlbum_set.all}}
+								{% for song in album.songalbum_set.all %}
+									{% if song.tituloPrincipal %}
+										<h4><strong>{{song.tituloPrincipal}}</strong></h4>
+									{% endif %}
+									{{song.numero}} - {{song.name}}
+									<br>
+									{% if song.infoExtra %}
+										{{song.infoExtra}}
+										<br>
+									{% endif %}
+									{{song.link | safe}}
+									<br>
+								{% endfor %}
 							</div>
 							{% if album.tapa %}
 								<div class="tapa col-xs-12 col-sm-3">
