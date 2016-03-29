@@ -3,20 +3,16 @@
 
 {% load bootstrap3 %}
 
-{% block headPlus %}
-
-{% endblock headPlus %}
-
 {% block activeCont %}active{% endblock activeCont %}
 
 {% block content %}
-
-<form role="form" action="" method="post">
-    {% csrf_token %}
-    {% bootstrap_form form %}
-    {# {% bootstrap_field nombre size="small"  %} #}
-    
-    <button type="submit" class="btn btn-primary" >Enviar</button>
-</form>
-
+	<div class="row" style="padding:0px 15px;">
+		<h1 class='brown-text text-center'><strong>Contacto</strong></h1>
+		<form class="col-xs-12 col-sm-6 col-sm-offset-3" role="form" action="" method="post">
+			{% csrf_token %}
+			{% bootstrap_form form %}
+			{# {% bootstrap_field nombre size="small"  %} #}
+			<button type="submit" class="btn btn-primary" >Enviar</button>
+		</form>
+	</div>
 {% endblock content %}
