@@ -23,9 +23,14 @@ class BiografiaAdmin(admin.ModelAdmin):
 	]
 	exclude = ('text',)
 	search_fields=('name__name',)
+	raw_id_fields=('name',)
 
 admin.site.register(Biografia,BiografiaAdmin)
-admin.site.register(Artista)
+
+class ArtistaAdmin(admin.ModelAdmin):
+	search_fields=('name',)
+
+admin.site.register(Artista,ArtistaAdmin)
 
 # class SongAlbumInline(admin.StackedInline):
 # 	model = SongAlbum
