@@ -65,7 +65,7 @@ def contacto(request):
 			, '')
 			form_content = request.POST.get('mensaje', '')
 			email = EmailMessage(
-				"Nuevo Mensaje desde la web",
+				"Nuevo Mensaje desde la web de Fundacion Memorias del chamame",
 				form_content,
 				contact_email,
 				[settings.DEFAULT_FROM_EMAIL]
