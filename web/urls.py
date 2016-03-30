@@ -8,6 +8,7 @@ urlpatterns = [
 	url(r'^quienesSomos/$', views.quienesSomos, name='quienesSomos'),
 	url(r'^objetivos/$', views.objetivos, name='objetivos'),
 	url(r'^contacto/$', views.contacto, name='contacto'),
+	url(r'^construccion/$', views.construccion, name='construccion'),
 	url(r'^efemerides/$', views.efemerides, name='efemerides'),
 	url(r'^benefactores/$', views.benefactores, name='benefactores'),
 	url(r'^discotecas/(?P<filtro>[a-zA-Z ]+/)?$', views.DiscotecaView.as_view(), name='discotecas'),

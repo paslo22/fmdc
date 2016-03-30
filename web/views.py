@@ -84,3 +84,6 @@ def efemerides(request):
 
 def benefactores(request):
 	return render(request, 'web/benefactores.html')
+
+def construccion(request):
+	return render(request, 'web/404.html')
