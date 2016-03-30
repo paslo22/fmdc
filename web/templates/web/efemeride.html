@@ -6,8 +6,7 @@
 	<div class="row" style="padding:0px 15px;">
 		<h1 class="text-center brown-text"><strong>Un d&iacute;a como hoy</strong></h1>
 		{% for efe in efemerides %}
-			<h2 class="brown-text"><strong>{{efe.bio.name}}:</strong></h2>
-			<h4>{{efe.date.year}}: {{efe.event}}</h4>
+			<h3>{{efe.date.year}}: {{efe.event}}</h3>
 		{% endfor %}
 	</div>	
 {% endblock content %}

@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 import re
 from django.db import models
 from django.conf import settings
+import datetime
 from copy import copy
 from django.contrib.staticfiles.templatetags.staticfiles import static
 from django.utils.encoding import python_2_unicode_compatible
@@ -77,6 +78,7 @@ class EfemerideMes(models.Model):
 	month = models.CharField('Mes',max_length=10)
 	monthNumber = models.IntegerField()
 	texto = models.TextField('Efemerides')
+	texto_org = models.TextField('Efemerides')
 
 	def __str__(self):
 		return self.month
@@ -103,17 +105,27 @@ class EfemerideMes(models.Model):
 
 	def save(self,*args,**kwargs):
 		self.monthNumber = self.monthFromString(self.month)
+		self.texto = self.texto_org.replace('\n','').replace('\r','')
 		super(EfemerideMes,self).save(*args,**kwargs)
-		#if (self.efemeride_set.all()!=[]):
-		#	self.efemeride_set.all().delete()
-		#re.sub()
+		if (self.efemeride_set.all()!=[]):
+			self.efemeride_set.all().delete()
+		pattern = re.compile(ur"""dia:([0-9]+)\[([\w |\-\u2013()\u201c\u201d,]+)\]""",re.UNICODE)
+		pattern2 = re.compile(ur"""([0-9]+) +\| +([\W\D \-\u2013()\u201c\u201d,]+)""",re.UNICODE)
+		for (dia, efemeride) in re.findall(pattern,self.texto):
+			for (anio, efe) in re.findall(pattern2,efemeride):
+				efem = Efemeride()
+				efem.date = datetime.date(int(anio),self.monthNumber,int(dia))
+				efem.event = efe
+				efem.mes = self
+				efem.save()
 
 class Efemeride(models.Model):
 	mes = models.ForeignKey(EfemerideMes)
 	date = models.DateField('Fecha')
-	event = models.CharField('Efemeride',max_length=100)
+	event = models.CharField('Efemeride',max_length=300)
 
-#re.match(ur"""dia:(?P<dia>[0-9]+)\[(?P<efemerides>[\w \u2013()\u201c\u201d,]+)\]""",a.replace('\n','').replace('\r',''),flags=re.UNICODE).groupdict()
+	def __str__(self):
+		return self.date.strftime('Efemeride del %d, %b')
 
 	class Meta:
 		verbose_name='Efemeride'

@@ -23,7 +23,7 @@ class BiografiaAdmin(admin.ModelAdmin):
 admin.site.register(Biografia,BiografiaAdmin)
 
 class EfemerideMesAdmin(admin.ModelAdmin):
-	exclude = ('monthNumber',)
+	exclude = ('monthNumber','texto')
 
 admin.site.register(EfemerideMes,EfemerideMesAdmin)
 
@@ -31,18 +31,6 @@ class ArtistaAdmin(admin.ModelAdmin):
 	search_fields=('name',)
 
 admin.site.register(Artista,ArtistaAdmin)
-
-# class SongAlbumInline(admin.StackedInline):
-# 	model = SongAlbum
-# 	extra = 3
-# 	exclude = ('link',)
-
-# class AlbumAdmin(admin.ModelAdmin):
-# 	inlines = [
-# 		SongAlbumInline,
-# 	]
-
-# admin.site.register(Album, AlbumAdmin)
 
 class AlbumInline(admin.StackedInline):
 	model = Album
