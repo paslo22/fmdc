@@ -73,10 +73,47 @@ class Image(models.Model):
 		verbose_name='Imagen'
 		verbose_name_plural='Imagenes'
 
+class EfemerideMes(models.Model):
+	month = models.CharField('Mes',max_length=10)
+	monthNumber = models.IntegerField()
+	texto = models.TextField('Efemerides')
+
+	def __str__(self):
+		return self.month
+
+	def monthFromString(self,x):
+		return {
+			'Enero': 1,
+			'Febrero': 2,
+			'Marzo': 3,
+			'Abril': 4,
+			'Mayo': 5,
+			'Junio': 6,
+			'Julio': 7,
+			'Agosto': 8,
+			'Septiembre': 9,
+			'Octubre': 10,
+			'Noviembre': 11,
+			'Diciembre': 12
+		}.get(x)
+
+	class Meta:
+		verbose_name='Efemeride por mes'
+		verbose_name_plural='Efemerides por mes'
+
+	def save(self,*args,**kwargs):
+		self.monthNumber = self.monthFromString(self.month)
+		super(EfemerideMes,self).save(*args,**kwargs)
+		#if (self.efemeride_set.all()!=[]):
+		#	self.efemeride_set.all().delete()
+		#re.sub()
+
 class Efemeride(models.Model):
-	bio = models.ForeignKey(Biografia, default=None)
+	mes = models.ForeignKey(EfemerideMes)
 	date = models.DateField('Fecha')
 	event = models.CharField('Efemeride',max_length=100)
+
+#re.match(ur"""dia:(?P<dia>[0-9]+)\[(?P<efemerides>[\w \u2013()\u201c\u201d,]+)\]""",a.replace('\n','').replace('\r',''),flags=re.UNICODE).groupdict()
 
 	class Meta:
 		verbose_name='Efemeride'

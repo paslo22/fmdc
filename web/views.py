@@ -4,10 +4,9 @@ from datetime import datetime
 from django.template.loader import get_template
 from django.core.mail import EmailMessage
 from django.template import Context
-from .models import Biografia, Efemeride
+from .models import Biografia, Efemeride, Discoteca
 from .forms import ContactForm
 from django.conf import settings
-from .models import Biografia, Efemeride, Discoteca
 
 def index(request):
 	return render(request, 'web/index.html')
