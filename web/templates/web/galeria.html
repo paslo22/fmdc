@@ -1,0 +1,22 @@
+{% extends "web/base.html" %}
+{% load staticfiles %}
+
+{% block scriptPlus %}
+	<script src="{% static 'web/js/search.js' %}"></script>
+{% endblock scriptPlus %}
+
+{% block activeGal %}active{% endblock activeGal %}
+
+{% block content %}
+	<h1 class="text-center brown-text"><strong>Galeria</strong></h1>
+		<form class="col-sm-4 col-sm-offset-8 form-inline">
+			<div class="form-group">
+				<input id= "name" type="text" data-source="galeria" class="form-control" placeholder="Buscar">
+			</div>
+			<button id="buscar" class="btn btn-primary">Buscar</button>
+		</form>
+
+	{% for key,value in object_list.items %}
+		<img src="{{value}}" alt="">{{key}}
+	{% endfor %}
+{% endblock content %}

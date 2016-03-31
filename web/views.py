@@ -1,15 +1,41 @@
+# -*- coding: utf-8 -*- 
 from django.shortcuts import render,redirect
 from django.views import generic
 from datetime import datetime
 from django.template.loader import get_template
 from django.core.mail import EmailMessage
 from django.template import Context
+from django.contrib.staticfiles.templatetags.staticfiles import static
+import os, re
 from .models import Biografia, Efemeride, Discoteca
 from .forms import ContactForm
 from django.conf import settings
 
 def index(request):
 	return render(request, 'web/index.html')
+
+class GaleriaView(generic.ListView):
+	template_name = 'web/galeria.html'
+
+	def get_queryset(self):
+		dirlist = os.listdir(settings.MEDIA_ROOT+'/images/')
+		dirl = {}
+		pat = re.compile(ur'((.+)\.jpg|(.+)\.png)', re.UNICODE)
+		try:
+			filtro = self.kwargs['filtro'][:-1]
+		except:
+			filtro = ''
+		if (filtro==''):
+			for string in dirlist:
+				opt = re.match(pat,string)
+				dirl[opt.group(2)] = static(settings.MEDIA_URL+'images/'+opt.group(1))
+		else:
+			for string in dirlist:
+				if filtro in string.decode('unicode-escape'):
+					opt = re.match(pat,string)
+					dirl[opt.group(2)] = static(settings.MEDIA_URL+'images/'+opt.group(1))
+		return dirl
+	
 
 class BiografiaView(generic.ListView):
 	template_name = 'web/biografias.html'

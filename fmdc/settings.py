@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'web',
     'bootstrap3',
+    'django_cleanup',
 ]
 
 MIDDLEWARE_CLASSES = [

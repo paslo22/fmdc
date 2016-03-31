@@ -22,7 +22,7 @@ class Artista(models.Model):
 class Biografia(models.Model):
 	name = models.OneToOneField(Artista)
 	text = models.TextField('Texto')
-	text_org = models.TextField('Texto original')
+	text_org = models.TextField('Texto')
 
 	def __str__(self):
 		return self.name.name
@@ -47,7 +47,7 @@ class Song(models.Model):
 	songs = models.ForeignKey(Biografia, default=None)
 	name = models.CharField('Nombre',max_length=70)
 	extraInfo = models.TextField('Informacion extra',blank=True)
-	link = models.CharField('Enlace',max_length=100)
+	link = models.CharField('Enlace',max_length=300)
 	link_org = models.CharField('Enlace',max_length=100)
 
 	def __str__(self):
@@ -109,8 +109,8 @@ class EfemerideMes(models.Model):
 		super(EfemerideMes,self).save(*args,**kwargs)
 		if (self.efemeride_set.all()!=[]):
 			self.efemeride_set.all().delete()
-		pattern = re.compile(ur"""dia:([0-9]+)\[([\w |\-\u2013()\u201c\u201d,]+)\]""",re.UNICODE)
-		pattern2 = re.compile(ur"""([0-9]+) +\| +([\W\D \-\u2013()\u201c\u201d,]+)""",re.UNICODE)
+		pattern = re.compile(ur"""dia:([0-9]+)\[([\w |\-\u2013()\u201c\u201d,]+)\]""",flags=re.UNICODE)
+		pattern2 = re.compile(ur"""([0-9]+) +\| +([\W\D \-\u2013()\u201c\u201d,]+)""",flags=re.UNICODE)
 		for (dia, efemeride) in re.findall(pattern,self.texto):
 			for (anio, efe) in re.findall(pattern2,efemeride):
 				efem = Efemeride()
@@ -146,23 +146,21 @@ class Album(models.Model):
 	year = models.IntegerField('Año', null=True,blank=True)
 	songString = models.TextField('Listado de canciones',blank=True)
 
-	def createSongs(self,matchobj):
-		song = SongAlbum()
-		song.album = self
-		song.tituloPrincipal = matchobj.group('tituloPrincipal')
-		song.numero = int(matchobj.group('numero'))
-		song.name = matchobj.group('nombre')
-		song.infoExtra = matchobj.group('infoExtra')
-		url = static(settings.MEDIA_URL+'archive/Discografias/'+matchobj.group('path'))
-		song.link = r'<audio controls preload="none"><source src="'+url+'" type="audio/mpeg">Su explorador es antiguo\. Actualicelo para reproducir audios\.</audio>'
-		song.save()
-
 	def save(self,*args,**kwargs):
 		super(Album,self).save(*args,**kwargs)
 		if (self.songalbum_set.all()!=[]):
 			self.songalbum_set.all().delete()
-		re.sub(r'(\[tituloPrincipal:(?P<tituloPrincipal>[\w/\. ]+)\])?(\[numero:(?P<numero>[\w/\.]+)\])?\[nombre:(?P<nombre>[\w/\.\-() ]+)\](\[infoExtra:(?P<infoExtra>[\w/\.\-() ]+)\])?\[audio:(?P<path>[\w/\.]+)\]',self.createSongs,self.songString.replace('\n','').replace('\r',''),flags=re.UNICODE)
-		#self.link = re.sub(r'(\[tituloPrincipal:(?P<tituloPrincipal>[\w/\. ]+)\])?(\[numero:(?P<numero>[\w/\.]+)\])?\[nombre:(?P<nombre>[\w/\.\-() ]+)\](\[infoExtra:(?P<infoExtra>[\w/\.]+)\])?\[audio:(?P<path>[\w/\.]+)\]',self.formatHelper,self.link_org,flags=re.UNICODE)
+		pattern = re.compile(ur'(?:\[tituloPrincipal:([\w/\. ]+)\])?\[nombre:([\w\d/\.\-() ]+)\](?:\[infoExtra:([\w/\.\-() ]+)\])?\[audio:([\w/\.]+)\]',flags=re.UNICODE)
+		strSinBreaklines = self.songString.replace('\n','').replace('\r','')
+		for (titulo,nombre,infoExtra,path) in re.findall(pattern,strSinBreaklines):
+			song = SongAlbum()
+			song.album = self
+			song.tituloPrincipal = titulo
+			song.name = nombre
+			song.infoExtra = infoExtra
+			url = static(settings.MEDIA_URL+'archive/Discografias/'+path)
+			song.link = r'<audio controls preload="none"><source src="'+url+'" type="audio/mpeg">Su explorador es antiguo\. Actualicelo para reproducir audios\.</audio>'
+			song.save()
 
 	class Meta:
 		verbose_name='Album'
@@ -175,10 +173,9 @@ class Album(models.Model):
 class SongAlbum(models.Model):
 	album = models.ForeignKey(Album, default=None)
 	tituloPrincipal = models.CharField('Titulo principal', max_length=100, null=True, blank=True)
-	numero = models.IntegerField('Numero',null= True, blank=True)
-	name = models.CharField('Nombre',max_length=70)
+	name = models.CharField('Nombre',max_length=300)
 	infoExtra = models.TextField('Informacion extra',null=True,blank=True)
-	link = models.CharField('Enlace',max_length=100)
+	link = models.CharField('Enlace',max_length=300)
 
 	def __str__(self):
 		return self.name
