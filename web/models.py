@@ -48,7 +48,7 @@ class Song(models.Model):
 	name = models.CharField('Nombre',max_length=70)
 	extraInfo = models.TextField('Informacion extra',blank=True)
 	link = models.CharField('Enlace',max_length=300)
-	link_org = models.CharField('Enlace',max_length=100)
+	link_org = models.CharField('Enlace',max_length=300)
 
 	def __str__(self):
 		return self.name
