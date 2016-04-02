@@ -4,7 +4,6 @@ from django.views import generic
 from datetime import datetime
 from django.template.loader import get_template
 from django.core.mail import EmailMessage
-from django.core import serializers
 from django.template import Context
 from django.contrib.staticfiles.templatetags.staticfiles import static
 import os, re
@@ -19,7 +18,7 @@ class GaleriaView(generic.ListView):
 	template_name = 'web/galeria.html'
 
 	def get_queryset(self):
-		dirlist = os.listdir(settings.MEDIA_ROOT+'/images/')
+		dirlist = os.listdir(settings.MEDIA_ROOT+'/archive/Galeria')
 		dirl = {}
 		pat = re.compile(ur'((.+)\.jpg|(.+)\.png)', re.UNICODE)
 		try:
@@ -29,12 +28,12 @@ class GaleriaView(generic.ListView):
 		if (filtro==''):
 			for string in dirlist:
 				opt = re.match(pat,string)
-				dirl[opt.group(2)] = static(settings.MEDIA_URL+'images/'+opt.group(1))
+				dirl[opt.group(2)] = static(settings.MEDIA_URL+'archive/Galeria/'+opt.group(1))
 		else:
 			for string in dirlist:
 				if filtro in string.decode('unicode-escape'):
 					opt = re.match(pat,string)
-					dirl[opt.group(2)] = static(settings.MEDIA_URL+'images/'+opt.group(1))
+					dirl[opt.group(2)] = static(settings.MEDIA_URL+'archive/Galeria/'+opt.group(1))
 		return dirl
 	
 
@@ -54,12 +53,6 @@ class BiografiaView(generic.ListView):
 class BiografiaDetailView(generic.DetailView):
 	model = Biografia
 	template_name = 'web/biografia.html'
-
-	# def get_context_data(self,**kwargs):
-	# 	context = super(BiografiaDetailView,self).get_context_data(**kwargs)
-	# 	bio = self.object
-	# 	context['imageUrl'] = serializers.serialize('json',bio.image_set.all(), fields=('image.url'))
-	# 	return context
 
 class DiscotecaView(generic.ListView):
 	template_name = 'web/discotecas.html'
