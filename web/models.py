@@ -8,6 +8,7 @@ from copy import copy
 from django.contrib.staticfiles.templatetags.staticfiles import static
 from django.utils.encoding import python_2_unicode_compatible
 
+@python_2_unicode_compatible
 class Artista(models.Model):
 	name = models.CharField('Nombre',max_length=70)
 
@@ -18,7 +19,7 @@ class Artista(models.Model):
 		verbose_name='Artista'
 		verbose_name_plural='Artistas'
 
-
+@python_2_unicode_compatible
 class Biografia(models.Model):
 	name = models.OneToOneField(Artista)
 	text = models.TextField('Texto')
@@ -28,10 +29,10 @@ class Biografia(models.Model):
 		return self.name.name
 
 	def htmlText(self,txt):
-		texto = '<p class="text-justify">'
-		texto+= txt.replace('\n', '</p><p class="text-justify">')
-		texto+= '\r</p>'
-		texto = texto.replace('<p class="text-justify">\r</p>','')
+		texto = u'<p class="text-justify">'
+		texto+= txt.replace(u'\n', u'</p><p class="text-justify">')
+		texto+= u'\r</p>'
+		texto = texto.replace(u'<p class="text-justify">\r</p>',u'')
 		return texto
 
 	def save(self, *args, **kwargs):
@@ -53,27 +54,29 @@ class Song(models.Model):
 	def __str__(self):
 		return self.name
 
-	def formatHelper(self,matchobj):
-		url = static(settings.MEDIA_URL+'archive/Biografias/'+matchobj.group('path'))
-		return r'<audio controls><source src="'+url+'" type="audio/mpeg">Su explorador es antiguo\. Actualicelo para reproducir audios\.</audio>'
-
 	def save(self, *args, **kwargs):
-		self.link = re.sub(r'^\[audio:(?P<path>[a-zA-Z0-9/\.]+)\]$',self.formatHelper,self.link_org,flags=re.UNICODE)
+		pattern = re.compile(ur'^\[audio:([\w\/\.]+)\]$', re.UNICODE)
+		url = static(settings.MEDIA_URL+'archive/Biografias/'+re.match(pattern,self.link_org).group(1))
+		self.link = ur'<audio controls><source src="'+url+'" type="audio/mpeg">Su explorador es antiguo\. Actualicelo para reproducir audios\.</audio>'
 		super(Song,self).save(*args, **kwargs)
 
 	class Meta:	
 		verbose_name='Cancion'
 		verbose_name_plural='Canciones'
-
+@python_2_unicode_compatible
 class Image(models.Model):
 	bio = models.ForeignKey(Biografia, default=None)
 	image = models.ImageField('Imagen',upload_to='images/', default='')
 	description = models.CharField('Descripcion',max_length=70,blank=True)
 
+	def __str__(self):
+		return self.description
+
 	class Meta:
 		verbose_name='Imagen'
 		verbose_name_plural='Imagenes'
 
+@python_2_unicode_compatible
 class EfemerideMes(models.Model):
 	month = models.CharField('Mes',max_length=10)
 	monthNumber = models.IntegerField()
@@ -119,6 +122,7 @@ class EfemerideMes(models.Model):
 				efem.mes = self
 				efem.save()
 
+@python_2_unicode_compatible
 class Efemeride(models.Model):
 	mes = models.ForeignKey(EfemerideMes)
 	date = models.DateField('Fecha')
@@ -131,6 +135,7 @@ class Efemeride(models.Model):
 		verbose_name='Efemeride'
 		verbose_name_plural='Efemerides'
 
+@python_2_unicode_compatible
 class Discoteca(models.Model):
 	name = models.OneToOneField(Artista)
 
@@ -179,10 +184,6 @@ class SongAlbum(models.Model):
 
 	def __str__(self):
 		return self.name
-
-	def formatHelper(self,matchobj):
-		url = static(settings.MEDIA_URL+matchobj.group('path'))
-		return r'<audio controls><source src="'+url+'" type="audio/mpeg">Su explorador es antiguo\. Actualicelo para reproducir audios\.</audio>'
 
 	class Meta:	
 		verbose_name='Cancion'
