@@ -4,19 +4,42 @@
 {% block activeMuseo %}active{% endblock activeMuseo %}
 
 {% block headPlus %}
+
+	<link rel="stylesheet" href="{% static 'web/css/photoswipe.css' %}">
+	<link rel="stylesheet" href="{% static 'web/css/default-skin/default-skin.css' %}">
+	
 	<link rel="stylesheet" href="{% static 'web/css/biografia.css' %}">
+
 {% endblock headPlus %}
 
+{% block scriptPlus %}
+	<script src="{% static 'web/js/photoswipe.min.js' %}"></script>
+	<script src="{% static 'web/js/photoswipe-ui-default.min.js' %}"></script>
+	<script src="{% static 'web/js/biografia.js' %}"></script>
+{% endblock scriptPlus %}
+
 {% block content %}
+	{% include "web/photoswipe.html" %}
 	<div class="row" id='content'>
 		<h1 class="brown-text text-center"><strong>{{object.name}}</strong></h1>
 		<div class="col-sm-12 col-md-8">
 			{{object.text | safe}}
-			<h3 class="brown-text"><strong>Imagenes</strong></h3>
-			{% for imagen in object.image_set.all %}
-				<img src="{{imagen.image.url}}" alt="">
-			{% endfor %}
-			<h3 class="brown-text"><strong>Canciones</strong></h3>
+			{% if object.image_set.all %}
+				<h3 class="brown-text"><strong>Imagenes</strong></h3>
+			{% endif %}
+			<div class="my-gallery" itemscope itemtype="http://schema.org/ImageGallery">
+				{% for imagen in object.image_set.all %}
+					<figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject" >
+						<a href="{{imagen.image.url}}" itemprop="contentUrl" data-size="{{imagen.image.width}}x{{imagen.image.height}}">
+							<img src="{{imagen.image.url}}" itemprop="thumbnail">
+						</a>
+						<figcaption itemprop="caption description">{{imagen.description}}</figcaption>
+					</figure>
+				{% endfor %}
+			</div>
+			{% if object.image_set.all %}
+				<h3 class="brown-text"><strong>Canciones</strong></h3>
+			{% endif %}
 			{% for cancion in object.song_set.all %}
 				<h4>{{cancion.name}}</h4>
 				<h5>{{cancion.extraInfo}}</h5>

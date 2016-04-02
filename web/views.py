@@ -4,6 +4,7 @@ from django.views import generic
 from datetime import datetime
 from django.template.loader import get_template
 from django.core.mail import EmailMessage
+from django.core import serializers
 from django.template import Context
 from django.contrib.staticfiles.templatetags.staticfiles import static
 import os, re
@@ -53,6 +54,12 @@ class BiografiaView(generic.ListView):
 class BiografiaDetailView(generic.DetailView):
 	model = Biografia
 	template_name = 'web/biografia.html'
+
+	# def get_context_data(self,**kwargs):
+	# 	context = super(BiografiaDetailView,self).get_context_data(**kwargs)
+	# 	bio = self.object
+	# 	context['imageUrl'] = serializers.serialize('json',bio.image_set.all(), fields=('image.url'))
+	# 	return context
 
 class DiscotecaView(generic.ListView):
 	template_name = 'web/discotecas.html'
