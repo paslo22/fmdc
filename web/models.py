@@ -16,6 +16,7 @@ class Artista(models.Model):
 		return self.name
 
 	class Meta:
+		ordering = ['name']
 		verbose_name='Artista'
 		verbose_name_plural='Artistas'
 
