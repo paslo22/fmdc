@@ -48,7 +48,7 @@ class BiografiaView(generic.ListView):
 		if (filtro == '') | (filtro == None):
 			return Biografia.objects.all().order_by('name__name')
 		else:
-			return Biografia.objects.filter(name__name__contains=filtro[:-1]).order_by('name__name')
+			return Biografia.objects.filter(name__name__icontains=filtro[:-1]).order_by('name__name')
 
 class BiografiaDetailView(generic.DetailView):
 	model = Biografia
@@ -65,7 +65,7 @@ class DiscotecaView(generic.ListView):
 		if (filtro == '') | (filtro == None):
 			return Discoteca.objects.all().order_by('name__name')
 		else:
-			return Discoteca.objects.filter(name__name__contains=filtro[:-1]).order_by('name__name')
+			return Discoteca.objects.filter(name__name__icontains=filtro[:-1]).order_by('name__name')
 
 class DiscotecaDetailView(generic.DetailView):
 	model = Discoteca
