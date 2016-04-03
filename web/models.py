@@ -156,26 +156,11 @@ class Album(models.Model):
 		url = static(settings.MEDIA_URL+'archive/Discografias/'+matchobj.group(1))
 		return ur'<audio controls preload="none"><source src="'+url+'" type="audio/mpeg">Su explorador es antiguo\. Actualicelo para reproducir audios\.</audio>'
 		
-
 	def save(self,*args,**kwargs):
 		p = re.compile(ur'\[audio:([\w\/\.]+)\]', re.UNICODE)
 		self.songString = re.sub(p,self.formatHelper,self.songString_org)
 		self.songString = self.songString.replace('\n',r'<br>')
 		super(Album,self).save(*args,**kwargs)
-
-		# if (self.songalbum_set.all()!=[]):
-		# 	self.songalbum_set.all().delete()
-		# pattern = re.compile(ur'(?:\[tituloPrincipal:([\w/\. ]+)\])?\[nombre:([\w\d/\.\-() ]+)\](?:\[infoExtra:([\w/\.\-() ]+)\])?\[audio:([\w/\.]+)\]',flags=re.UNICODE)
-		# strSinBreaklines = self.songString.replace('\n','').replace('\r','')
-		# for (titulo,nombre,infoExtra,path) in re.findall(pattern,strSinBreaklines):
-		# 	song = SongAlbum()
-		# 	song.album = self
-		# 	song.tituloPrincipal = titulo
-		# 	song.name = nombre
-		# 	song.infoExtra = infoExtra
-		# 	url = static(settings.MEDIA_URL+'archive/Discografias/'+path)
-		# 	song.link = r'<audio controls preload="none"><source src="'+url+'" type="audio/mpeg">Su explorador es antiguo\. Actualicelo para reproducir audios\.</audio>'
-		# 	song.save()
 
 	class Meta:
 		verbose_name='Album'
