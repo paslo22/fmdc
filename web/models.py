@@ -41,6 +41,7 @@ class Biografia(models.Model):
 		super(Biografia, self).save(*args, **kwargs)
 
 	class Meta:
+		ordering = ['name']
 		verbose_name='Biografia'
 		verbose_name_plural='Biografias'
 
@@ -68,7 +69,7 @@ class Song(models.Model):
 class Image(models.Model):
 	bio = models.ForeignKey(Biografia, default=None)
 	image = models.ImageField('Imagen',upload_to='images/', default='')
-	description = models.CharField('Descripcion',max_length=70,blank=True)
+	description = models.CharField('Descripcion',max_length=200,blank=True)
 
 	def __str__(self):
 		return self.description
