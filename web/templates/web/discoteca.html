@@ -21,19 +21,7 @@
 					<div class="well">
 						<div class="row clearfix">
 							<div class="col-xs-12 col-sm-9">
-								{% for song in album.songalbum_set.all %}
-									{% if song.tituloPrincipal %}
-										<h4><strong>{{song.tituloPrincipal}}</strong></h4>
-									{% endif %}
-									{{song.name}}
-									<br>
-									{% if song.infoExtra %}
-										{{song.infoExtra}}
-										<br>
-									{% endif %}
-									{{song.link | safe}}
-									<br>
-								{% endfor %}
+								{{album.songString | safe}}
 							</div>
 							{% if album.tapa %}
 								<div class="tapa col-xs-12 col-sm-3">

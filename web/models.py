@@ -150,22 +150,32 @@ class Album(models.Model):
 	lamina = models.ImageField('Lamina', upload_to='images/', default='', blank=True)
 	year = models.IntegerField('Año', null=True,blank=True)
 	songString = models.TextField('Listado de canciones',blank=True)
+	songString_org = models.TextField('Listado de canciones',blank=True)
+
+	def formatHelper(self,matchobj):
+		url = static(settings.MEDIA_URL+'archive/Discografias/'+matchobj.group(1))
+		return ur'<audio controls preload="none"><source src="'+url+'" type="audio/mpeg">Su explorador es antiguo\. Actualicelo para reproducir audios\.</audio>'
+		
 
 	def save(self,*args,**kwargs):
+		p = re.compile(ur'\[audio:([\w\/\.]+)\]', re.UNICODE)
+		self.songString = re.sub(p,self.formatHelper,self.songString_org)
+		self.songString = self.songString.replace('\n',r'<br>')
 		super(Album,self).save(*args,**kwargs)
-		if (self.songalbum_set.all()!=[]):
-			self.songalbum_set.all().delete()
-		pattern = re.compile(ur'(?:\[tituloPrincipal:([\w/\. ]+)\])?\[nombre:([\w\d/\.\-() ]+)\](?:\[infoExtra:([\w/\.\-() ]+)\])?\[audio:([\w/\.]+)\]',flags=re.UNICODE)
-		strSinBreaklines = self.songString.replace('\n','').replace('\r','')
-		for (titulo,nombre,infoExtra,path) in re.findall(pattern,strSinBreaklines):
-			song = SongAlbum()
-			song.album = self
-			song.tituloPrincipal = titulo
-			song.name = nombre
-			song.infoExtra = infoExtra
-			url = static(settings.MEDIA_URL+'archive/Discografias/'+path)
-			song.link = r'<audio controls preload="none"><source src="'+url+'" type="audio/mpeg">Su explorador es antiguo\. Actualicelo para reproducir audios\.</audio>'
-			song.save()
+
+		# if (self.songalbum_set.all()!=[]):
+		# 	self.songalbum_set.all().delete()
+		# pattern = re.compile(ur'(?:\[tituloPrincipal:([\w/\. ]+)\])?\[nombre:([\w\d/\.\-() ]+)\](?:\[infoExtra:([\w/\.\-() ]+)\])?\[audio:([\w/\.]+)\]',flags=re.UNICODE)
+		# strSinBreaklines = self.songString.replace('\n','').replace('\r','')
+		# for (titulo,nombre,infoExtra,path) in re.findall(pattern,strSinBreaklines):
+		# 	song = SongAlbum()
+		# 	song.album = self
+		# 	song.tituloPrincipal = titulo
+		# 	song.name = nombre
+		# 	song.infoExtra = infoExtra
+		# 	url = static(settings.MEDIA_URL+'archive/Discografias/'+path)
+		# 	song.link = r'<audio controls preload="none"><source src="'+url+'" type="audio/mpeg">Su explorador es antiguo\. Actualicelo para reproducir audios\.</audio>'
+		# 	song.save()
 
 	class Meta:
 		verbose_name='Album'
@@ -173,18 +183,3 @@ class Album(models.Model):
 
 	def __str__(self):
 		return self.name
-
-@python_2_unicode_compatible
-class SongAlbum(models.Model):
-	album = models.ForeignKey(Album, default=None)
-	tituloPrincipal = models.CharField('Titulo principal', max_length=100, null=True, blank=True)
-	name = models.CharField('Nombre',max_length=300)
-	infoExtra = models.TextField('Informacion extra',null=True,blank=True)
-	link = models.CharField('Enlace',max_length=300)
-
-	def __str__(self):
-		return self.name
-
-	class Meta:	
-		verbose_name='Cancion'
-		verbose_name_plural='Canciones'

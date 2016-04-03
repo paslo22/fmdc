@@ -35,6 +35,7 @@ admin.site.register(Artista,ArtistaAdmin)
 class AlbumInline(admin.StackedInline):
 	model = Album
 	extra = 3
+	exclude = ('songString',)
 
 class DiscotecaAdmin(admin.ModelAdmin):
 	inlines = [
