@@ -39,6 +39,10 @@
 }
 
 @media(min-width: 768px){
+	.jumbotron{
+		padding: 10px 50px;
+	}
+
 	.vertical-align{
 		display: flex;
 		flex-direction: row;

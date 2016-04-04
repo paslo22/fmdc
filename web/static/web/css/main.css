@@ -109,8 +109,12 @@ body{
 
 @media (min-width: 768px){
 	#logo img{
-		height: 90px;
-		width: 278px;
+		height: 140px;
+		width: 348px;
+	}
+
+	#logo{
+		padding-bottom: 10px;
 	}
 	.navbar-header{
 		padding: 0px 15px;
