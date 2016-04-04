@@ -7,6 +7,8 @@
 		<h1 class="text-center brown-text"><strong>Un d&iacute;a como hoy</strong></h1>
 		{% for efe in efemerides %}
 			<h3>{{efe.date.year}}: {{efe.event}}</h3>
+			{% empty %}
+			<h3 class="brown-text text-center">No hay efemerides para hoy.</h3>
 		{% endfor %}
 	</div>	
 {% endblock content %}
