@@ -4,10 +4,19 @@
 {% block activeDisc %}active{% endblock activeDisc %}
 
 {% block headPlus %}
+	<link rel="stylesheet" href="{% static 'web/css/photoswipe.css' %}">
+	<link rel="stylesheet" href="{% static 'web/css/default-skin/default-skin.css' %}">
 	<link rel="stylesheet" href="{% static 'web/css/discoteca.css' %}">
 {% endblock headPlus %}
 
+{% block scriptPlus %}
+	<script src="{% static 'web/js/photoswipe.min.js' %}"></script>
+	<script src="{% static 'web/js/photoswipe-ui-default.min.js' %}"></script>
+	<script src="{% static 'web/js/galeria.js' %}"></script>
+{% endblock scriptPlus %}
+
 {% block content %}
+	{% include "web/photoswipe.html" %}
 	<div class="row" style="padding:0px 15px;">
 		<h1 class="brown-text text-center"><strong>{{object}}</strong></h1>
 		{% for album in object.album_set.all|dictsort:'year' %}
@@ -23,16 +32,24 @@
 							<div class="col-xs-12 col-sm-9">
 								{{album.songString | safe}}
 							</div>
-							{% if album.tapa %}
-								<div class="tapa col-xs-12 col-sm-3">
-									<h5 class="brown-text"><strong>Tapa</strong></h5>
-									<img src="{{album.tapa.url}}" alt="">
-								</div>
-							{% endif %}
-							{% if album.lamina %}
-								<div class="lamina col-xs-12 col-sm-3">
-									<h5 class="brown-text"><strong>Lamina</strong></h5>
-									<img src="{{album.lamina.url}}" alt="">
+							{% if album.tapa or album.lamina %}
+								<div class="my-gallery{{album.pk}}" itemscope itemtype="http://schema.org/ImageGallery">
+									{% if album.tapa %}
+										<figure class="tapa col-xs-12 col-sm-3" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject" >
+											<a href="{{album.tapa.url}}" itemprop="contentUrl" data-size="{{album.tapa.width}}x{{album.tapa.height}}">
+												<img src="{{album.tapa.url}}" itemprop="thumbnail">
+											</a>
+											<figcaption itemprop="brown-text caption description"><strong>Tapa</strong></figcaption>
+										</figure>
+									{% endif %}
+									{% if album.lamina %}
+										<figure class="lamina col-xs-12 col-sm-3" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject" >
+											<a href="{{album.lamina.url}}" itemprop="contentUrl" data-size="{{album.lamina.width}}x{{album.lamina.height}}">
+												<img src="{{album.lamina.url}}" itemprop="thumbnail">
+											</a>
+											<figcaption itemprop="brown-text caption description"><strong>Lamina</strong></figcaption>
+										</figure>
+									{% endif %}
 								</div>
 							{% endif %}
 						</div>
