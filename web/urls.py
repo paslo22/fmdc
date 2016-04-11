@@ -3,7 +3,6 @@ from . import views
 
 urlpatterns = [
 	url(r'^$', views.index, name='index'),
-	url(r'^biografias/$', views.BiografiaView.as_view(), name='biografias'),
 	url(ur'^biografias/(?P<filtro>[\w ]+/)?$', views.BiografiaView.as_view(), name='biografias'),
 	url(r'^biografia/(?P<pk>[0-9]+)/$', views.BiografiaDetailView.as_view(), name='biografia'),
 	url(r'^quienesSomos/$', views.quienesSomos, name='quienesSomos'),
