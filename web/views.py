@@ -1,11 +1,13 @@
 # -*- coding: utf-8 -*- 
 from django.shortcuts import render,redirect
+from django.http import Http404
 from django.views import generic
 from datetime import datetime
 from django.template.loader import get_template
 from django.core.mail import EmailMessage
 from django.template import Context
 from django.contrib.staticfiles.templatetags.staticfiles import static
+from PIL import Image
 import os, re
 from .models import Biografia, Efemeride, Discoteca
 from .forms import ContactForm
@@ -15,27 +17,36 @@ def index(request):
 	return render(request, 'web/index.html')
 
 class GaleriaView(generic.ListView):
-	template_name = 'web/galeria.html'
+	template_name = 'web/galerias.html'
 
 	def get_queryset(self):
-		dirlist = os.listdir(settings.MEDIA_ROOT+'/archive/Galeria')
-		dirl = {}
-		pat = re.compile(ur'((.+)\.jpg|(.+)\.png)', re.UNICODE)
-		try:
-			filtro = self.kwargs['filtro'][:-1]
-		except:
-			filtro = ''
-		if (filtro==''):
-			for string in dirlist:
-				opt = re.match(pat,string)
-				dirl[opt.group(2)] = static(settings.MEDIA_URL+'archive/Galeria/'+opt.group(1))
-		else:
-			for string in dirlist:
-				if filtro in string.decode('unicode-escape'):
-					opt = re.match(pat,string)
-					dirl[opt.group(2)] = static(settings.MEDIA_URL+'archive/Galeria/'+opt.group(1))
-		return dirl
+		return os.listdir(settings.MEDIA_ROOT+'/archive/Galeria')
+				
+class GaleriaDetailView(generic.DetailView):
+	template_name = 'web/galeria.html'
 	
+	def get_object(self):
+		obj = {}
+		img = []
+		pat = re.compile(ur'(.+)\.(?:png|jpg)', re.UNICODE)
+		try:
+			path = self.kwargs['path']
+		except:
+			raise Http404("Galeria no existe")
+		for url in os.listdir(settings.MEDIA_ROOT+'/archive/Galeria/'+path):
+			try:
+				im=Image.open(settings.MEDIA_ROOT + 'archive/Galeria/' + path + '/' + url)
+				re.match(pat,url).group(1)
+			except:
+				continue
+			img.append({'url':settings.MEDIA_URL + 'archive/Galeria/' + path + '/' + url,
+						'width':im.size[0],
+						'height':im.size[1],
+						'name':re.match(pat,url).group(1)
+						})
+		obj['images'] = img
+		obj['name'] = path
+		return obj
 
 class BiografiaView(generic.ListView):
 	template_name = 'web/biografias.html'
@@ -118,6 +129,7 @@ def benefactores(request):
 def construccion(request):
 	return render(request, 'web/404.html')
 
+<<<<<<< HEAD
 def material(request):
 	return render(request, 'web/material.html')
 
@@ -127,3 +139,10 @@ def partituras(request):
 def cancionero(request):
 	return render(request, 'web/cancionero.html')
 
+=======
+def error404(request):
+	return render(request,'web/404.html')
+
+def error500(request):
+	return render(request,'web/500.html')
+>>>>>>> b62f654420dafbc45d35e9495966b9b670352eab

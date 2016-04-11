@@ -23,7 +23,9 @@
 	<div class="row" id='content'>
 		<h1 class="brown-text text-center"><strong>{{object.name}}</strong></h1>
 		<div class="col-sm-12 col-md-8">
-			{{object.text | safe}}
+			<div class="noselect">
+				{{object.text | safe}}
+			</div>
 			{% if object.image_set.all %}
 				<h3 class="brown-text"><strong>Imagenes</strong></h3>
 			{% endif %}
