@@ -71,6 +71,11 @@ class DiscotecaDetailView(generic.DetailView):
 	model = Discoteca
 	template_name = 'web/discoteca.html'
 
+class PartituraView(generic.ListView):
+	template_name = 'web/partituras.html'
+	
+		
+
 def quienesSomos(request):
 	return render(request, 'web/quienesSomos.html')
 
@@ -112,3 +117,13 @@ def benefactores(request):
 
 def construccion(request):
 	return render(request, 'web/404.html')
+
+def material(request):
+	return render(request, 'web/material.html')
+
+def partituras(request):
+	return render(request, 'web/partituras.html')
+
+def cancionero(request):
+	return render(request, 'web/cancionero.html')
+

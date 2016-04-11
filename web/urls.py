@@ -8,6 +8,9 @@ urlpatterns = [
 	url(r'^biografia/(?P<pk>[0-9]+)/$', views.BiografiaDetailView.as_view(), name='biografia'),
 	url(r'^quienesSomos/$', views.quienesSomos, name='quienesSomos'),
 	url(r'^objetivos/$', views.objetivos, name='objetivos'),
+	url(r'^material/$', views.material, name='material'),
+	url(r'^partituras/$', views.partituras, name='partituras'),
+	url(r'^cancionero/$', views.cancionero, name='cancionero'),
 	url(r'^contacto/$', views.contacto, name='contacto'),
 	url(r'^construccion/$', views.construccion, name='construccion'),
 	url(r'^efemerides/$', views.efemerides, name='efemerides'),
@@ -16,4 +19,5 @@ urlpatterns = [
 	url(r'^discoteca/(?P<pk>[0-9]+)/$', views.DiscotecaDetailView.as_view(), name='discoteca'),
 	url(r'^galeria/$',views.GaleriaView.as_view(), name='galeria'),
 	url(ur'^galeria/(?P<filtro>[\w ]+/)?$', views.GaleriaView.as_view(), name='galeria'),
+
 ]

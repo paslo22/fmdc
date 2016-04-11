@@ -1,0 +1,14 @@
+{% extends "web/base.html" %}
+{% load staticfiles %}
+
+{% block activeMat %}active{% endblock activeMat %}
+
+{% block content %}
+
+<p>a comerla</p>
+
+
+<a href="{% url 'partituras' %}"></a>
+<a href="{% url 'cancionero' %}"></a>
+	
+{% endblock content %}
