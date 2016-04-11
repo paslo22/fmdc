@@ -129,7 +129,6 @@ def benefactores(request):
 def construccion(request):
 	return render(request, 'web/404.html')
 
-<<<<<<< HEAD
 def material(request):
 	return render(request, 'web/material.html')
 
@@ -139,10 +138,8 @@ def partituras(request):
 def cancionero(request):
 	return render(request, 'web/cancionero.html')
 
-=======
 def error404(request):
 	return render(request,'web/404.html')
 
 def error500(request):
 	return render(request,'web/500.html')
->>>>>>> b62f654420dafbc45d35e9495966b9b670352eab
