@@ -7,7 +7,7 @@
 		<div class="row">
 			<ul class="col-sm-8">
 				{% for galeria in object_list %}
-					<a href="{% url 'galeria' galeria %}" class="brown-text text-center"><h4><strong>Galer&iacute;a de {{ galeria }}</strong></h4></a>
+					<a href="{% url 'galeria' galeria %}" class="brown-text text-center"><h4><strong>{{ galeria }}</strong></h4></a>
 				{% empty %}
 					<p class="brown-text text-center">A&uacute;n no hay galer&iacute;as cargadas.</p>
 				{% endfor %}
