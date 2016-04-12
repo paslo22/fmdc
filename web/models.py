@@ -150,7 +150,8 @@ class Album(models.Model):
 	name = models.CharField('Nombre', max_length=100)
 	tapa = models.ImageField('Tapa', upload_to='images/', default='', blank=True)
 	lamina = models.ImageField('Lamina', upload_to='images/', default='', blank=True)
-	year = models.IntegerField('Año', null=True,blank=True)
+	year = models.IntegerField('Año (Periodo inicio)', null=True,blank=True)
+	yearEnd = models.IntegerField('Año (Periodo final)', null=True,blank=True)
 	songString = models.TextField('Listado de canciones',blank=True)
 	songString_org = models.TextField('Listado de canciones',blank=True)
 

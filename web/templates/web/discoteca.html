@@ -22,7 +22,11 @@
 		{% for album in object.album_set.all|dictsort:'year' %}
 			<div>
 				{% if album.year %}
-					<a data-toggle="collapse" href="#collapseExample{{album.pk}}" aria-expanded="false" aria-controls="collapseExample"><h3 class='brown-text'><strong>{{album.name}} - {{album.year}}</strong></h3></a>
+					{% if album.yearEnd %}
+						<a data-toggle="collapse" href="#collapseExample{{album.pk}}" aria-expanded="false" aria-controls="collapseExample"><h3 class='brown-text'><strong>{{album.name}} - {{album.year}} - {{album.yearEnd}}</strong></h3></a>
+					{% else %}
+						<a data-toggle="collapse" href="#collapseExample{{album.pk}}" aria-expanded="false" aria-controls="collapseExample"><h3 class='brown-text'><strong>{{album.name}} - {{album.year}}</strong></h3></a>
+					{% endif %}
 				{% else %}
 					<a data-toggle="collapse" href="#collapseExample{{album.pk}}" aria-expanded="false" aria-controls="collapseExample"><h3 class='brown-text'><strong>{{album.name}}</strong></h3></a>
 				{% endif %}
