@@ -1,15 +1,20 @@
 from django.contrib import admin
+import nested_admin
 
 from .models import *
 
 class ImageInline(admin.StackedInline):
 	model = Image
 	extra = 1
+	classes = ('grp-collapse grp-open',)
+	inline_classes = ('grp-collapse grp-open',)
 
 class SongInline(admin.StackedInline):
 	model = Song
 	extra = 1
 	exclude = ('link',)
+	classes = ('grp-collapse grp-open',)
+	inline_classes = ('grp-collapse grp-open',)
 
 class BiografiaAdmin(admin.ModelAdmin):
 	inlines = [
@@ -32,12 +37,23 @@ class ArtistaAdmin(admin.ModelAdmin):
 
 admin.site.register(Artista,ArtistaAdmin)
 
-class AlbumInline(admin.StackedInline):
+class ImageAInline(nested_admin.NestedStackedInline):
+	model = ImageAlbum
+	extra = 1
+	classes = ('grp-collapse grp-open',)
+	inline_classes = ('grp-collapse grp-open',)
+
+class AlbumInline(nested_admin.NestedStackedInline):
+	inlines = [
+		ImageAInline,
+	]
 	model = Album
 	extra = 3
 	exclude = ('songString',)
+	classes = ('grp-collapse grp-open',)
+	inline_classes = ('grp-collapse grp-open',)
 
-class DiscotecaAdmin(admin.ModelAdmin):
+class DiscotecaAdmin(nested_admin.NestedModelAdmin):
 	inlines = [
 		AlbumInline,
 	]

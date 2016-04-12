@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'grappelli',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -40,6 +41,7 @@ INSTALLED_APPS = [
     'web',
     'bootstrap3',
     'django_cleanup',
+    'nested_admin',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -138,3 +140,4 @@ EMAIL_HOST_PASSWORD = 'pucheto22'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 
+GRAPPELLI_ADMIN_TITLE = 'Fundacion memoria del chamame'

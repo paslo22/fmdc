@@ -171,3 +171,15 @@ class Album(models.Model):
 	def __str__(self):
 		return self.name
 
+@python_2_unicode_compatible
+class ImageAlbum(models.Model):
+	alb = models.ForeignKey(Album, default=None)
+	image = models.ImageField('Imagen',upload_to='images/', default='')
+	description = models.CharField('Descripcion',max_length=200,blank=True)
+
+	def __str__(self):
+		return self.description
+
+	class Meta:
+		verbose_name='Imagen'
+		verbose_name_plural='Imagenes'

@@ -50,6 +50,16 @@
 											<figcaption itemprop="brown-text caption description"><strong>Lamina</strong></figcaption>
 										</figure>
 									{% endif %}
+									{% if album.imagealbum_set %}
+										{% for im in album.imagealbum_set.all %}
+											<figure class="lamina col-xs-12 col-sm-3" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject" >
+												<a href="{{im.image.url}}" itemprop="contentUrl" data-size="{{im.image.width}}x{{im.image.height}}">
+													<img src="{{im.image.url}}" itemprop="thumbnail">
+												</a>
+												<figcaption itemprop="brown-text caption description"><strong>{{im.description}}</strong></figcaption>
+											</figure>
+										{% endfor %}
+									{% endif %}
 								</div>
 							{% endif %}
 						</div>
