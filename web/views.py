@@ -33,9 +33,9 @@ class GaleriaDetailView(generic.DetailView):
 			path = self.kwargs['path']
 		except:
 			raise Http404("Galeria no existe")
-		for url in os.listdir(settings.MEDIA_ROOT+'/archive/Galeria/'+path):
+		for url in os.listdir(settings.MEDIA_ROOT+'/archive/Galeria/'+path.encode('utf-8')):
 			try:
-				im=Image.open(settings.MEDIA_ROOT + 'archive/Galeria/' + path + '/' + url)
+				im=Image.open(settings.MEDIA_ROOT + 'archive/Galeria/' + path.encode('utf-8') + '/' + url.encode('utf-8'))
 				re.match(pat,url).group(1)
 			except:
 				continue
