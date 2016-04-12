@@ -3,11 +3,19 @@
 {% block activeGal %}active{% endblock activeGal %}
 
 {% block content %}
-	<h1 class="text-center brown-text"><strong>Galeria</strong></h1>
+	<h1 class="text-center brown-text"><strong>Galerias</strong></h1>
 		<div class="row">
 			<ul class="col-sm-8">
 				{% for galeria in object_list %}
-					<a href="{% url 'galeria' galeria %}" class="brown-text text-center"><h4><strong>{{ galeria }}</strong></h4></a>
+					{% if galeria == 'Fotos Chamameceros' %}
+						<a href="{% url 'galerias' galeria|add:'/' %}" class="brown-text text-center"><h4><strong>{{ galeria }}</strong></h4></a>
+					{% else %}
+						{% if 'Fotos Chamameceros' in request.path %}
+							<a href="{% url 'galeria' 'Fotos Chamameceros/'|add:galeria|add:'/' %}" class="brown-text text-center"><h4><strong>{{ galeria }}</strong></h4></a>
+						{% else %}
+							<a href="{% url 'galeria' galeria|add:'/' %}" class="brown-text text-center"><h4><strong>{{ galeria }}</strong></h4></a>
+						{% endif %}
+					{% endif %}
 				{% empty %}
 					<p class="brown-text text-center">A&uacute;n no hay galer&iacute;as cargadas.</p>
 				{% endfor %}

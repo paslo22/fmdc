@@ -20,8 +20,15 @@ class GaleriaView(generic.ListView):
 	template_name = 'web/galerias.html'
 
 	def get_queryset(self):
-		return os.listdir(settings.MEDIA_ROOT+'/archive/Galeria')
-				
+		try:
+			path = self.kwargs['path']
+		except:
+			path=''
+		if path:
+			return os.listdir(settings.MEDIA_ROOT+'/archive/Galeria/'+path)
+		else:
+			return os.listdir(settings.MEDIA_ROOT+'/archive/Galeria/')
+
 class GaleriaDetailView(generic.DetailView):
 	template_name = 'web/galeria.html'
 	
@@ -45,7 +52,7 @@ class GaleriaDetailView(generic.DetailView):
 						'name':re.match(pat,url).group(1)
 						})
 		obj['images'] = img
-		obj['name'] = path
+		obj['name'] = path.replace('/','').replace('Fotos Chamameceros','')
 		return obj
 
 class BiografiaView(generic.ListView):
