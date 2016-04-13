@@ -1,4 +1,5 @@
 {% extends "web/base.html" %}
+{% load web_extras%}
 
 {% block activeGal %}active{% endblock activeGal %}
 
@@ -11,7 +12,7 @@
 						<a href="{% url 'galerias' galeria|add:'/' %}" class="brown-text text-center"><h4><strong>{{ galeria }}</strong></h4></a>
 					{% else %}
 						{% if 'Fotos Chamameseros' in request.path %}
-							{% with 'Fotos Chamameseros/'|add:galeria|add:'/' as output %}
+							{% with 'Fotos Chamameseros/'|addstr:galeria|addstr:'/' as output %}
 								<a href="{% url 'galeria' output %}" class="brown-text text-center"><h4><strong>{{ galeria }}</strong></h4></a>
 							{% endwith %}
 						{% else %}
