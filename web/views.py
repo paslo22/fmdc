@@ -52,7 +52,7 @@ class GaleriaDetailView(generic.DetailView):
 						'name':re.match(pat,url).group(1)
 						})
 		obj['images'] = img
-		obj['name'] = path.replace('/','').replace('Fotos Chamameceros','')
+		obj['name'] = path.replace('/','').replace('Fotos Chamameseros','')
 		return obj
 
 class BiografiaView(generic.ListView):

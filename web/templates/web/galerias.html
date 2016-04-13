@@ -7,11 +7,11 @@
 		<div class="row">
 			<ul class="col-sm-8">
 				{% for galeria in object_list %}
-					{% if galeria == 'Fotos Chamameceros' %}
+					{% if galeria == 'Fotos Chamameseros' %}
 						<a href="{% url 'galerias' galeria|add:'/' %}" class="brown-text text-center"><h4><strong>{{ galeria }}</strong></h4></a>
 					{% else %}
-						{% if 'Fotos Chamameceros' in request.path %}
-							<a href="{% url 'galeria' 'Fotos Chamameceros/'|add:galeria|add:'/' %}" class="brown-text text-center"><h4><strong>{{ galeria }}</strong></h4></a>
+						{% if 'Fotos Chamameseros' in request.path %}
+							<a href="{% url 'galeria' 'Fotos Chamameseros/'|add:galeria|add:'/' %}" class="brown-text text-center"><h4><strong>{{ galeria }}</strong></h4></a>
 						{% else %}
 							<a href="{% url 'galeria' galeria|add:'/' %}" class="brown-text text-center"><h4><strong>{{ galeria }}</strong></h4></a>
 						{% endif %}
