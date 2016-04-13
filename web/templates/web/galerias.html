@@ -11,7 +11,9 @@
 						<a href="{% url 'galerias' galeria|add:'/' %}" class="brown-text text-center"><h4><strong>{{ galeria }}</strong></h4></a>
 					{% else %}
 						{% if 'Fotos Chamameseros' in request.path %}
-							<a href="{% url 'galeria' 'Fotos Chamameseros/'|add:galeria|add:'/' %}" class="brown-text text-center"><h4><strong>{{ galeria }}</strong></h4></a>
+							{% with 'Fotos Chamameseros/'|add:galeria|add:'/' as output %}
+								<a href="{% url 'galeria' output %}" class="brown-text text-center"><h4><strong>{{ galeria }}</strong></h4></a>
+							{% endwith %}
 						{% else %}
 							<a href="{% url 'galeria' galeria|add:'/' %}" class="brown-text text-center"><h4><strong>{{ galeria }}</strong></h4></a>
 						{% endif %}
