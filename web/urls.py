@@ -16,6 +16,7 @@ urlpatterns = [
 	url(r'^benefactores/$', views.benefactores, name='benefactores'),
 	url(ur'^discotecas/(?P<filtro>[\w ]+/)?$', views.DiscotecaView.as_view(), name='discotecas'),
 	url(r'^discoteca/(?P<pk>[0-9]+)/$', views.DiscotecaDetailView.as_view(), name='discoteca'),
-	url(ur'^galerias/(?P<path>[\w\d ]+/)?$',views.GaleriaView.as_view(), name='galerias'),
+	url(ur'^galerias/$',views.GaleriaView.as_view(), name='galerias'),
+	url(ur'^galeria/Fotos Chamameceros/(?P<path>[\w\d/ ]+/)?$',views.GaleriaCView.as_view(), name='galeriasC'),
 	url(ur'^galeria/(?P<path>[\w\d/ ]+/)?$', views.GaleriaDetailView.as_view(), name='galeria'),
 ]

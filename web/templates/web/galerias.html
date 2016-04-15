@@ -9,15 +9,9 @@
 			<ul class="col-sm-8">
 				{% for galeria in object_list %}
 					{% if galeria == 'Fotos Chamameseros' %}
-						<a href="{% url 'galerias' galeria|add:'/' %}" class="brown-text text-center"><h4><strong>{{ galeria }}</strong></h4></a>
+						<a href="{% url 'galeriasC' %}" class="brown-text text-center"><h4><strong>{{ galeria }}</strong></h4></a>
 					{% else %}
-						{% if 'Fotos Chamameseros' in request.path %}
-							{% with 'Fotos Chamameseros/'|addstr:galeria|add:'/' as output %}
-								<a href="{% url 'galeria' output %}" class="brown-text text-center"><h4><strong>{{ galeria }}</strong></h4></a>
-							{% endwith %}
-						{% else %}
-							<a href="{% url 'galeria' galeria|add:'/' %}" class="brown-text text-center"><h4><strong>{{ galeria }}</strong></h4></a>
-						{% endif %}
+						<a href="{% url 'galeria' galeria|add:'/' %}" class="brown-text text-center"><h4><strong>{{ galeria }}</strong></h4></a>
 					{% endif %}
 				{% empty %}
 					<p class="brown-text text-center">A&uacute;n no hay galer&iacute;as cargadas.</p>
