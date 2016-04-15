@@ -42,9 +42,9 @@ class GaleriaCView(generic.DetailView):
 			raise Http404("Galeria no existe")
 		if path == None:
 			path = ''
-		for url in os.listdir(settings.MEDIA_ROOT+'/archive/Galeria/Fotos Chamameseros/'+path):
+		for url in os.listdir(settings.MEDIA_ROOT + '/archive/Galeria/Fotos Chamameseros/' + path.encode('utf-8')):
 			try:
-				im=Image.open(settings.MEDIA_ROOT + 'archive/Galeria/Fotos Chamameseros/' + path + url.encode('utf-8'))
+				im=Image.open(settings.MEDIA_ROOT + 'archive/Galeria/Fotos Chamameseros/' + path.encode('utf-8') + url.encode('utf-8'))
 				re.match(pat,url).group(1)
 			except:
 				continue
