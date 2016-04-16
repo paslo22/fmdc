@@ -20,14 +20,10 @@ class GaleriaView(generic.ListView):
 	template_name = 'web/galerias.html'
 
 	def get_queryset(self):
-		try:
-			path = self.kwargs['path']
-		except:
-			path=''
-		if path:
-			return os.listdir(settings.MEDIA_ROOT+'/archive/Galeria/'+path)
-		else:
-			return os.listdir(settings.MEDIA_ROOT+'/archive/Galeria/')
+		return {
+			'images' : os.listdir(settings.MEDIA_ROOT+'/archive/Galeria/Fotos'),
+			'videos' : os.listdir(settings.MEDIA_ROOT+'/archive/Galeria/Videos'),
+		}
 
 class GaleriaCView(generic.DetailView):
 	template_name = 'web/galeriaWithLetters.html'
@@ -43,14 +39,14 @@ class GaleriaCView(generic.DetailView):
 		if path == None:
 			path = ''
 		path = unicode(path)
-		for url in os.listdir((settings.MEDIA_ROOT + '/archive/Galeria/Fotos Chamameseros/' + path).encode('utf-8')):
+		for url in os.listdir((settings.MEDIA_ROOT + '/archive/Galeria/Fotos/Fotos Chamameseros/' + path).encode('utf-8')):
 			try:
 				url = unicode(url.decode('utf-8'))
-				im=Image.open((settings.MEDIA_ROOT + 'archive/Galeria/Fotos Chamameseros/' + path + url).encode('utf-8'))
+				im=Image.open((settings.MEDIA_ROOT + 'archive/Galeria/Fotos/Fotos Chamameseros/' + path + url).encode('utf-8'))
 				re.match(pat,url).group(1)
 			except:
 				continue
-			img.append({'url':settings.MEDIA_URL + 'archive/Galeria/Fotos Chamameseros/' + path + url,
+			img.append({'url':settings.MEDIA_URL + 'archive/Galeria/Fotos/Fotos Chamameseros/' + path + url,
 						'width':im.size[0],
 						'height':im.size[1],
 						'name':re.match(pat,url).group(1)
@@ -72,14 +68,14 @@ class GaleriaDetailView(generic.DetailView):
 		if path == None:
 			path = ''
 		path = unicode(path)		
-		for url in os.listdir((settings.MEDIA_ROOT + '/archive/Galeria/' + path).encode('utf-8')):
+		for url in os.listdir((settings.MEDIA_ROOT + '/archive/Galeria/Fotos/' + path).encode('utf-8')):
 			try:
 				url = unicode(url.decode('utf-8'))
-				im=Image.open((settings.MEDIA_ROOT + 'archive/Galeria/' + path + url).encode('utf-8'))
+				im=Image.open((settings.MEDIA_ROOT + 'archive/Galeria/Fotos/' + path + url).encode('utf-8'))
 				re.match(pat,url).group(1)
 			except:
 				continue
-			img.append({'url':settings.MEDIA_URL + 'archive/Galeria/' + path + url,
+			img.append({'url':settings.MEDIA_URL + 'archive/Galeria/Fotos/' + path + url,
 						'width':im.size[0],
 						'height':im.size[1],
 						'name':re.match(pat,url).group(1)
