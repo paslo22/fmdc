@@ -35,34 +35,28 @@ class GaleriaCView(generic.DetailView):
 	def get_object(self):
 		obj = {}
 		img = []
-		pat = re.compile(ur'(.+)\.(?:png|jpg)', re.UNICODE)
+		pat = re.compile(ur'(.+)\.(?:png|jpg|PNG|JPG)', re.UNICODE)
 		try:
 			path = self.kwargs['path']
 		except:
 			raise Http404("Galeria no existe")
 		if path == None:
 			path = ''
-		for url in os.listdir(settings.MEDIA_ROOT + '/archive/Galeria/Fotos Chamameseros/' + path.encode('utf-8')):
+		path = unicode(path)
+		for url in os.listdir((settings.MEDIA_ROOT + '/archive/Galeria/Fotos Chamameseros/' + path).encode('utf-8')):
 			try:
-				im=Image.open(settings.MEDIA_ROOT + 'archive/Galeria/Fotos Chamameseros/' + path.encode('utf-8') + url.encode('utf-8'))
+				url = unicode(url.decode('utf-8'))
+				im=Image.open((settings.MEDIA_ROOT + 'archive/Galeria/Fotos Chamameseros/' + path + url).encode('utf-8'))
 				re.match(pat,url).group(1)
 			except:
 				continue
-			img.append({'url':settings.MEDIA_URL + 'archive/Galeria/Fotos Chamameseros/' + path + '/' + url,
+			img.append({'url':settings.MEDIA_URL + 'archive/Galeria/Fotos Chamameseros/' + path + url,
 						'width':im.size[0],
 						'height':im.size[1],
 						'name':re.match(pat,url).group(1)
 						})
 		obj['images'] = img
 		return obj
-
-	def get_queryset(self):
-		try:
-			path = self.kwargs['path']
-		except:
-			path=''
-		if path:
-			return os.listdir(settings.MEDIA_ROOT+'/archive/Galeria/Fotos Chamameseros/'+path)
 
 class GaleriaDetailView(generic.DetailView):
 	template_name = 'web/galeria.html'
