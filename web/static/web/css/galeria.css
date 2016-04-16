@@ -8,5 +8,11 @@
 	figure{
 		
 	}
+}
 
+@media(min-width: 1200px){
+	.btn-toolbar{
+		margin:0px auto;
+		width:938px;
+	}
 }
