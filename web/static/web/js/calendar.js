@@ -27,7 +27,7 @@ $(document).ready(function() {
 		var day=1
 		var out = ''
 		// begin the new month table
-		out += "<div class='col-xs-12 col-sm-4'><table class='table table-bordered' style='border:1px #895b20 solid;'><TR>"
+		out += "<div class='hidden-xs col-sm-6 col-md-4' style='height:316px;'><table class='table table-bordered' style='border:1px #895b20 solid;'><TR>"
 		out +="<TD colspan=7 ALIGN=center><B>"+month+"   "+year+"</B><TR>"
 		// column headings
 		out += day_title("Dom")
@@ -68,7 +68,7 @@ $(document).ready(function() {
 	var year = new Date().getFullYear()
 	var today = new Date("January 1, "+year)
 	start_day = today.getDay() + 1
-	var output = '<div class="row" style="padding:0px 15px;padding-top:10px;">'
+	var output = ''
 	output += fill_table("Enero",31,year)
 	if (leapYear(year)) {
 		output += fill_table("Febrero",29,year)
@@ -76,19 +76,15 @@ $(document).ready(function() {
 		output += fill_table("Febrero",28,year)
 	}
 	output += fill_table("Marzo",31,year)
-	output += '</div><div class="row" style="padding:0px 15px;padding-top:10px;">'
 	output += fill_table("Abril",30,year)
 	output += fill_table("Mayo",31,year)
 	output += fill_table("Junio",30,year)
-	output += '</div><div class="row" style="padding:0px 15px;padding-top:10px;">'
 	output += fill_table("Julio",31,year)
 	output += fill_table("Agosto",31,year)
 	output += fill_table("Septiembre",30,year)
-	output += '</div><div class="row" style="padding:0px 15px;padding-top:10px;">'
 	output += fill_table("Octubre",31,year)
 	output += fill_table("Noviembre",30,year)
 	output += fill_table("Diciembre",31,year)
-	output += '</div>'
 	$('#calendar').append(output)
 	$('[data-toggle="popover"]').popover({ trigger: "hover" })
 });
