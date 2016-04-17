@@ -5,11 +5,12 @@ from django.views import generic
 from datetime import datetime
 from django.template.loader import get_template
 from django.core.mail import EmailMessage
+from django.core.serializers.json import DjangoJSONEncoder
 from django.template import Context
 from django.contrib.staticfiles.templatetags.staticfiles import static
 from PIL import Image
-import os, re
-from .models import Biografia, Efemeride, Discoteca
+import os, re, json
+from .models import Biografia, Efemeride, Discoteca, EfemerideMes
 from .forms import ContactForm
 from django.conf import settings
 
@@ -157,7 +158,11 @@ def efemerides(request):
 	todayDay = datetime.today().day
 	todayMonth = datetime.today().month
 	efemerides = Efemeride.objects.filter(date__day=todayDay,date__month=todayMonth)
-	return render(request, 'web/efemeride.html', {'efemerides':efemerides})
+	efemeridesPorMes = {}
+	for efem in EfemerideMes.objects.all():
+		efemeridesPorMes[efem.month] = {'efemerides':list(efem.efemeride_set.all().values_list('date','event'))}
+	allEfemerides = json.dumps(efemeridesPorMes, cls=DjangoJSONEncoder, ensure_ascii=False)
+	return render(request, 'web/efemeride.html', {'efemerides':efemerides,'allEfemerides':allEfemerides})
 
 def benefactores(request):
 	return render(request, 'web/benefactores.html')

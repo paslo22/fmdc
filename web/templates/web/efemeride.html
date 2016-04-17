@@ -1,6 +1,14 @@
 {% extends "web/base.html" %}
+{% load staticfiles %}
 
 {% block activeEfe %}active{% endblock activeEfe %}
+
+{% block scriptPlus %}
+	<script>
+		efem = JSON.parse("{{allEfemerides|escapejs}}")
+	</script>
+	<script src="{% static 'web/js/calendar.js' %}"></script>
+{% endblock scriptPlus %}
 
 {% block content %}
 	<div class="row" style="padding:0px 15px;">
@@ -10,5 +18,10 @@
 			{% empty %}
 			<h3 class="brown-text text-center">No hay efemerides para hoy.</h3>
 		{% endfor %}
-	</div>	
+	</div>
+
+	<div class="calendar">
+		<h1 class="text-center brown-text"><strong>Efemerides</strong></h1>
+		<div id="calendar"></div>
+	</div>
 {% endblock content %}
