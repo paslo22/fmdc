@@ -15,11 +15,10 @@
 
 
 
-
 {% block content %}
 	{% include "web/photoswipe.html" %}
 	<div class="row" style="padding:0px 15px;">
-		<h1 class="brown-text text-center"><strong>Partituras</strong></h1>
+		<h1 class="brown-text text-center"><strong>Cancionero {{object.name}}</strong></h1>
 		<div class="my-gallery" itemscope itemtype="http://schema.org/ImageGallery">
 			{% for image in object.images %}
 				<figure class="image col-xs-12 col-sm-3" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject" >

@@ -82,9 +82,53 @@ class DiscotecaDetailView(generic.DetailView):
 	model = Discoteca
 	template_name = 'web/discoteca.html'
 
-class PartituraView(generic.ListView):
+class PartituraDetailView(generic.DetailView):
 	template_name = 'web/partituras.html'
+
+	def get_object(self):
+		obj = {}
+		img = []
+		pat = re.compile(ur'(.+)\.(?:png|jpg)', re.UNICODE)
+		
+		for url in os.listdir(settings.MEDIA_ROOT+'/archive/Partituras/'):
+			try:
+				im=Image.open(settings.MEDIA_ROOT + 'archive/Partituras/' + path + '/' url)
+				re.match(pat,url).group(1)
+			except:
+				continue
+			img.append({'url':settings.MEDIA_URL + 'archive/Partituras/' + path + '/' url,
+						'width':im.size[0],
+						'height':im.size[1],
+						'name':re.match(pat,url).group(1)
+						})
+		obj['images'] = img
+		#obj['name'] = (settings.MEDIA_ROOT + 'archive/Cancionero/' + url)
+		return obj
+
+
+class LetrasDetailView(generic.DetailView):
+	template_name = 'web/letras.html'
 	
+	def get_object(self):
+		obj = {}
+		img = []
+		pat = re.compile(ur'(.+)\.(?:png|jpg)', re.UNICODE)
+		
+		for url in os.listdir(settings.MEDIA_ROOT+'/archive/Letras/'):
+			try:
+				im=Image.open(settings.MEDIA_ROOT + 'archive/Letras/' + url)
+				re.match(pat,url).group(1)
+			except:
+				continue
+			img.append({'url':settings.MEDIA_URL + 'archive/Letras/' + url,
+						'width':im.size[0],
+						'height':im.size[1],
+						'name':re.match(pat,url).group(1)
+						})
+		obj['images'] = img
+		#obj['name'] = (settings.MEDIA_ROOT + 'archive/Cancionero/' + url)
+		return obj
+		
 		
 
 def quienesSomos(request):

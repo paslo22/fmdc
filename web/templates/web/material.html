@@ -5,10 +5,19 @@
 
 {% block content %}
 
-<p>a comerla</p>
 
 
-<a href="{% url 'partituras' %}"></a>
-<a href="{% url 'cancionero' %}"></a>
-	
+<div class="row">
+<h1 class="text-center brown-text"><strong>Material</strong></h1>
+<div class="col-sm-6">
+	<a class="brown-text text-center" href="{% url 'partituras' %}" style="font-size:35px;">Partituras</a>
+</div>
+
+
+<div class="col-sm-6  text-center">
+	<a class="brown-text" href="{% url 'letras' %}" style="font-size:35px;">Letras</a>
+</div>
+
+</div>
+
 {% endblock content %}
