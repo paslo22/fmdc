@@ -58,6 +58,12 @@
 					</a>
 					<figcaption itemprop="brown-text caption description"><strong>{{image.name}}</strong></figcaption>
 				</figure>
+				{% empty %}
+					{% if request.path|length > 28 %}
+						<h2 class="brown-text text-center">No poseemos imagenes de artistas que empiecen con esta letra.</h2>
+					{% else %}
+						<h2 class="brown-text text-center">Presione en cualquier letra para ver imagenes de artistas cuyos nombres empiecen con esa letra. </h2>
+					{% endif %}
 			{% endfor %}
 		</div>
 	</div>
