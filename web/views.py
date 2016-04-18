@@ -5,11 +5,12 @@ from django.views import generic
 from datetime import datetime
 from django.template.loader import get_template
 from django.core.mail import EmailMessage
+from django.core.serializers.json import DjangoJSONEncoder
 from django.template import Context
 from django.contrib.staticfiles.templatetags.staticfiles import static
 from PIL import Image
-import os, re
-from .models import Biografia, Efemeride, Discoteca
+import os, re, json
+from .models import Biografia, Efemeride, Discoteca, EfemerideMes
 from .forms import ContactForm
 from django.conf import settings
 
@@ -20,32 +21,68 @@ class GaleriaView(generic.ListView):
 	template_name = 'web/galerias.html'
 
 	def get_queryset(self):
-		return os.listdir(settings.MEDIA_ROOT+'/archive/Galeria')
-				
+		return {
+			'images' : os.listdir(settings.MEDIA_ROOT+'/archive/Galeria/Fotos'),
+			'videos' : os.listdir(settings.MEDIA_ROOT+'/archive/Galeria/Videos'),
+		}
+
+class GaleriaCView(generic.DetailView):
+	template_name = 'web/galeriaWithLetters.html'
+
+	def get_object(self):
+		obj = {}
+		img = []
+		pat = re.compile(ur'(.+)\.(?:png|jpg|PNG|JPG)', re.UNICODE)
+		try:
+			path = self.kwargs['path']
+		except:
+			raise Http404("Galeria no existe")
+		if path == None:
+			path = ''
+		path = unicode(path)
+		for url in os.listdir((settings.MEDIA_ROOT + '/archive/Galeria/Fotos/Fotos Chamameseros/' + path).encode('utf-8')):
+			try:
+				url = unicode(url.decode('utf-8'))
+				im=Image.open((settings.MEDIA_ROOT + 'archive/Galeria/Fotos/Fotos Chamameseros/' + path + url).encode('utf-8'))
+				re.match(pat,url).group(1)
+			except:
+				continue
+			img.append({'url':settings.MEDIA_URL + 'archive/Galeria/Fotos/Fotos Chamameseros/' + path + url,
+						'width':im.size[0],
+						'height':im.size[1],
+						'name':re.match(pat,url).group(1)
+						})
+		obj['images'] = img
+		return obj
+
 class GaleriaDetailView(generic.DetailView):
 	template_name = 'web/galeria.html'
 	
 	def get_object(self):
 		obj = {}
 		img = []
-		pat = re.compile(ur'(.+)\.(?:png|jpg)', re.UNICODE)
+		pat = re.compile(ur'(.+)\.(?:png|jpg|PNG|JPG)', re.UNICODE)
 		try:
 			path = self.kwargs['path']
 		except:
 			raise Http404("Galeria no existe")
-		for url in os.listdir(settings.MEDIA_ROOT+'/archive/Galeria/'+path):
+		if path == None:
+			path = ''
+		path = unicode(path)		
+		for url in os.listdir((settings.MEDIA_ROOT + '/archive/Galeria/Fotos/' + path).encode('utf-8')):
 			try:
-				im=Image.open(settings.MEDIA_ROOT + 'archive/Galeria/' + path + '/' + url)
+				url = unicode(url.decode('utf-8'))
+				im=Image.open((settings.MEDIA_ROOT + 'archive/Galeria/Fotos/' + path + url).encode('utf-8'))
 				re.match(pat,url).group(1)
 			except:
 				continue
-			img.append({'url':settings.MEDIA_URL + 'archive/Galeria/' + path + '/' + url,
+			img.append({'url':settings.MEDIA_URL + 'archive/Galeria/Fotos/' + path + url,
 						'width':im.size[0],
 						'height':im.size[1],
 						'name':re.match(pat,url).group(1)
 						})
 		obj['images'] = img
-		obj['name'] = path
+		obj['name'] = path.replace('/','')
 		return obj
 
 class BiografiaView(generic.ListView):
@@ -165,7 +202,11 @@ def efemerides(request):
 	todayDay = datetime.today().day
 	todayMonth = datetime.today().month
 	efemerides = Efemeride.objects.filter(date__day=todayDay,date__month=todayMonth)
-	return render(request, 'web/efemeride.html', {'efemerides':efemerides})
+	efemeridesPorMes = {}
+	for efem in EfemerideMes.objects.all():
+		efemeridesPorMes[efem.month] = {'efemerides':list(efem.efemeride_set.all().values_list('date','event'))}
+	allEfemerides = json.dumps(efemeridesPorMes, cls=DjangoJSONEncoder, ensure_ascii=False)
+	return render(request, 'web/efemeride.html', {'efemerides':efemerides,'allEfemerides':allEfemerides})
 
 def benefactores(request):
 	return render(request, 'web/benefactores.html')

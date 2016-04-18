@@ -150,7 +150,8 @@ class Album(models.Model):
 	name = models.CharField('Nombre', max_length=100)
 	tapa = models.ImageField('Tapa', upload_to='images/', default='', blank=True)
 	lamina = models.ImageField('Lamina', upload_to='images/', default='', blank=True)
-	year = models.IntegerField('Año', null=True,blank=True)
+	year = models.IntegerField('Año (Periodo inicio)', null=True,blank=True)
+	yearEnd = models.IntegerField('Año (Periodo final)', null=True,blank=True)
 	songString = models.TextField('Listado de canciones',blank=True)
 	songString_org = models.TextField('Listado de canciones',blank=True)
 
@@ -171,3 +172,15 @@ class Album(models.Model):
 	def __str__(self):
 		return self.name
 
+@python_2_unicode_compatible
+class ImageAlbum(models.Model):
+	alb = models.ForeignKey(Album, default=None)
+	image = models.ImageField('Imagen',upload_to='images/', default='')
+	description = models.CharField('Descripcion',max_length=200,blank=True)
+
+	def __str__(self):
+		return self.description
+
+	class Meta:
+		verbose_name='Imagen'
+		verbose_name_plural='Imagenes'

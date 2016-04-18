@@ -1,0 +1,64 @@
+{% extends "web/base.html" %}
+{% load staticfiles %}
+
+{% block headPlus %}
+	<link rel="stylesheet" href="{% static 'web/css/photoswipe.css' %}">
+	<link rel="stylesheet" href="{% static 'web/css/default-skin/default-skin.css' %}">
+	<link rel="stylesheet" href="{% static 'web/css/galeria.css' %}">
+{% endblock headPlus %}
+
+{% block scriptPlus %}
+	<script src="{% static 'web/js/photoswipe.min.js' %}"></script>
+	<script src="{% static 'web/js/photoswipe-ui-default.min.js' %}"></script>
+	<script src="{% static 'web/js/galeria.js' %}"></script>
+{% endblock scriptPlus %}
+
+{% block activeGal %}active{% endblock activeGal %}
+
+{% block content %}
+	{% include "web/photoswipe.html" %}
+	<div class="row" style="padding:0px 15px;">
+		<h1 class="brown-text text-center"><strong>Galeria</strong></h1>
+		<div class="btn-toolbar" role="toolbar">
+			<div class="btn-group"  role="group">
+				<a type="button" class="btn btn-primary" href="{% url 'galeriasC' 'A/' %}">A</a>
+				<a type="button" class="btn btn-primary" href="{% url 'galeriasC' 'B/' %}">B</a>
+				<a type="button" class="btn btn-primary" href="{% url 'galeriasC' 'C/' %}">C</a>
+				<a type="button" class="btn btn-primary" href="{% url 'galeriasC' 'D/' %}">D</a>
+				<a type="button" class="btn btn-primary" href="{% url 'galeriasC' 'E/' %}">E</a>
+				<a type="button" class="btn btn-primary" href="{% url 'galeriasC' 'F/' %}">F</a>
+				<a type="button" class="btn btn-primary" href="{% url 'galeriasC' 'G/' %}">G</a>
+				<a type="button" class="btn btn-primary" href="{% url 'galeriasC' 'H/' %}">H</a>
+				<a type="button" class="btn btn-primary" href="{% url 'galeriasC' 'I/' %}">I</a>
+				<a type="button" class="btn btn-primary" href="{% url 'galeriasC' 'J/' %}">J</a>
+				<a type="button" class="btn btn-primary" href="{% url 'galeriasC' 'K/' %}">K</a>
+				<a type="button" class="btn btn-primary" href="{% url 'galeriasC' 'L/' %}">L</a>
+				<a type="button" class="btn btn-primary" href="{% url 'galeriasC' 'M/' %}">M</a>
+				<a type="button" class="btn btn-primary" href="{% url 'galeriasC' 'N/' %}">N</a>
+				<a type="button" class="btn btn-primary" href="{% url 'galeriasC' 'Ñ/' %}">&Ntilde;</a>
+				<a type="button" class="btn btn-primary" href="{% url 'galeriasC' 'O/' %}">O</a>
+				<a type="button" class="btn btn-primary" href="{% url 'galeriasC' 'P/' %}">P</a>
+				<a type="button" class="btn btn-primary" href="{% url 'galeriasC' 'Q/' %}">Q</a>
+				<a type="button" class="btn btn-primary" href="{% url 'galeriasC' 'R/' %}">R</a>
+				<a type="button" class="btn btn-primary" href="{% url 'galeriasC' 'S/' %}">S</a>
+				<a type="button" class="btn btn-primary" href="{% url 'galeriasC' 'T/' %}">T</a>
+				<a type="button" class="btn btn-primary" href="{% url 'galeriasC' 'U/' %}">U</a>
+				<a type="button" class="btn btn-primary" href="{% url 'galeriasC' 'V/' %}">V</a>
+				<a type="button" class="btn btn-primary" href="{% url 'galeriasC' 'W/' %}">W</a>
+				<a type="button" class="btn btn-primary" href="{% url 'galeriasC' 'X/' %}">X</a>
+				<a type="button" class="btn btn-primary" href="{% url 'galeriasC' 'Y/' %}">Y</a>
+				<a type="button" class="btn btn-primary" href="{% url 'galeriasC' 'Z/' %}">Z</a>
+			</div>
+		</div>
+		<div class="my-gallery" style="margin-top:20px;" itemscope itemtype="http://schema.org/ImageGallery">
+			{% for image in object.images %}
+				<figure class="image col-xs-12 col-sm-3" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject" >
+					<a href="{{image.url}}" itemprop="contentUrl" data-size="{{image.width}}x{{image.height}}">
+						<img src="{{image.url}}" itemprop="thumbnail">
+					</a>
+					<figcaption itemprop="brown-text caption description"><strong>{{image.name}}</strong></figcaption>
+				</figure>
+			{% endfor %}
+		</div>
+	</div>
+{% endblock content %}

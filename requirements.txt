@@ -1,0 +1,7 @@
+django==1.9.4
+psycopg2
+django-bootstrap3
+django_cleanup
+django-nested-admin
+Pillow
+django-grappelli
