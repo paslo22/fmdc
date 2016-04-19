@@ -13,13 +13,44 @@
 	<script src="{% static 'web/js/galeria.js' %}"></script>
 {% endblock scriptPlus %}
 
-
+{% block activeMat %}active{% endblock activeMat %}
 
 {% block content %}
 	{% include "web/photoswipe.html" %}
 	<div class="row" style="padding:0px 15px;">
-		<h1 class="brown-text text-center"><strong>Cancionero {{object.name}}</strong></h1>
-		<div class="my-gallery" itemscope itemtype="http://schema.org/ImageGallery">
+		<h1 class="brown-text text-center"><strong>Letras</strong></h1>
+		<div class="btn-toolbar" role="toolbar">
+			<div class="btn-group"  role="group">
+				<a type="button" class="btn btn-primary" href="{% url 'letrasC' 'A/' %}">A</a>
+				<a type="button" class="btn btn-primary" href="{% url 'letrasC' 'B/' %}">B</a>
+				<a type="button" class="btn btn-primary" href="{% url 'letrasC' 'C/' %}">C</a>
+				<a type="button" class="btn btn-primary" href="{% url 'letrasC' 'D/' %}">D</a>
+				<a type="button" class="btn btn-primary" href="{% url 'letrasC' 'E/' %}">E</a>
+				<a type="button" class="btn btn-primary" href="{% url 'letrasC' 'F/' %}">F</a>
+				<a type="button" class="btn btn-primary" href="{% url 'letrasC' 'G/' %}">G</a>
+				<a type="button" class="btn btn-primary" href="{% url 'letrasC' 'H/' %}">H</a>
+				<a type="button" class="btn btn-primary" href="{% url 'letrasC' 'I/' %}">I</a>
+				<a type="button" class="btn btn-primary" href="{% url 'letrasC' 'J/' %}">J</a>
+				<a type="button" class="btn btn-primary" href="{% url 'letrasC' 'K/' %}">K</a>
+				<a type="button" class="btn btn-primary" href="{% url 'letrasC' 'L/' %}">L</a>
+				<a type="button" class="btn btn-primary" href="{% url 'letrasC' 'M/' %}">M</a>
+				<a type="button" class="btn btn-primary" href="{% url 'letrasC' 'N/' %}">N</a>
+				<a type="button" class="btn btn-primary" href="{% url 'letrasC' 'Ñ/' %}">&Ntilde;</a>
+				<a type="button" class="btn btn-primary" href="{% url 'letrasC' 'O/' %}">O</a>
+				<a type="button" class="btn btn-primary" href="{% url 'letrasC' 'P/' %}">P</a>
+				<a type="button" class="btn btn-primary" href="{% url 'letrasC' 'Q/' %}">Q</a>
+				<a type="button" class="btn btn-primary" href="{% url 'letrasC' 'R/' %}">R</a>
+				<a type="button" class="btn btn-primary" href="{% url 'letrasC' 'S/' %}">S</a>
+				<a type="button" class="btn btn-primary" href="{% url 'letrasC' 'T/' %}">T</a>
+				<a type="button" class="btn btn-primary" href="{% url 'letrasC' 'U/' %}">U</a>
+				<a type="button" class="btn btn-primary" href="{% url 'letrasC' 'V/' %}">V</a>
+				<a type="button" class="btn btn-primary" href="{% url 'letrasC' 'W/' %}">W</a>
+				<a type="button" class="btn btn-primary" href="{% url 'letrasC' 'X/' %}">X</a>
+				<a type="button" class="btn btn-primary" href="{% url 'letrasC' 'Y/' %}">Y</a>
+				<a type="button" class="btn btn-primary" href="{% url 'letrasC' 'Z/' %}">Z</a>
+			</div>
+		</div>
+		<div class="my-gallery" style="margin-top:20px;" itemscope itemtype="http://schema.org/ImageGallery">
 			{% for image in object.images %}
 				<figure class="image col-xs-12 col-sm-3" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject" >
 					<a href="{{image.url}}" itemprop="contentUrl" data-size="{{image.width}}x{{image.height}}">

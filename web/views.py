@@ -119,21 +119,31 @@ class DiscotecaDetailView(generic.DetailView):
 	model = Discoteca
 	template_name = 'web/discoteca.html'
 
-class PartituraDetailView(generic.DetailView):
+class PartituraCView(generic.DetailView):
 	template_name = 'web/partituras.html'
 
 	def get_object(self):
 		obj = {}
 		img = []
 		pat = re.compile(ur'(.+)\.(?:png|jpg)', re.UNICODE)
-		
-		for url in os.listdir(settings.MEDIA_ROOT+'/archive/Partituras/'):
+
+		try:
+			path = self.kwargs['path']
+		except:
+			raise Http404("Galeria no existe")
+
+		if path == None:
+			path = ''
+		path = unicode(path)
+
+		for url in os.listdir(settings.MEDIA_ROOT + '/archive/Material/Partituras/'):
 			try:
-				im=Image.open(settings.MEDIA_ROOT + 'archive/Partituras/' + path + '/' url)
+				url = unicode(url.decode('utf-8'))
+				im=Image.open((settings.MEDIA_ROOT + 'archive/Material/Partituras/' + path + url).encode('utf-8'))
 				re.match(pat,url).group(1)
 			except:
 				continue
-			img.append({'url':settings.MEDIA_URL + 'archive/Partituras/' + path + '/' url,
+			img.append({'url':settings.MEDIA_URL + 'archive/Material/Partituras/' + path + url,
 						'width':im.size[0],
 						'height':im.size[1],
 						'name':re.match(pat,url).group(1)
@@ -143,28 +153,35 @@ class PartituraDetailView(generic.DetailView):
 		return obj
 
 
-class LetrasDetailView(generic.DetailView):
+class LetrasCView(generic.DetailView):
 	template_name = 'web/letras.html'
-	
+
 	def get_object(self):
 		obj = {}
 		img = []
-		pat = re.compile(ur'(.+)\.(?:png|jpg)', re.UNICODE)
-		
-		for url in os.listdir(settings.MEDIA_ROOT+'/archive/Letras/'):
+		pat = re.compile(ur'(.+)\.(?:png|jpg|PNG|JPG)', re.UNICODE)
+		try:
+			path = self.kwargs['path']
+		except:
+			raise Http404("Galeria no existe")
+		if path == None:
+			path = ''
+		path = unicode(path)
+		for url in os.listdir((settings.MEDIA_ROOT + '/archive/Material/Letras/' + path).encode('utf-8')):
 			try:
-				im=Image.open(settings.MEDIA_ROOT + 'archive/Letras/' + url)
+				url = unicode(url.decode('utf-8'))
+				im=Image.open((settings.MEDIA_ROOT + 'archive/Material/Letras/' + path + url).encode('utf-8'))
 				re.match(pat,url).group(1)
 			except:
 				continue
-			img.append({'url':settings.MEDIA_URL + 'archive/Letras/' + url,
+			img.append({'url':settings.MEDIA_URL + 'archive/Material/Letras/' + path + url,
 						'width':im.size[0],
 						'height':im.size[1],
 						'name':re.match(pat,url).group(1)
 						})
 		obj['images'] = img
-		#obj['name'] = (settings.MEDIA_ROOT + 'archive/Cancionero/' + url)
 		return obj
+
 		
 		
 

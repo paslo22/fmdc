@@ -13,14 +13,44 @@
 	<script src="{% static 'web/js/galeria.js' %}"></script>
 {% endblock scriptPlus %}
 
-
-
+{% block activeMat %}active{% endblock activeMat %}
 
 {% block content %}
 	{% include "web/photoswipe.html" %}
 	<div class="row" style="padding:0px 15px;">
 		<h1 class="brown-text text-center"><strong>Partituras</strong></h1>
-		<div class="my-gallery" itemscope itemtype="http://schema.org/ImageGallery">
+		<div class="btn-toolbar" role="toolbar">
+			<div class="btn-group"  role="group">
+				<a type="button" class="btn btn-primary" href="{% url 'partiturasC' 'A/' %}">A</a>
+				<a type="button" class="btn btn-primary" href="{% url 'partiturasC' 'B/' %}">B</a>
+				<a type="button" class="btn btn-primary" href="{% url 'partiturasC' 'C/' %}">C</a>
+				<a type="button" class="btn btn-primary" href="{% url 'partiturasC' 'D/' %}">D</a>
+				<a type="button" class="btn btn-primary" href="{% url 'partiturasC' 'E/' %}">E</a>
+				<a type="button" class="btn btn-primary" href="{% url 'partiturasC' 'F/' %}">F</a>
+				<a type="button" class="btn btn-primary" href="{% url 'partiturasC' 'G/' %}">G</a>
+				<a type="button" class="btn btn-primary" href="{% url 'partiturasC' 'H/' %}">H</a>
+				<a type="button" class="btn btn-primary" href="{% url 'partiturasC' 'I/' %}">I</a>
+				<a type="button" class="btn btn-primary" href="{% url 'partiturasC' 'J/' %}">J</a>
+				<a type="button" class="btn btn-primary" href="{% url 'partiturasC' 'K/' %}">K</a>
+				<a type="button" class="btn btn-primary" href="{% url 'partiturasC' 'L/' %}">L</a>
+				<a type="button" class="btn btn-primary" href="{% url 'partiturasC' 'M/' %}">M</a>
+				<a type="button" class="btn btn-primary" href="{% url 'partiturasC' 'N/' %}">N</a>
+				<a type="button" class="btn btn-primary" href="{% url 'partiturasC' 'Ñ/' %}">&Ntilde;</a>
+				<a type="button" class="btn btn-primary" href="{% url 'partiturasC' 'O/' %}">O</a>
+				<a type="button" class="btn btn-primary" href="{% url 'partiturasC' 'P/' %}">P</a>
+				<a type="button" class="btn btn-primary" href="{% url 'partiturasC' 'Q/' %}">Q</a>
+				<a type="button" class="btn btn-primary" href="{% url 'partiturasC' 'R/' %}">R</a>
+				<a type="button" class="btn btn-primary" href="{% url 'partiturasC' 'S/' %}">S</a>
+				<a type="button" class="btn btn-primary" href="{% url 'partiturasC' 'T/' %}">T</a>
+				<a type="button" class="btn btn-primary" href="{% url 'partiturasC' 'U/' %}">U</a>
+				<a type="button" class="btn btn-primary" href="{% url 'partiturasC' 'V/' %}">V</a>
+				<a type="button" class="btn btn-primary" href="{% url 'partiturasC' 'W/' %}">W</a>
+				<a type="button" class="btn btn-primary" href="{% url 'partiturasC' 'X/' %}">X</a>
+				<a type="button" class="btn btn-primary" href="{% url 'partiturasC' 'Y/' %}">Y</a>
+				<a type="button" class="btn btn-primary" href="{% url 'partiturasC' 'Z/' %}">Z</a>
+			</div>
+		</div>
+		<div class="my-gallery" style="margin-top:20px;" itemscope itemtype="http://schema.org/ImageGallery">
 			{% for image in object.images %}
 				<figure class="image col-xs-12 col-sm-3" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject" >
 					<a href="{{image.url}}" itemprop="contentUrl" data-size="{{image.width}}x{{image.height}}">
