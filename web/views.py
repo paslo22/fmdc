@@ -136,7 +136,7 @@ class PartituraCView(generic.DetailView):
 			path = ''
 		path = unicode(path)
 
-		for url in os.listdir(settings.MEDIA_ROOT + '/archive/Material/Partituras/'):
+		for url in os.listdir(settings.MEDIA_ROOT + '/archive/Material/Partituras/' + path).encode('utf-8')):
 			try:
 				url = unicode(url.decode('utf-8'))
 				im=Image.open((settings.MEDIA_ROOT + 'archive/Material/Partituras/' + path + url).encode('utf-8'))
