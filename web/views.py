@@ -149,7 +149,6 @@ class PartituraCView(generic.DetailView):
 						'name':re.match(pat,url).group(1)
 						})
 		obj['images'] = img
-		#obj['name'] = (settings.MEDIA_ROOT + 'archive/Cancionero/' + url)
 		return obj
 
 
