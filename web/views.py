@@ -125,18 +125,15 @@ class PartituraCView(generic.DetailView):
 	def get_object(self):
 		obj = {}
 		img = []
-		pat = re.compile(ur'(.+)\.(?:png|jpg)', re.UNICODE)
-
+		pat = re.compile(ur'(.+)\.(?:png|jpg|PNG|JPG)', re.UNICODE)
 		try:
 			path = self.kwargs['path']
 		except:
 			raise Http404("Galeria no existe")
-
 		if path == None:
 			path = ''
 		path = unicode(path)
-
-		for url in os.listdir(settings.MEDIA_ROOT + '/archive/Material/Partituras/' + path).encode('utf-8')):
+		for url in os.listdir((settings.MEDIA_ROOT + '/archive/Material/Partituras/' + path).encode('utf-8')):
 			try:
 				url = unicode(url.decode('utf-8'))
 				im=Image.open((settings.MEDIA_ROOT + 'archive/Material/Partituras/' + path + url).encode('utf-8'))
