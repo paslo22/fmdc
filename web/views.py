@@ -119,7 +119,7 @@ class DiscotecaDetailView(generic.DetailView):
 	model = Discoteca
 	template_name = 'web/discoteca.html'
 
-class PartituraCView(generic.DetailView):
+class PartiturasCView(generic.DetailView):
 	template_name = 'web/partituras.html'
 
 	def get_object(self):
