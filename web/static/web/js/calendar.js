@@ -17,7 +17,7 @@ $(document).ready(function() {
 			}
 		});
 		if (!events) {
-			events = 'No hay efemeride';
+			events = 'No hay efemerides';
 		}
 		return '<a data-toggle="popover" data-html="true" data-content="'+events+'" data-placement="top" title="En este d&iacute;a:">'+day+'</a>'
 	}
