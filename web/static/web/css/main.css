@@ -97,6 +97,7 @@ body{
 .navbar{
 	background: url('../img/fondo.jpg') no-repeat center;
 	margin:0px;
+	border:0px;
 }
 
 .navbar-default .navbar-nav>li>a{
