@@ -114,8 +114,8 @@ class EfemerideMes(models.Model):
 		super(EfemerideMes,self).save(*args,**kwargs)
 		if (self.efemeride_set.all()!=[]):
 			self.efemeride_set.all().delete()
-		pattern = re.compile(ur"""dia:([0-9]+)\[(.+?)\]""",flags=re.UNICODE)
-		pattern2 = re.compile(ur"""([0-9]+) +\| +([\W\D .]+)""",flags=re.UNICODE)
+		pattern = re.compile(ur"""dia:([0-9]+) *\[(.+?)\]""",flags=re.UNICODE)
+		pattern2 = re.compile(ur"""([0-9]+) *\| *([\W\D .]+)""",flags=re.UNICODE)
 		for (dia, efemeride) in re.findall(pattern,self.texto):
 			for (anio, efe) in re.findall(pattern2,efemeride):
 				efem = Efemeride()
