@@ -110,12 +110,12 @@ class EfemerideMes(models.Model):
 
 	def save(self,*args,**kwargs):
 		self.monthNumber = self.monthFromString(self.month)
-		self.texto = self.texto_org.replace('\n','').replace('\r','')
+		self.texto = self.texto_org.replace('\n','').replace('\r','').replace('"','&quot;')
 		super(EfemerideMes,self).save(*args,**kwargs)
 		if (self.efemeride_set.all()!=[]):
 			self.efemeride_set.all().delete()
-		pattern = re.compile(ur"""dia:([0-9]+)\[([\w |\-\u2013()\u201c\u201d,]+)\]""",flags=re.UNICODE)
-		pattern2 = re.compile(ur"""([0-9]+) +\| +([\W\D \-\u2013()\u201c\u201d,]+)""",flags=re.UNICODE)
+		pattern = re.compile(ur"""dia:([0-9]+) *\[(.+?)\]""",flags=re.UNICODE)
+		pattern2 = re.compile(ur"""([0-9]+) *\| *([\W\D .]+)""",flags=re.UNICODE)
 		for (dia, efemeride) in re.findall(pattern,self.texto):
 			for (anio, efe) in re.findall(pattern2,efemeride):
 				efem = Efemeride()
