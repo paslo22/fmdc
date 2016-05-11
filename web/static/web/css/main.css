@@ -116,7 +116,15 @@ body{
 #logo img{
 	height: 50px;
 	width: 135px;
-}	
+}
+
+#buscarArt{
+	margin-top: 58px;
+}
+
+#buscarArt input{
+	width: 100%;
+}
 
 @media (min-width: 768px){
 	#logo img{
@@ -134,7 +142,7 @@ body{
 	.nav{
 		width: 100%;
 	}
-	.nav li a{
+	.nav>li>a{
 		font-size: 12px;
 		padding:7px 0px;
 
@@ -146,8 +154,18 @@ body{
 }
 
 @media (min-width: 1024px){
-	.nav li a{
+	.nav>li>a{
 		font-size: 14px;
+	}
+
+	#buscarArt input{
+		width: 125%;
+	}
+}
+
+@media (min-width: 1200px){
+	#buscarArt input{
+		width: 170%;
 	}
 }
 

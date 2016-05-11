@@ -10,7 +10,7 @@ from django.template import Context
 from django.contrib.staticfiles.templatetags.staticfiles import static
 from PIL import Image
 import os, re, json
-from .models import Biografia, Efemeride, Discoteca, EfemerideMes
+from .models import Biografia, Efemeride, Discoteca, EfemerideMes, Artista
 from .forms import ContactForm
 from django.conf import settings
 
@@ -101,6 +101,16 @@ class BiografiaView(generic.ListView):
 class BiografiaDetailView(generic.DetailView):
 	model = Biografia
 	template_name = 'web/biografia.html'
+
+class BusquedaView(generic.ListView):
+	template_name = 'web/busqueda.html'
+
+	def get_queryset(self):
+		try:
+			filtro = self.kwargs['filtro']
+		except:
+			filtro = ''
+		return Artista.objects.filter(name__icontains=filtro).order_by('name')
 
 class DiscotecaView(generic.ListView):
 	template_name = 'web/discotecas.html'

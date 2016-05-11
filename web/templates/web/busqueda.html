@@ -1,0 +1,21 @@
+{% extends "web/base.html" %}
+{% block content %}
+	<div class="row" id='content'>
+		<h1 class="brown-text text-center"><strong>Biograf&iacute;as</strong></h1>
+			{% for artista in object_list %}
+				{% if artista.biografia %}
+					<a href="{% url 'biografia' artista.biografia.id %}" class="brown-text text-center"><h4><strong>{{ artista.biografia.name }}</strong></h4></a>
+				{% endif %}
+				{% empty %}
+				<p class="brown-text text-center">Su b&uacute;squeda no arroj&oacute; resultados.</p>
+			{% endfor %}
+		<h1 class="brown-text text-center"><strong>Discotecas</strong></h1>
+			{% for artista in object_list %}
+				{% if artista.discoteca %}
+					<a href="{% url 'discoteca' artista.discoteca.id %}" class="brown-text text-center"><h4><strong>{{ artista.discoteca.name }}</strong></h4></a>
+				{% endif %}
+				{% empty %}
+				<p class="brown-text text-center">Su b&uacute;squeda no arroj&oacute; resultados.</p>
+			{% endfor %}
+	</div>	
+{% endblock content %}
