@@ -36,9 +36,9 @@
 							<span class="icon-bar"></span>
 						</button>
 						<a href="{% url 'index' %}" class="pull-left" id="logo"><img src="{% static 'web/img/logo.png' %}" alt=""></a>
-						<form class="col-sm-4 col-md-5 form-inline pull-right hidden-xs" id="buscarArt">
+						<form class="col-sm-4 col-md-5 form-inline pull-right hidden-xs searchForm" id="buscarArt" data-source="busqueda">
 							<div class="form-group">
-								<input id= "name" type="text" data-source="busqueda" class="form-control" placeholder="Buscar">
+								<input name="searchInput" type="text" class="form-control" placeholder="Buscar">
 							</div>
 							<button id="buscar" class="btn btn-primary pull-right">Buscar</button>
 						</form>

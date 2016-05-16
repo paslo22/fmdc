@@ -11,6 +11,7 @@ from django.contrib.staticfiles.templatetags.staticfiles import static
 from PIL import Image
 import os, re, json
 from .models import Biografia, Efemeride, Discoteca, EfemerideMes, Artista
+from django.db.models import Q
 from .forms import ContactForm
 from django.conf import settings
 
@@ -85,6 +86,32 @@ class GaleriaDetailView(generic.DetailView):
 		obj['name'] = path.replace('/','')
 		return obj
 
+# class VideoView(generic.DetailView):
+# 	template_name = 'web/videoWithLetters.html'
+
+# 	def get_object(self):
+# 		obj = {}
+# 		img = []
+# 		pat = re.compile(ur'(.+)\.mp4', re.UNICODE)
+# 		try:
+# 			path = self.kwargs['path']
+# 		except:
+# 			raise Http404("Videos no existe")
+# 		if path == None:
+# 			path = ''
+# 		path = unicode(path)
+# 		for url in os.listdir((settings.MEDIA_ROOT + 'archive/Galeria/Videos/' + path).encode('utf-8')):
+# 			try:
+# 				url = unicode(url.decode('utf-8'))
+# 				re.match(pat,url).group(1)
+# 			except:
+# 				continue
+# 			img.append({'url':settings.MEDIA_URL + 'archive/Galeria/Videos/' + path + '/' + url,
+# 						'name':re.match(pat,url).group(1)
+# 						})
+# 		obj['videos'] = img
+# 		return obj
+
 class BiografiaView(generic.ListView):
 	template_name = 'web/biografias.html'
 
@@ -96,7 +123,12 @@ class BiografiaView(generic.ListView):
 		if (filtro == '') | (filtro == None):
 			return Biografia.objects.all().order_by('name__name')
 		else:
-			return Biografia.objects.filter(name__name__icontains=filtro[:-1]).order_by('name__name')
+			values = filtro[:-1].split()
+			queries = [Q(name__name__icontains=value) for value in values]
+			query = queries.pop()
+			for item in queries:
+				query &= item
+			return Biografia.objects.filter(query).order_by('name__name')
 
 class BiografiaDetailView(generic.DetailView):
 	model = Biografia
@@ -110,7 +142,12 @@ class BusquedaView(generic.ListView):
 			filtro = self.kwargs['filtro']
 		except:
 			filtro = ''
-		return Artista.objects.filter(name__icontains=filtro).order_by('name')
+		values = filtro.split()
+		queries = [Q(name__icontains=value) for value in values]
+		query = queries.pop()
+		for item in queries:
+			query &= item
+		return Artista.objects.filter(query).order_by('name')
 
 class DiscotecaView(generic.ListView):
 	template_name = 'web/discotecas.html'
@@ -123,7 +160,12 @@ class DiscotecaView(generic.ListView):
 		if (filtro == '') | (filtro == None):
 			return Discoteca.objects.all().order_by('name__name')
 		else:
-			return Discoteca.objects.filter(name__name__icontains=filtro[:-1]).order_by('name__name')
+			values = filtro[:-1].split()
+			queries = [Q(name__name__icontains=value) for value in values]
+			query = queries.pop()
+			for item in queries:
+				query &= item
+			return Discoteca.objects.filter(query).order_by('name__name')
 
 class DiscotecaDetailView(generic.DetailView):
 	model = Discoteca
