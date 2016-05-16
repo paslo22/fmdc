@@ -19,12 +19,7 @@
 				{% endfor %}
 			</ul>
 			<ul class="col-sm-6">
-				<h2 class="text-center brown-text"><strong>Videos</strong></h2>
-				{% for video in object_list.videos %}
-					
-				{% empty %}
-					<p class="brown-text text-center">A&uacute;n no hay videos cargados.</p>
-				{% endfor %}
+				<a href="{% url 'videos' %}"><h2 class="text-center brown-text"><strong>Videos</strong></h2></a>
 			</ul>
 		</div>
 {% endblock content %}

@@ -86,31 +86,31 @@ class GaleriaDetailView(generic.DetailView):
 		obj['name'] = path.replace('/','')
 		return obj
 
-# class VideoView(generic.DetailView):
-# 	template_name = 'web/videoWithLetters.html'
+class VideoView(generic.DetailView):
+	template_name = 'web/videoWithLetters.html'
 
-# 	def get_object(self):
-# 		obj = {}
-# 		img = []
-# 		pat = re.compile(ur'(.+)\.mp4', re.UNICODE)
-# 		try:
-# 			path = self.kwargs['path']
-# 		except:
-# 			raise Http404("Videos no existe")
-# 		if path == None:
-# 			path = ''
-# 		path = unicode(path)
-# 		for url in os.listdir((settings.MEDIA_ROOT + 'archive/Galeria/Videos/' + path).encode('utf-8')):
-# 			try:
-# 				url = unicode(url.decode('utf-8'))
-# 				re.match(pat,url).group(1)
-# 			except:
-# 				continue
-# 			img.append({'url':settings.MEDIA_URL + 'archive/Galeria/Videos/' + path + '/' + url,
-# 						'name':re.match(pat,url).group(1)
-# 						})
-# 		obj['videos'] = img
-# 		return obj
+	def get_object(self):
+		obj = {}
+		img = []
+		pat = re.compile(ur'(.+)\.mp4', re.UNICODE)
+		try:
+			path = self.kwargs['path']
+		except:
+			raise Http404("Videos no existe")
+		if path == None:
+			path = ''
+		path = unicode(path)
+		for url in os.listdir((settings.MEDIA_ROOT + 'archive/Galeria/Videos/' + path).encode('utf-8')):
+			try:
+				url = unicode(url.decode('utf-8'))
+				re.match(pat,url).group(1)
+			except:
+				continue
+			img.append({'url':settings.MEDIA_URL + 'archive/Galeria/Videos/' + path + '/' + url,
+						'name':re.match(pat,url).group(1)
+						})
+		obj['videos'] = img
+		return obj
 
 class BiografiaView(generic.ListView):
 	template_name = 'web/biografias.html'
