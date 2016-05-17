@@ -36,6 +36,12 @@
 							<span class="icon-bar"></span>
 						</button>
 						<a href="{% url 'index' %}" class="pull-left" id="logo"><img src="{% static 'web/img/logo.png' %}" alt=""></a>
+						<form class="col-sm-4 col-md-5 form-inline pull-right hidden-xs searchForm" id="buscarArt" data-source="busqueda">
+							<div class="form-group">
+								<input name="searchInput" type="text" class="form-control" placeholder="Buscar">
+							</div>
+							<button id="buscar" class="btn btn-primary pull-right">Buscar</button>
+						</form>
 						<!--<a href="http://www.sadaic.org.ar/" target="_blank" class="pull-right hidden-xs" id="sadaic"><img src="{% static 'web/img/sadaic.jpg' %}" alt=""></a>-->
 					</div>
 					<div class="collapse navbar-collapse" id="navbar-collapse">
@@ -105,6 +111,7 @@
 		<script src="{% static 'web/js/vendor/jquery-1.11.2.min.js' %}"></script>
 		<script src="{% static 'web/js/vendor/bootstrap.min.js' %}"></script>
 		<script src="{% static 'web/js/main.js' %}"></script>
+		<script src="{% static 'web/js/search.js' %}"></script>
 		{% block scriptPlus %}{% endblock scriptPlus %}
 	</body>
 </html>

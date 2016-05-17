@@ -19,4 +19,6 @@ urlpatterns = [
 	url(ur'^galerias/$',views.GaleriaView.as_view(), name='galerias'),
 	url(ur'^galeria/Fotos Chamameceros/(?P<path>[\w\d/ ]+/)?$',views.GaleriaCView.as_view(), name='galeriasC'),
 	url(ur'^galeria/(?P<path>[\w\d/ ]+/)?$', views.GaleriaDetailView.as_view(), name='galeria'),
+	url(ur'^videos/(?P<path>[\w\d/ ]+)?/?$', views.VideoView.as_view(), name='videos'),
+	url(ur'^busqueda/(?P<filtro>[\w ]+)?/$', views.BusquedaView.as_view(), name='busqueda'),
 ]

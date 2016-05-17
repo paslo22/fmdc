@@ -1,0 +1,64 @@
+{% extends "web/base.html" %}
+{% load staticfiles %}
+
+{% block headPlus %}
+	<link rel="stylesheet" href="{% static 'web/css/galeria.css' %}">
+{% endblock headPlus %}
+
+{% block activeGal %}active{% endblock activeGal %}
+
+{% block content %}
+	<div id="gal" class="row" style="padding:0px 15px;">
+		<h1 class="brown-text text-center"><strong>Videos</strong></h1>
+		<div class="btn-toolbar" role="toolbar">
+			<div class="btn-group"  role="group">
+				<a type="button" class="btn btn-primary" href="{% url 'videos' 'A/' %}">A</a>
+				<a type="button" class="btn btn-primary" href="{% url 'videos' 'B/' %}">B</a>
+				<a type="button" class="btn btn-primary" href="{% url 'videos' 'C/' %}">C</a>
+				<a type="button" class="btn btn-primary" href="{% url 'videos' 'D/' %}">D</a>
+				<a type="button" class="btn btn-primary" href="{% url 'videos' 'E/' %}">E</a>
+				<a type="button" class="btn btn-primary" href="{% url 'videos' 'F/' %}">F</a>
+				<a type="button" class="btn btn-primary" href="{% url 'videos' 'G/' %}">G</a>
+				<a type="button" class="btn btn-primary" href="{% url 'videos' 'H/' %}">H</a>
+				<a type="button" class="btn btn-primary" href="{% url 'videos' 'I/' %}">I</a>
+				<a type="button" class="btn btn-primary" href="{% url 'videos' 'J/' %}">J</a>
+				<a type="button" class="btn btn-primary" href="{% url 'videos' 'K/' %}">K</a>
+				<a type="button" class="btn btn-primary" href="{% url 'videos' 'L/' %}">L</a>
+				<a type="button" class="btn btn-primary" href="{% url 'videos' 'M/' %}">M</a>
+				<a type="button" class="btn btn-primary" href="{% url 'videos' 'N/' %}">N</a>
+				<a type="button" class="btn btn-primary" href="{% url 'videos' 'Ñ/' %}">&Ntilde;</a>
+				<a type="button" class="btn btn-primary" href="{% url 'videos' 'O/' %}">O</a>
+				<a type="button" class="btn btn-primary" href="{% url 'videos' 'P/' %}">P</a>
+				<a type="button" class="btn btn-primary" href="{% url 'videos' 'Q/' %}">Q</a>
+				<a type="button" class="btn btn-primary" href="{% url 'videos' 'R/' %}">R</a>
+				<a type="button" class="btn btn-primary" href="{% url 'videos' 'S/' %}">S</a>
+				<a type="button" class="btn btn-primary" href="{% url 'videos' 'T/' %}">T</a>
+				<a type="button" class="btn btn-primary" href="{% url 'videos' 'U/' %}">U</a>
+				<a type="button" class="btn btn-primary" href="{% url 'videos' 'V/' %}">V</a>
+				<a type="button" class="btn btn-primary" href="{% url 'videos' 'W/' %}">W</a>
+				<a type="button" class="btn btn-primary" href="{% url 'videos' 'X/' %}">X</a>
+				<a type="button" class="btn btn-primary" href="{% url 'videos' 'Y/' %}">Y</a>
+				<a type="button" class="btn btn-primary" href="{% url 'videos' 'Z/' %}">Z</a>
+			</div>
+		</div>
+		<div class="my-gallery" style="margin-top:20px;">
+			{% for video in object.videos %}
+				<div class="col-md-6 col-xs-12">
+					<div class="thumbnail">
+						<video preload="metadata" controls style="max-width:100%;">
+							<source src="{{video.url}}" type="video/mp4">Su explorador es antiguo. Actualicelo para reproducir videos.
+						</video>
+						<h3>{{video.name}}</h3>
+					</div>
+				</div>
+				
+				{% empty %}
+					{% if request.path|length > 8 %}
+						<h2 class="brown-text text-center">No poseemos videos relacionados con esta letra.</h2>
+					{% else %}
+						<h2 class="brown-text text-center">Presione en cualquier letra para ver videos relacionados con esa letra. </h2>
+					{% endif %}
+			{% endfor %}
+		</div>
+	</div>
+{% endblock content %}
