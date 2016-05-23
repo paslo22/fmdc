@@ -16,8 +16,8 @@ def index(request):
 	return render(request, 'web/index.html')
 
 def imgLaterales(request):
-	urls = [os.path.join(settings.MEDIA_URL,fn) for fn in os.listdir(settings.MEDIA_ROOT+'Laterales/')]
-	return HttpResponse(json.dumps(random.sample(urls,10), cls=DjangoJSONEncoder, ensure_ascii=False))
+	urls = [os.path.join(settings.MEDIA_URL+'Laterales/',fn) for fn in os.listdir(settings.MEDIA_ROOT+'Laterales/')]
+	return HttpResponse(json.dumps(random.sample(urls,12), cls=DjangoJSONEncoder, ensure_ascii=False))
 
 class GaleriaView(generic.ListView):
 	template_name = 'web/galerias.html'
