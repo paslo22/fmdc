@@ -1,22 +1,26 @@
 # -*- coding: utf-8 -*- 
 from django.shortcuts import render,redirect
-from django.http import Http404
+from django.http import Http404, HttpResponse
 from django.views import generic
 from datetime import datetime
-from django.template.loader import get_template
 from django.core.mail import EmailMessage
 from django.core.serializers.json import DjangoJSONEncoder
-from django.template import Context
-from django.contrib.staticfiles.templatetags.staticfiles import static
 from PIL import Image
-import os, re, json
-from .models import Biografia, Efemeride, Discoteca, EfemerideMes, Artista, Actividad
+import os, re, json, random
+from .models import Biografia, Efemeride, Discoteca, EfemerideMes, Artista
+
 from django.db.models import Q
 from .forms import ContactForm
 from django.conf import settings
 
 def index(request):
 	return render(request, 'web/index.html')
+
+def imgLaterales(request):
+	if not request.is_ajax():
+		raise Http404('No se puede acceder a esta url.')
+	urls = [os.path.join(settings.MEDIA_URL+'Laterales/',fn) for fn in os.listdir(settings.MEDIA_ROOT+'Laterales/')]
+	return HttpResponse(json.dumps(random.sample(urls,12), cls=DjangoJSONEncoder, ensure_ascii=False))
 
 class GaleriaView(generic.ListView):
 	template_name = 'web/galerias.html'

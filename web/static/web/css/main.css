@@ -194,6 +194,65 @@ address{
 	border-left: 1px #fff solid;
 }
 
+.lateral{
+	-webkit-filter: sepia(100%) blur(1px); /* Chrome, Safari, Opera */
+	filter: sepia(100%) blur(1px);
+	max-height: 200px;
+	max-width: 150px;
+	position: absolute;
+}
+
+.lateral-left{
+	left:-135px;
+}
+
+.lateral-right{
+	left:1155px;
+}
+
+.lateral-active{
+	opacity: 1;
+	animation-name: example;
+	animation-duration: 20s;
+	animation-iteration-count: infinite;
+	animation-direction: alternate;
+}
+
+.lateral-delay{
+	opacity: 0;
+	animation-name: example1;
+	animation-duration: 20s;
+	animation-iteration-count: infinite;
+	animation-direction: alternate;
+}
+
+body>.container{
+	position: relative;
+}
+
+@keyframes example {
+	0% {
+		opacity: 1;
+	}
+	50% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+
+@keyframes example1 {
+	0% {
+		opacity: 0;
+	}
+	50% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0;
+	}
+}
 
 
 /* ==========================================================================

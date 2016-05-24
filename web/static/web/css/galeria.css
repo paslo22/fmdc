@@ -27,3 +27,12 @@
 		width:938px;
 	}
 }
+
+.img{
+	position: relative;
+}
+
+.loading{
+	position: absolute;
+	background: rgba(0,0,0,0.7);
+}

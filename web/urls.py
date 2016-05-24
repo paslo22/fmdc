@@ -22,4 +22,5 @@ urlpatterns = [
 	url(ur'^galeria/(?P<path>[\w\d/ ]+/)?$', views.GaleriaDetailView.as_view(), name='galeria'),
 	url(ur'^videos/(?P<path>[\w\d/ ]+)?/?$', views.VideoView.as_view(), name='videos'),
 	url(ur'^busqueda/(?P<filtro>[\w ]+)?/$', views.BusquedaView.as_view(), name='busqueda'),
+	url(ur'^imagenesLaterales/$', views.imgLaterales, name='imagenesLaterales'),
 ]
