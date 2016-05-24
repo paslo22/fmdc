@@ -1,0 +1,69 @@
+{% extends "web/base.html" %}
+{% load staticfiles %}
+
+{% block headPlus %}
+	<link rel="stylesheet" href="{% static 'web/css/actividad.css' %}">
+	<link rel="stylesheet" href="{% static 'web/css/photoswipe.css' %}">
+	<link rel="stylesheet" href="{% static 'web/css/default-skin/default-skin.css' %}">
+
+{% endblock headPlus %}
+
+{% block scriptPlus %}
+	<script src="{% static 'web/js/photoswipe.min.js' %}"></script>
+	<script src="{% static 'web/js/photoswipe-ui-default.min.js' %}"></script>
+	<script src="{% static 'web/js/galeria.js' %}"></script>
+{% endblock scriptPlus %}
+
+{% block activeAct %}active{% endblock activeAct %}
+
+{% block content %}
+	{% include "web/photoswipe.html" %}
+	<div class="row">
+		{% for actividad in actividades %}
+			<div class="col-md-12 col-xs-12">
+			<h1 class="brown-text text-center"><strong>{{actividad.title}}</strong></h1>
+			<h4 class="brown-text text-center">{{actividad.description}}</h4>
+				<div class="thumbnail">
+					{% if actividad.video_set %}
+						{% for video in actividad.video_set.all %}
+							<h3>{{video.name}}</h3>
+							<video preload="metadata" controls style="max-width:100%;">
+								<source src="{{video.link.url}}" type="video/mp4">Su explorador es antiguo. Actualicelo para reproducir videos.
+							</video>
+
+						{% endfor %}
+					{% endif %}
+				</div>
+			</div>
+
+			<div class="col-sm-12 col-md-12 col-xs-12">
+				{% if actividad.actividadimage_set %}
+						{% for im in actividad.actividadimage_set.all %}
+							<div class="my-gallery{{im.pk}}" itemscope itemtype="http://schema.org/ImageGallery">
+
+								<figure class="ActividadImage col-md-3 col-xs-12 col-sm-3"  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject" >
+														<a href="{{im.link.url}}" itemprop="contentUrl" data-size="{{im.link.width}}x{{im.link.height}}">
+															<img src="{{im.link.url}}" itemprop="thumbnail">
+														</a>
+
+														<figcaption itemprop="brown-text caption description"><strong>{{im.name}}</strong></figcaption>
+
+								</figure>
+							</div>
+
+						{% endfor %}
+
+				{% endif %}
+
+			</div>	
+
+			
+
+
+		{% endfor %}
+
+		
+	</div>
+
+
+{% endblock content %}

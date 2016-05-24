@@ -10,7 +10,7 @@ from django.template import Context
 from django.contrib.staticfiles.templatetags.staticfiles import static
 from PIL import Image
 import os, re, json
-from .models import Biografia, Efemeride, Discoteca, EfemerideMes, Artista
+from .models import Biografia, Efemeride, Discoteca, EfemerideMes, Artista, Actividad
 from django.db.models import Q
 from .forms import ContactForm
 from django.conf import settings
@@ -293,3 +293,6 @@ def error404(request):
 
 def error500(request):
 	return render(request,'web/500.html')
+
+def actividades(request):
+	return render(request, 'web/actividades.html', {'actividades':Actividad.objects.all()})

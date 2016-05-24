@@ -184,3 +184,43 @@ class ImageAlbum(models.Model):
 	class Meta:
 		verbose_name='Imagen'
 		verbose_name_plural='Imagenes'
+
+@python_2_unicode_compatible
+class Actividad(models.Model):
+	title = models.CharField('Título', max_length=100)
+	description = models.TextField('Descripción', max_length=500)
+
+	def __str__(self):
+		return self.title
+
+	def htmlText(self,txt):
+		texto = u'<p class="text-justify">'
+		texto+= txt.replace(u'\n', u'</p><p class="text-justify">')
+		texto+= u'\r</p>'
+		texto = texto.replace(u'<p class="text-justify">\r</p>',u'')
+		return texto
+
+	
+
+@python_2_unicode_compatible
+class Video(models.Model):
+	name = models.CharField(max_length=100)
+	videos = models.ForeignKey(Actividad, default=None)
+	link = models.FileField('Video', upload_to='videos/', default='')
+
+	def __str__(self):
+		return self.name
+
+
+@python_2_unicode_compatible
+class ActividadImage(models.Model):
+	name = models.CharField(max_length=100)
+	act = models.ForeignKey(Actividad, default=None)
+	link = models.ImageField('Imagen',upload_to='images/', default='')
+
+	def __str__(self):
+		return self.name
+
+	class Meta:
+		verbose_name='Imagen'
+		verbose_name_plural='Imagenes'

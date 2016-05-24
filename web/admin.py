@@ -53,6 +53,17 @@ class AlbumInline(nested_admin.NestedStackedInline):
 	classes = ('grp-collapse grp-open',)
 	inline_classes = ('grp-collapse grp-open',)
 
+class VideoInline(nested_admin.NestedStackedInline):
+	model = Video
+	extra = 1
+	classes = ('grp-collapse grp-open',)
+	inline_classes = ('grp-collapse grp-open',)	
+
+class ActividadImageInline(nested_admin.NestedStackedInline):
+	model = ActividadImage
+	classes = ('grp-collapse grp-open',)
+	inline_classes = ('grp-collapse grp-open',)
+
 class DiscotecaAdmin(nested_admin.NestedModelAdmin):
 	inlines = [
 		AlbumInline,
@@ -60,4 +71,16 @@ class DiscotecaAdmin(nested_admin.NestedModelAdmin):
 	search_fields=('name__name',)
 	raw_id_fields=('name',)
 
+
 admin.site.register(Discoteca,DiscotecaAdmin)
+
+class ActividadAdmin(admin.ModelAdmin):
+	inlines = [
+		VideoInline,
+		ActividadImageInline,
+	]
+	exclude = ('text',)
+	search_fields=('title__title',)
+	
+
+admin.site.register(Actividad, ActividadAdmin)

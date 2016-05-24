@@ -12,6 +12,7 @@ urlpatterns = [
 	url(r'^letras/(?P<path>[\w\d/ ]+/)?$', views.LetrasCView.as_view(), name='letrasC'),
 	url(r'^contacto/$', views.contacto, name='contacto'),
 	url(r'^construccion/$', views.construccion, name='construccion'),
+	url(r'^actividades/$', views.actividades, name='actividades'),
 	url(r'^efemerides/$', views.efemerides, name='efemerides'),
 	url(r'^benefactores/$', views.benefactores, name='benefactores'),
 	url(ur'^discotecas/(?P<filtro>[\w ]+/)?$', views.DiscotecaView.as_view(), name='discotecas'),
