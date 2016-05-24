@@ -10,6 +10,7 @@
 {% block scriptPlus %}
 	<script src="{% static 'web/js/photoswipe.min.js' %}"></script>
 	<script src="{% static 'web/js/photoswipe-ui-default.min.js' %}"></script>
+	<script src="{% static 'web/js/loading.js' %}"></script>
 	<script src="{% static 'web/js/galeria.js' %}"></script>
 {% endblock scriptPlus %}
 
@@ -17,7 +18,7 @@
 
 {% block content %}
 	{% include "web/photoswipe.html" %}
-	<div class="row" style="padding:0px 15px;">
+	<div class="row img" style="padding:0px 15px;">
 		<h1 class="brown-text text-center"><strong>Galeria de {{object.name}}</strong></h1>
 		<div class="my-gallery" itemscope itemtype="http://schema.org/ImageGallery">
 			{% for image in object.images %}
@@ -29,5 +30,10 @@
 				</figure>
 			{% endfor %}
 		</div>
+		{% if object.images %}		
+			<div class="loading text-center">
+				<h1 class="white-text">CARGANDO...</h1>
+			</div>
+		{% endif %}
 	</div>
 {% endblock content %}
