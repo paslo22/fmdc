@@ -7,7 +7,7 @@ from django.core.mail import EmailMessage
 from django.core.serializers.json import DjangoJSONEncoder
 from PIL import Image
 import os, re, json, random
-from .models import Biografia, Efemeride, Discoteca, EfemerideMes, Artista
+from .models import Biografia, Efemeride, Discoteca, EfemerideMes, Artista,Actividad
 
 from django.db.models import Q
 from .forms import ContactForm
