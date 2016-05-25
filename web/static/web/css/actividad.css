@@ -1,3 +1,16 @@
 .ActividadImage img{
 	width: 100%;
 }
+
+.contenedor{
+	border-bottom: 15px #310900 solid;
+	margin-top:5px;
+}
+
+h1,h2,h3,h4{
+	color:#310900;
+}
+
+.fecha{
+	text-align: right;
+}

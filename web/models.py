@@ -3,10 +3,11 @@ from __future__ import unicode_literals
 import re
 from django.db import models
 from django.conf import settings
-import datetime
+from datetime import datetime,date
 from copy import copy
 from django.contrib.staticfiles.templatetags.staticfiles import static
 from django.utils.encoding import python_2_unicode_compatible
+from .validators import validate_file_extension
 
 @python_2_unicode_compatible
 class Artista(models.Model):
@@ -189,6 +190,8 @@ class ImageAlbum(models.Model):
 class Actividad(models.Model):
 	title = models.CharField('Título', max_length=100)
 	description = models.TextField('Descripción', max_length=500)
+	fecha = models.DateField('Fecha', default=date.today)
+
 
 	def __str__(self):
 		return self.title
@@ -200,13 +203,16 @@ class Actividad(models.Model):
 		texto = texto.replace(u'<p class="text-justify">\r</p>',u'')
 		return texto
 
+	class Meta:
+		verbose_name='Actividad'
+		verbose_name_plural='Actividades'
 	
 
 @python_2_unicode_compatible
 class Video(models.Model):
 	name = models.CharField(max_length=100)
 	videos = models.ForeignKey(Actividad, default=None)
-	link = models.FileField('Video', upload_to='videos/', default='')
+	link = models.FileField('Video', upload_to='videos/', validators=[validate_file_extension] ,default='')
 
 	def __str__(self):
 		return self.name
