@@ -55,11 +55,13 @@ class AlbumInline(nested_admin.NestedStackedInline):
 
 class VideoInline(nested_admin.NestedStackedInline):
 	model = Video
+	extra = 1
 	classes = ('grp-collapse grp-open',)
 	inline_classes = ('grp-collapse grp-open',)	
 
 class ActividadImageInline(nested_admin.NestedStackedInline):
 	model = ActividadImage
+	extra = 1
 	classes = ('grp-collapse grp-open',)
 	inline_classes = ('grp-collapse grp-open',)
 
@@ -73,7 +75,7 @@ class DiscotecaAdmin(nested_admin.NestedModelAdmin):
 
 admin.site.register(Discoteca,DiscotecaAdmin)
 
-class ActividadAdmin(admin.ModelAdmin):
+class ActividadAdmin(nested_admin.NestedModelAdmin):
 	inlines = [
 		VideoInline,
 		ActividadImageInline,
