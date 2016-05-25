@@ -55,7 +55,6 @@ class AlbumInline(nested_admin.NestedStackedInline):
 
 class VideoInline(nested_admin.NestedStackedInline):
 	model = Video
-	extra = 1
 	classes = ('grp-collapse grp-open',)
 	inline_classes = ('grp-collapse grp-open',)	
 
