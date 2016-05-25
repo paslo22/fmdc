@@ -19,9 +19,13 @@
 {% block content %}
 	{% include "web/photoswipe.html" %}
 	<div class="row">
-		<h1 class="brown-text text-center" style="text-decoration: underline;">Actividades de la Fundación  </h1>
+		<h1 class="brown-text text-center" style="text-decoration: 	underline;">Actividades de la Fundación  </h1>
 
-		{% for actividad in actividades|dictsortreversed:'fecha' %}
+		{% for actividad in actividades|dictsortreversed:'fecha' %}4
+
+				{% empty %}
+					<h2 class="brown-text text-center">No hay Actividades Cargadas</h2>
+				
 			
 			
 				<div class="col-md-12 col-xs-12">
