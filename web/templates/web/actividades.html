@@ -23,8 +23,7 @@
 
 		{% for actividad in actividades|dictsortreversed:'fecha' %}
 
-				{% empty %}
-					<h2 class="brown-text text-center">No hay Actividades Cargadas</h2>
+				
 				
 			
 			
@@ -68,6 +67,8 @@
 				</div>	
 
 			
+			{% empty %}
+					<h2 class="brown-text text-center">No hay Actividades Cargadas</h2>
 			
 
 
