@@ -8,7 +8,6 @@ from django.core.serializers.json import DjangoJSONEncoder
 from PIL import Image
 import os, re, json, random
 from .models import Biografia, Efemeride, Discoteca, EfemerideMes, Artista,Actividad
-
 from django.db.models import Q
 from .forms import ContactForm
 from django.conf import settings
@@ -234,8 +233,29 @@ class LetrasCView(generic.DetailView):
 		obj['images'] = img
 		return obj
 
-		
-		
+class ActividadView(generic.ListView):
+	template_name = 'web/actividadesLista.html'
+
+	def get_queryset(self):
+		try:
+			filtro = self.kwargs['filtro']
+		except:
+			filtro = ''
+		if (filtro == '') | (filtro == None):
+			return Actividad.objects.all().order_by('name')
+		else:
+			values = filtro[:-1].split()
+			queries = [Q(name__icontains=value) for value in values]
+			query = queries.pop()
+			for item in queries:
+				query &= item
+			return Actividad.objects.filter(query).order_by('name')
+
+	
+class ActividadDetailView(generic.DetailView):
+	model = Actividad
+	template_name = 'web/actividad.html'	
+
 
 def quienesSomos(request):
 	return render(request, 'web/quienesSomos.html')
@@ -298,5 +318,4 @@ def error404(request):
 def error500(request):
 	return render(request,'web/500.html')
 
-def actividades(request):
-	return render(request, 'web/actividades.html', {'actividades':Actividad.objects.all()})
+

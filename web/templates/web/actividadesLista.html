@@ -1,0 +1,35 @@
+{% extends "web/base.html" %}
+{% load staticfiles %}
+
+{% block activeArt %}active{% endblock activeArt %}
+
+{% block headPlus %}
+	<link rel="stylesheet" href="{% static 'web/css/biografias.css' %}">
+{% endblock headPlus %}
+
+{% block content %}
+	<div class="row" style="padding:0px 15px;">
+		<div class="row">
+			<h1 class="text-center brown-text col-sm-3 col-md-4 col-sm-offset-4"><strong>Actividades</strong></h1>
+			<form class="col-sm-5 col-md-4 form-inline searchForm" data-source="actividades">
+				<div class="form-group">
+					<input name="searchInput" type="text"  class="form-control" placeholder="Buscar">
+				</div>
+				<button id="buscar" class="btn btn-primary">Buscar</button>
+			</form>
+		</div>
+		<div class="row">
+			<ul class="col-sm-12">
+				{% for actividad in object_list|dictsortreversed:'fecha' %}
+					<a href="{% url 'actividad' actividad.id %}" class="brown-text text-center"><h4><strong>{{ actividad.name }}</strong></h4></a>
+					{% empty %}
+					<p class="brown-text text-center">Su b&uacute;squeda no arroj&oacute; resultados.</p>
+
+
+				{% endfor %}
+				
+
+			</ul>
+		</div>
+	</div>
+{% endblock content %}
