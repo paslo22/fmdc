@@ -188,13 +188,13 @@ class ImageAlbum(models.Model):
 
 @python_2_unicode_compatible
 class Actividad(models.Model):
-	name = models.CharField('Título', max_length=100)
+	name = models.CharField('Nombre', max_length=100)
 	description = models.TextField('Descripción', max_length=2000)
 	fecha = models.DateField('Fecha', default=date.today)
 
 
 	def __str__(self):
-		return self.title
+		return self.name
 
 	def htmlText(self,txt):
 		texto = u'<p class="text-justify">'
