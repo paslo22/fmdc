@@ -5,6 +5,9 @@
 	<link rel="stylesheet" href="{% static 'web/css/actividad.css' %}">
 	<link rel="stylesheet" href="{% static 'web/css/photoswipe.css' %}">
 	<link rel="stylesheet" href="{% static 'web/css/default-skin/default-skin.css' %}">
+	
+	
+
 
 {% endblock headPlus %}
 
@@ -32,22 +35,28 @@
 					<h2 class="text-center"><strong>{{actividad.name}}</strong></h2>
 					<h4 class="text-left">{{actividad.description}}</h4>
 					
-						<div class="thumbnail">
 							{% if actividad.video_set %}
 								{% for video in actividad.video_set.all %}
-									<h3>{{video.name}}</h3>
-									<video preload="metadata" controls style="max-width:100%;">
-										<source src="{{video.link.url}}" type="video/mp4">Su explorador es antiguo. Actualicelo para reproducir videos.
-									</video>
-
+									<div class="thumbnail">
+										<h3>{{video.name}}</h3>
+										<video preload="metadata" controls style="max-width:100%;">
+											<source src="{{video.link.url}}" type="video/mp4">Su explorador es antiguo. Actualicelo para reproducir videos.
+										</video>
+										
+									</div>
+										{% empty %}
 								{% endfor %}
+								
+
+								
+
+
 							{% endif %}
-						</div>
 				</div>
 
 				<div class="contenedor col-sm-12 col-md-12 col-xs-12">
 						{% if actividad.actividadimage_set %}
-								{% for im in actividad.actividadimage_set.all %}
+								{% for im in actividad.actividadimage_set.all|dictsort:'name' %}
 									<div class="my-gallery{{im.pk}}" itemscope itemtype="http://schema.org/ImageGallery">
 
 										<figure class="ActividadImage col-md-3 col-xs-12 col-sm-3"  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject" >
@@ -60,7 +69,10 @@
 										</figure>
 									</div>
 
+								
 								{% endfor %}
+
+
 
 						{% endif %}
 
