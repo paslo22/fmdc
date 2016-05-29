@@ -56,21 +56,21 @@
 
 				<div class="contenedor col-sm-12 col-md-12 col-xs-12">
 						{% if actividad.actividadimage_set %}
-								{% for im in actividad.actividadimage_set.all|dictsort:'name' %}
-									<div class="my-gallery{{im.pk}}" itemscope itemtype="http://schema.org/ImageGallery">
+								<div class="my-gallery" itemscope itemtype="http://schema.org/ImageGallery">
+									{% for im in actividad.actividadimage_set.all|dictsort:'name' %}
 
-										<figure class="ActividadImage col-md-3 col-xs-12 col-sm-3"  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject" >
-																<a href="{{im.link.url}}" itemprop="contentUrl" data-size="{{im.link.width}}x{{im.link.height}}">
-																	<img src="{{im.link.url}}" itemprop="thumbnail">
-																</a>
+											<figure class="ActividadImage col-md-3 col-xs-12 col-sm-3"  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject" >
+																	<a href="{{im.link.url}}" itemprop="contentUrl" data-size="{{im.link.width}}x{{im.link.height}}">
+																		<img src="{{im.link.url}}" itemprop="thumbnail">
+																	</a>
 
-																<figcaption itemprop="brown-text caption description"><strong>{{im.name}}</strong></figcaption>
+																	<figcaption itemprop="brown-text caption description"><strong>{{im.name}}</strong></figcaption>
 
-										</figure>
-									</div>
+											</figure>
 
 								
 								{% endfor %}
+									</div>
 
 
 
