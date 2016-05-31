@@ -280,6 +280,7 @@ def contacto(request):
 				form_content,
 				contact_email,
 				[settings.DEFAULT_FROM_EMAIL]
+				fail_silently=False
 			)
 			email.send()
 			return redirect('contacto')
