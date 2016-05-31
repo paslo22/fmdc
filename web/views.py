@@ -274,10 +274,11 @@ def contacto(request):
 			contact_email = request.POST.get(
 				'email'
 			, '')
-			form_content = request.POST.get('mensaje'+'enviado por:'contact_email, '')
+			form_content = request.POST.get('mensaje', '')
+			texto = form_content + ' correo enviado por: ' + contact_email
 			email = EmailMessage(
 				"Nuevo Mensaje desde la web de Fundacion Memorias del chamame",
-				form_content,
+				texto,
 				contact_email,
 				[settings.DEFAULT_FROM_EMAIL]
 
