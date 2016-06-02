@@ -120,7 +120,7 @@ class EfemerideMes(models.Model):
 		for (dia, efemeride) in re.findall(pattern,self.texto):
 			for (anio, efe) in re.findall(pattern2,efemeride):
 				efem = Efemeride()
-				efem.date = datetime.date(int(anio),self.monthNumber,int(dia))
+				efem.date = date(int(anio),self.monthNumber,int(dia))
 				efem.event = efe
 				efem.mes = self
 				efem.save()
