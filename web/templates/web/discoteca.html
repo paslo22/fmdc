@@ -13,6 +13,7 @@
 	<script src="{% static 'web/js/photoswipe.min.js' %}"></script>
 	<script src="{% static 'web/js/photoswipe-ui-default.min.js' %}"></script>
 	<script src="{% static 'web/js/galeria.js' %}"></script>
+	<script src="{% static 'web/js/playlist.js' %}"></script>
 {% endblock scriptPlus %}
 
 {% block content %}
@@ -33,8 +34,11 @@
 				<div class="collapse" id="collapseExample{{album.pk}}">
 					<div class="well">
 						<div class="row clearfix">
-							<div class="col-xs-12 col-sm-9">
+							<div class="col-xs-12 col-sm-9" id="album{{album.pk}}">
 								{{album.songString | safe}}
+							</div>
+							<div class="col-sm-3 col-xs12 text-center">
+								<button class="btn btn-primary playAll" style="margin:15px auto" data-albumId="album{{album.pk}}">Reproducir alb&uacute;m</button>
 							</div>
 							{% if album.tapa or album.lamina %}
 								<div class="my-gallery{{album.pk}}" itemscope itemtype="http://schema.org/ImageGallery">
