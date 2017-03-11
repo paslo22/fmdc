@@ -104,19 +104,6 @@ body{
 	color:white;
 }
 
-#sadaic img{
-	height: 90px;
-	width: 278px;
-}
-
-#logo{
-	padding: 0px;
-}
-
-#logo img{
-	height: 50px;
-	width: 135px;
-}
 
 #buscarArt{
 	margin-top: 58px;
@@ -126,15 +113,57 @@ body{
 	width: 100%;
 }
 
-@media (min-width: 768px){
-	#logo img{
-		height: 140px;
-		width: 348px;
+@media (min-width: 320px){
+
+	.sadaic-col{
+
+		
 	}
 
-	#logo{
-		padding-bottom: 10px;
+	.sadaic-col #sadaic img{
+		height:25px; 
+		width:60px;
+		margin-top:15px;
+		float:right;
+
 	}
+
+	.logo-col #logo img{
+		height:25px; 
+		width:60px;
+		margin-top:15px;
+		float:left;
+
+	}
+
+	.logo-col #logo a{
+		float:left;
+	}
+
+	.sadaic-col #sadaic a {
+		float: right;
+	}
+
+	
+
+
+}
+
+@media (min-width: 768px){
+	.logo-col #logo img{
+		height: 120px;
+		width: 300px;
+	}
+
+	.sadaic-col #sadaic img{
+		height: 120px;
+		width: 300px;
+
+	}
+	#footer {
+		font-size: 11px;
+	}
+
 	.navbar-header{
 		padding: 0px 15px;
 		width: 100%;
@@ -146,12 +175,24 @@ body{
 		font-size: 12px;
 		padding:7px 0px;
 
+
 	}
 	.seven-cols .seven{
 		width: 10%;
 		*width: 10%;
 	}
+	
+	.institucional{
+		width:63px;
+		height: 54px;
+		margin-left:3px;
+	}
+	#buscar{
+		margin-top: 10px;
+	}
 }
+
+
 
 @media (min-width: 1024px){
 	.nav>li>a{
@@ -160,6 +201,28 @@ body{
 
 	#buscarArt input{
 		width: 125%;
+	}
+	#buscarArt{
+		margin-bottom: 20px;
+	}
+
+	#buscar {
+		margin-top: 0px;
+	}
+
+	.sadaic-col #sadaic img{
+		width: 420px;
+		height: 120px;
+
+
+	}
+
+	.logo-col #logo img{
+		width:420px;
+		height: 120px;
+	}
+	#footer {
+		font-size: 14px;
 	}
 }
 
@@ -180,7 +243,6 @@ body{
 
 #footer{
 	margin: 0px 15px;
-	padding-top: 10px;
 	background: rgb(100,49,18);
 	height: 80px;
 }
