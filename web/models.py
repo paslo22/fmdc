@@ -189,7 +189,7 @@ class ImageAlbum(models.Model):
 @python_2_unicode_compatible
 class Actividad(models.Model):
 	name = models.CharField('Nombre', max_length=100)
-	description = models.TextField('Descripción', max_length=2000)
+	description = models.TextField('Descripción', max_length=20000)
 	fecha = models.DateField('Fecha', default=date.today)
 
 
