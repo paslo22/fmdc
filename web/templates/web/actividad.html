@@ -24,16 +24,10 @@
 	<div class="row">
 		<h1 class="brown-text text-center" style="text-decoration: 	underline;">Actividades de la Fundación  </h1>
 
-		
-
-				
-				
-			
-			
 				<div class="col-md-12 col-xs-12">
 					<h3 class="fecha text-left">{{actividad.fecha}}</h3>
 					<h2 class="text-center"><strong>{{actividad.name}}</strong></h2>
-					<h4 class="text-left">{{actividad.description}}</h4>
+					<h4 class="text-actividad">{{actividad.description|safe}}</h4>
 					
 							{% if actividad.video_set %}
 								{% for video in actividad.video_set.all %}
@@ -46,10 +40,6 @@
 									</div>
 										{% empty %}
 								{% endfor %}
-								
-
-								
-
 
 							{% endif %}
 				</div>
@@ -68,11 +58,8 @@
 
 											</figure>
 
-								
 								{% endfor %}
 									</div>
-
-
 
 						{% endif %}
 

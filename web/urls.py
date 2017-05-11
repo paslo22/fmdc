@@ -1,4 +1,4 @@
-from django.conf.urls import url
+from django.conf.urls import url, include
 from . import views
 
 urlpatterns = [
@@ -24,4 +24,5 @@ urlpatterns = [
 	url(ur'^videos/(?P<path>[\w\d/ ]+)?/?$', views.VideoView.as_view(), name='videos'),
 	url(ur'^busqueda/(?P<filtro>[\w ]+)?/$', views.BusquedaView.as_view(), name='busqueda'),
 	url(ur'^imagenesLaterales/$', views.imgLaterales, name='imagenesLaterales'),
+	url(r'^tinymce/', include('tinymce.urls')),
 ]

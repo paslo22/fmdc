@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'bootstrap3',
     'django_cleanup',
     'nested_admin',
+    'tinymce',
 ]
 
 MIDDLEWARE_CLASSES = [

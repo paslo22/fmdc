@@ -8,6 +8,7 @@ from copy import copy
 from django.contrib.staticfiles.templatetags.staticfiles import static
 from django.utils.encoding import python_2_unicode_compatible
 from .validators import validate_file_extension
+from tinymce import models as tinymce_models
 
 @python_2_unicode_compatible
 class Artista(models.Model):
@@ -189,7 +190,7 @@ class ImageAlbum(models.Model):
 @python_2_unicode_compatible
 class Actividad(models.Model):
 	name = models.CharField('Nombre', max_length=100)
-	description = models.TextField('Descripción', max_length=20000)
+	description = tinymce_models.HTMLField()
 	fecha = models.DateField('Fecha', default=date.today)
 
 
