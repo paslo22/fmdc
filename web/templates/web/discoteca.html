@@ -14,6 +14,14 @@
 	<script src="{% static 'web/js/photoswipe-ui-default.min.js' %}"></script>
 	<script src="{% static 'web/js/galeria.js' %}"></script>
 	<script src="{% static 'web/js/playlist.js' %}"></script>
+	<script>
+	    $(document).ready(function() {
+		      audios = $('audio');
+		      $.each(audios, function(key,value) {
+		      	$(this).prop("controlsList", "nodownload");
+		      }); 
+	    });
+  </script>
 {% endblock scriptPlus %}
 
 {% block content %}
