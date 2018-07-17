@@ -82,13 +82,9 @@ WSGI_APPLICATION = 'fmdc.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'fmdc',
-        'USER': 'fmdc',
-        'PASSWORD': 'fmdc1745',
-        'HOST': 'localhost',
-        'PORT': '',
-    }
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    }   
 }
 
 
@@ -135,9 +131,15 @@ MEDIA_ROOT = os.path.join(BASE_DIR,'web/media/')
 MEDIA_URL = '/media/'
 
 #EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+try:
+    from .email_settings import *
+except ImportError:
+    EMAIL_USER = ''
+    EMAIL_PASSWORD = ''
+    
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER  = 'pedrozubieta@gmail.com'
-EMAIL_HOST_PASSWORD = 'JuPe3420'
+EMAIL_HOST_USER  = EMAIL_USER
+EMAIL_HOST_PASSWORD = EMAIL_PASSWORD
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 
