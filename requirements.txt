@@ -6,3 +6,4 @@ django-nested-admin
 Pillow
 django-grappelli
 django-tinymce
+raven
