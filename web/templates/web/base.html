@@ -132,6 +132,11 @@
 		<script src="{% static 'web/js/main.js' %}"></script>
 		<script src="{% static 'web/js/search.js' %}"></script>
 		<script src="{% static 'web/js/laterales.js' %}"></script>
+		<script>
+			$(document).ready(function(){
+				$('body').on('contextmenu', 'img', function(e){ return false; });
+			});
+		</script>
 		{% block scriptPlus %}{% endblock scriptPlus %}
 	</body>
 </html>
