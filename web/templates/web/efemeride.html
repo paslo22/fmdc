@@ -1,6 +1,10 @@
 {% extends "web/base.html" %}
 {% load staticfiles %}
 
+{% block headPlus %}
+	<link rel="stylesheet" href="{% static 'web/css/efemeride.css' %}">
+{% endblock headPlus %}
+
 {% block activeEfe %}active{% endblock activeEfe %}
 
 {% block scriptPlus %}
@@ -14,7 +18,7 @@
 	<div class="row" style="padding:0px 15px;">
 		<h1 class="text-center brown-text"><strong>Un d&iacute;a como hoy</strong></h1>
 		{% for efe in efemerides %}
-			<h3>{{efe.date.year}}: {{efe.event}}</h3>
+			<h3 class="noselect">{{efe.date.year}}: {{efe.event}}</h3>
 			{% empty %}
 			<h3 class="brown-text text-center">No hay efemerides para hoy.</h3>
 		{% endfor %}
