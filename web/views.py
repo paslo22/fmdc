@@ -56,7 +56,8 @@ class GaleriaCView(generic.DetailView):
 						'height':im.size[1],
 						'name':re.match(pat,url).group(1)
 						})
-		obj['images'] = img
+        obj['images'] = img[0:4]
+        obj['lazyImages'] = img[4:]
 		return obj
 
 class GaleriaDetailView(generic.DetailView):
@@ -85,7 +86,8 @@ class GaleriaDetailView(generic.DetailView):
 						'height':im.size[1],
 						'name':re.match(pat,url).group(1)
 						})
-		obj['images'] = img
+		obj['images'] = img[0:4]
+        obj['lazyImages'] = img[4:]
 		obj['name'] = path.replace('/','')
 		return obj
 
