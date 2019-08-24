@@ -30,9 +30,7 @@ $(document).ready(function($) {
 			});
 			audio = getAudio(index,tracks);
 			audio.play();		
-		}else{
-			console.log('No se puede reproducir')
-		}		
+		}	
 	}
 	$('.playAll').click(function(e) {
 		e.preventDefault();

@@ -12,6 +12,7 @@
 	<script src="{% static 'web/js/photoswipe-ui-default.min.js' %}"></script>
 	<script src="{% static 'web/js/loading.js' %}"></script>
 	<script src="{% static 'web/js/galeria.js' %}"></script>
+	<script src="{% static 'web/js/lazy-loading.js' %}"></script>
 {% endblock scriptPlus %}
 
 {% block activeGal %}active{% endblock activeGal %}
@@ -51,7 +52,7 @@
 				<a type="button" class="btn btn-primary" href="{% url 'galeriasC' 'Z/' %}">Z</a>
 			</div>
 		</div>
-		<div class="my-gallery" style="margin-top:20px;" itemscope itemtype="http://schema.org/ImageGallery">
+		<div id="my-gallery" class="my-gallery" style="margin-top:20px;" itemscope itemtype="http://schema.org/ImageGallery">
 			{% for image in object.images %}
 				<figure class="image col-xs-12 col-sm-3" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject" >
 					<a href="{{image.url}}" itemprop="contentUrl" data-size="{{image.width}}x{{image.height}}">
@@ -59,6 +60,18 @@
 					</a>
 					<figcaption itemprop="brown-text caption description"><strong>{{image.name}}</strong></figcaption>
 				</figure>
+				<div id="viewMore"></div>
+				<span id="nextPage" class="hidden">
+				<div id="lazy">
+					{% for image in object.lazyImages  %}
+						<figure class="image col-xs-12 col-sm-3" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject" >
+							<a href="{{image.url}}" itemprop="contentUrl" data-size="{{image.width}}x{{image.height}}">
+								<img class="lazy" data-src="{{image.url}}" alt="{{image.name}}" itemprop="thumbnail">
+							</a>
+							<figcaption itemprop="brown-text caption description"><strong>{{image.name}}</strong></figcaption>
+						</figure>
+					{% endfor %}
+				</div>
 				{% empty %}
 					{% if request.path|length > 28 %}
 						<h2 class="brown-text text-center">No poseemos imagenes de artistas que empiecen con esta letra.</h2>
