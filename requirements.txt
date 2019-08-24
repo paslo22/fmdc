@@ -1,4 +1,4 @@
-django==1.9.4
+django==2.2.3
 psycopg2
 django-bootstrap3
 django_cleanup
@@ -7,3 +7,5 @@ Pillow
 django-grappelli
 django-tinymce
 raven
+flake8
+autopep8
