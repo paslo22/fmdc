@@ -52,7 +52,7 @@
 				<a type="button" class="btn btn-primary" href="{% url 'partiturasC' 'Z/' %}">Z</a>
 			</div>
 		</div>
-		<div class="my-gallery" style="margin-top:20px;" itemscope itemtype="http://schema.org/ImageGallery">
+		<div id="my-gallery" class="my-gallery" style="margin-top:20px;" itemscope itemtype="http://schema.org/ImageGallery">
 			{% for image in object.images %}
 				<figure class="image col-xs-12 col-sm-3" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject" >
 					<a href="{{image.url}}" itemprop="contentUrl" data-size="{{image.width}}x{{image.height}}">
