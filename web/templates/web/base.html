@@ -119,7 +119,11 @@
 		<script src="{% static 'web/js/vendor/bootstrap.min.js' %}"></script>
 		<script>
 			$(document).ready(function(){
-				$.getScript("{% static 'web/js/laterales.js' %}", function(){});
+				
+				$.getScript("{% static 'web/js/laterales.js' %}", function(data, textStatus, jqxhr ) {
+					loadLaterales()
+					setInterval(loadLaterales, 5000);
+				});
 				$.getScript("{% static 'web/js/search.js' %}", function(){});
 				$('body').on('contextmenu', 'img', function(e){ return false; });
 			});
