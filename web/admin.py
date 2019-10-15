@@ -1,11 +1,20 @@
+import os
+
 from django.contrib import admin
+from django.conf import settings
 import nested_admin
 
 from web.models import Actividad, ActividadImage, Image, ImageAlbum, Song, Biografia, \
     Artista, EfemerideMes, Discoteca, Album, Video, AlbumSong
 
 from .forms import AdminSongForm
+from .helpers import get_or_create_folder_path, copy_tmp_file_into_destination
 
+
+def album_song_path(album):
+    discoteca_name = album.discoteca.name.name
+    path = f'archive/Discografias/{discoteca_name}/{album.name}'
+    return path
 
 class ImageInline(admin.StackedInline):
     model = Image
@@ -98,16 +107,32 @@ class DiscotecaAdmin(nested_admin.NestedModelAdmin):
     raw_id_fields = ('name',)
 
     def save_model(self, request, obj, form, change):
-        for album in obj.albumes.all():
-            print(album.name)
-            print(request.FILES)
-            for _, song in request.FILES.items():
-                print(song)
-                album_song = AlbumSong(
-                    album=album,
-                    link=song
+        for index, album in enumerate(obj.albumes.all()):
+            album_position = f'albumes-{index}-song'
+            album_songs = request.FILES.getlist(album_position)
+            #if album_songs:
+                #AlbumSong.objects.filter(album=album).delete()
+            
+            for album_song in album_songs:
+                name = album_song.name.split(".")[0]
+                link = album_song_path(album=album)
+                relative_path_file = f'{link}/{album_song.name}'
+                if AlbumSong.objects.filter(link=relative_path_file):
+                    continue
+
+                full_path_folder = settings.MEDIA_ROOT + link
+                get_or_create_folder_path(path=full_path_folder)
+                full_path_file = f'{full_path_folder}/{album_song.name}'
+                copy_tmp_file_into_destination(
+                    tmp_file=album_song,
+                    destination_file=full_path_file
                 )
-                album_song.save()
+
+                AlbumSong.objects.create(
+                    name=name,
+                    album=album,
+                    link=relative_path_file
+                )
         super().save_model(request, obj, form, change)
 
 admin.site.register(Discoteca, DiscotecaAdmin)

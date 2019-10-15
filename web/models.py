@@ -10,9 +10,6 @@ from django.contrib.staticfiles.templatetags.staticfiles import static
 from tinymce import models as tinymce_models
 
 
-def album_song_path(instance, filename):
-    return f'archive/Discografias/{instance.album.artista.name}/{instance.album.name}/{filename}'
-
 class Artista(models.Model):
     """
     Represents an artist
@@ -208,6 +205,7 @@ class Album(models.Model):
 
 
 class AlbumSong(models.Model):
+    name = models.CharField(max_length=100, default='ladero')
     album = models.ForeignKey(
         Album, 
         on_delete=models.CASCADE, 

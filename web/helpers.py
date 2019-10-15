@@ -78,3 +78,10 @@ def get_width_and_height_from_image(path):
         return (height, width)
     except FileNotFoundError:
         raise
+
+
+def copy_tmp_file_into_destination(tmp_file, destination_file):
+    with open(destination_file, 'wb+') as destination:
+        for chunk in tmp_file:
+            destination.write(chunk) 
+
