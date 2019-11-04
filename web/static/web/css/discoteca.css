@@ -5,3 +5,7 @@
 .lamina img{
 	width: 100%;
 }
+
+figcaption{
+	margin-bottom: 10px;
+}
