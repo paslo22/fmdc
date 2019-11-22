@@ -1,7 +1,7 @@
 @media(max-width: 768px){
 	.thumbnail img{
         height: 150vh;
-        object-fit: contain;
+        object-fit: fill;
     }
     h2 h3{
         font-size: 2rem;
@@ -12,7 +12,7 @@
 @media(min-width: 1024px){
     .thumbnail img{
         height: 30vh;
-        object-fit: contain;
+        object-fit: fill;
     }
 
     h2, h3{
