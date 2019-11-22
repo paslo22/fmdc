@@ -1,6 +1,7 @@
 @media(max-width: 768px){
 	.thumbnail img{
         height: 150vh;
+        object-fit: contain;
     }
     h2 h3{
         font-size: 2rem;
@@ -11,9 +12,11 @@
 @media(min-width: 1024px){
     .thumbnail img{
         height: 30vh;
+        object-fit: contain;
     }
 
     h2, h3{
+        font-size: 1rem;
         text-align: center;
     }
 }
