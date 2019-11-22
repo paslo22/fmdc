@@ -181,9 +181,14 @@ class ActividadDetailView(generic.DetailView):
     template_name = 'web/actividad.html'
 
 
-def quienesSomos(request):
+def consejoAdm(request):
     return render(request, 'web/quienesSomos.html')
 
+def consejoCon(request):
+    return render(request, 'web/consejoCon.html')
+
+def miembros(request):
+    return render(request, 'web/miembros.html')
 
 def objetivos(request):
     return render(request, 'web/objetivos.html')

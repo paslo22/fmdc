@@ -3,53 +3,75 @@
 
 {% block activeInst %}active{% endblock activeInst %}
 
+{% block headPlus %}
+<link rel="stylesheet" href="{% static 'web/css/quienes_somos.css' %}">
+	
+{% endblock headPlus %}
+	
 {% block content %}
 	<div class="row" style="padding: 0px 15px;">
-		<h1 class="text-center brown-text"><strong>¿Qui&eacute;nes somos?</strong></h1>
-		<h4 class="text-justify">Somos una organizaci&oacute;n correntina, que desde el año 2007 trabaja intensamente en este proyecto llamado: "Fundaci&oacute;n Memoria del Chamam&eacute;". Esta es una organizaci&oacute;n no gubernamental sin fines de lucro, con personer&iacute;a jur&iacute;dica Nº 076 otorgada por Inspecci&oacute;n General de Personas Jur&iacute;dicas de la Provincia de Corrientes el 10 de septiembre de 2008.
-		</h4>
-		<h2 class="text-center brown-text"><strong>Administraci&oacute;n de la fundaci&oacute;n 2015-2017</strong></h2> 
+		<h2 class="text-center brown-text"><strong>Consejo administrativo</strong></h2> 
 		<div class="col-sm-4">
-			<div class="thumbnail" style="height:570px;">
-				<img src="{% static 'web/img/cacho.png' %}">
+			<div class="thumbnail">
+				<img src="{% static 'web/img/topo.jpg' %}">
 				<div class="caption">
-					<h2>Presidente:</h2>
-					<h3>Juan Genaro Gonzalez Vedoya</h3>	      			
+					<h2>Presidente</h2>
+					<h3>Juan Pedro Zubieta</h3>	      			
 				</div>
 			</div>
 		</div>
 		<div class="col-sm-4">
-			<div class="thumbnail" style="height:570px;">
-				<img src="{% static 'web/img/joaquina.png' %}">
+			<div class="thumbnail">
+				<img src="{% static 'web/img/leo.jpg' %}">
 				<div class="caption">
-					<h2>Tesorera:</h2>
-					<h3>Joaquina M&eacute;ndez</h3>
+					<h2>Secretario</h2>
+					<h3>Leo Moglia</h3>
 				</div>
 			</div>
 		</div>
 		<div class="col-sm-4">
-			<div class="thumbnail" style="height:570px;">
-				<img src="{% static 'web/img/lara.png' %}">
+			<div class="thumbnail">
+				<img src="{% static 'web/img/aldy.jpg' %}">
 				<div class="caption">
-					<h2>Secretaria:</h2>
-					<h3>Lara Gonzalez Vedoya</h3>
+					<h2>Tesorero</h2>
+					<h3>Aldy Balestra</h3>
 				</div>
 			</div>
 		</div>
 		
-		<h2 class="text-center brown-text"><strong>Administraci&oacute;n del Museo Virtual</strong></h2>	
-		<div class="col-sm-4 col-sm-offset-4">
-				<div class="thumbnail" style="height:570px;">
-					<img src="{% static 'web/img/pedro.jpg' %}">
-					<div class="caption">
-						<h2>Contenidos:</h2>
-						<h3>Pedro Zubieta</h3>
-					</div>
-				</div>
-		</div>
 	</div>
 	<div class="row">
-		<h2 class="text-center brown-text"><strong>Auditoria Externa:</strong></h2> 
-		<h3 class="text-center">Contadora p&uacute;blica Nac. MONICA ROSALIA ARNAIZ</h3>
+		<div class="col-sm-4">
+			<div class="thumbnail">
+				<img src="{% static 'web/img/troitinio.jpg' %}">
+					<div class="caption">
+						<h2>Asesora Académica</h2>
+						<h3>María Lucia Troitiño</h3>
+					</div>
+			</div>
+		</div>
+		
+		<div class="col-sm-4">
+			<div class="thumbnail">
+				<img src="{% static 'web/img/guille.jpg' %}">
+				<div class="caption">
+					<h2>Redes y comunicación</h2>
+					<h3>Guillermina Zubieta</h3>
+				</div>
+			</div>
+		</div>
+		
+		<div class="col-sm-4">
+			<div class="thumbnail">
+				<img src="{% static 'web/img/cacho.jpg' %}">
+				<div class="caption">
+					<h2>Presidente honorario</h2>
+					<h3>Cacho Gonzalez Vedoya</h3>
+				</div>
+			</div>
+		</div>
+		
+
 	</div>
-{% endblock %}
+		
+	{% endblock %}

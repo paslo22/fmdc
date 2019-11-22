@@ -1,0 +1,19 @@
+@media(max-width: 768px){
+	.thumbnail img{
+        height: 150vh;
+    }
+    h2 h3{
+        font-size: 2rem;
+        text-align: center;
+    }
+}
+
+@media(min-width: 1024px){
+    .thumbnail img{
+        height: 30vh;
+    }
+
+    h2, h3{
+        text-align: center;
+    }
+}
