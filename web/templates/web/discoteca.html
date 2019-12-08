@@ -76,7 +76,6 @@
 							<div class="col-sm-3 col-xs-12 text-center">
 								<button 
 									class="btn btn-primary playAll" 
-									style="margin:0px auto 15px auto" 
 									data-albumId="album{{album.pk}}">Reproducir alb&uacute;m
 								</button>
 								{% if album.tapa or album.lamina %}
@@ -86,7 +85,7 @@
 											<a href="{{album.tapa.url}}" itemprop="contentUrl" data-size="{{album.tapa.width}}x{{album.tapa.height}}">
 												<img src="{{album.tapa.url}}" itemprop="thumbnail">
 											</a>
-											<figcaption itemprop="brown-text caption description"><strong>Tapa</strong></figcaption>
+											<figcaption id="tapaFigCaption" itemprop="brown-text caption description"><strong>Tapa</strong></figcaption>
 										</figure>
 										{% endif %}
 									{% if album.lamina %}
