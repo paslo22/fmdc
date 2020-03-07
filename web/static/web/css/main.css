@@ -81,6 +81,11 @@ p{
 		float:left;
 	}
 
+	#radio-container {
+		width: 100%;
+		margin: 10px;
+	}
+
 }
 
 @media (min-width: 768px){
@@ -224,4 +229,27 @@ address{
 
 body>.container{
 	position: relative;
+}
+
+#radio {
+	margin-top: 10px;
+	margin-bottom: 20px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+}
+
+#logo-radio {
+	max-width: 100%;
+	height: 10vmax;
+}
+
+#logo-radio-container {
+	width: 100%;
+	margin-bottom: 10px;
+}
+
+.text-center {
+	text-align: center;
 }
