@@ -49,13 +49,23 @@
 									<div id="logo-radio-container">
 										<img id="logo-radio" src="{% static 'web/img/logo-radio.jpg' %}"/>
 									</div>
-									<audio
-										controls
-										autoplay
-										src="https://stream.zenolive.com/84y7b87p4gruv.aac">
-											Your browser does not support the
-											<code>audio</code> element.
-									</audio>
+									<a style="font-size:16px;" class="white-text" href="#" onclick="openRadio()">
+										<button id="openRadio" class="btn btn-primary">Ir a la radio</button>
+									</a>
+									<div id="radioPlayer" style="display:none; width: 100%; height: 100%; justify-content: center; align-items: center; background: #310900">
+										<figure>
+											<div style="text-align: center;">
+												<img style="width: 30vmax; height: 30vmax; " id="logo-radio" src="{% static 'web/img/logo-radio.jpg' %}"/>
+											</div>
+											<audio style="margin-top: 20px;"
+											controls
+											src="https://stream.zenolive.com/84y7b87p4gruv.aac">
+												Your browser does not support the
+												<code>audio</code> element.
+											</audio>
+										</figure>
+									</div>
+									</div>
 								</figure>
 							</div>
 							<form class="col-sm-4 col-md-5 form-inline pull-right hidden-xs searchForm" id="buscarArt" data-source="busqueda">
@@ -132,6 +142,19 @@
 		<script src="{% static 'web/js/vendor/jquery-1.11.2.min.js' %}"></script>
 		<script src="{% static 'web/js/vendor/bootstrap.min.js' %}"></script>
 		<script>
+			function openRadio() {
+					var radio = document.getElementById('radioPlayer')
+					radio.style.display = "flex"
+					var radioContent = radio.outerHTML
+					var newWindow = window.open("", "", "width=500,height=400")
+					var doc = newWindow.document
+					doc.open()
+					doc.write(radioContent)
+					doc.title = "Radio chamamé"
+					radio.style.display = "none"
+					doc.close()
+				}
+
 			$(document).ready(function(){
 				$.getScript("{% static 'web/js/laterales.js' %}", function(data, textStatus, jqxhr ) {
 					loadLaterales()
@@ -139,7 +162,8 @@
 				});
 				$.getScript("{% static 'web/js/search.js' %}", function(){});
 				$('body').on('contextmenu', 'img', function(e){ return false; });
-			});
+				
+			})
 		</script>
 		{% block scriptPlus %}{% endblock scriptPlus %}
 	</body>
