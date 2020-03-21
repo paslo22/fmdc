@@ -13,8 +13,8 @@ from django.db.models import Q
 from django.conf import settings
 
 from .forms import ContactForm
-from .models import Biografia, Efemeride, Discoteca, EfemerideMes, Artista, Actividad
-from web.constants import IMAGE_EXTENSION_PATTERN, MP4_EXTENSION_PATTERN
+from .models import Biografia, Efemeride, Discoteca, EfemerideMes, Artista, Actividad, PagoActividad
+from web.constants import IMAGE_EXTENSION_PATTERN, MP4_EXTENSION_PATTERN, PDF_EXTENSION_PATTERN
 from web.helpers import get_files_from_folder_path
 
 
@@ -159,8 +159,8 @@ class LetrasCView(generic.DetailView):
         if folder_letter is None:
             return obj
         path = '/archive/Material/Letras/' + folder_letter
-        lyrics_images = get_files_from_folder_path(path=path, pattern=IMAGE_EXTENSION_PATTERN)
-        obj['images'] = lyrics_images
+        lyrics = get_files_from_folder_path(path=path, pattern=PDF_EXTENSION_PATTERN)
+        obj['lyrics'] = lyrics
         return obj
 
 

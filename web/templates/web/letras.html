@@ -53,13 +53,10 @@
 			</div>
 		</div>
 		<div id="my-gallery" class="my-gallery" style="margin-top:20px;" itemscope itemtype="http://schema.org/ImageGallery">
-			{% for image in object.images %}
-				<figure class="image col-xs-12 col-sm-3" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject" >
-					<a href="{{image.url}}" itemprop="contentUrl" data-size="{{image.width}}x{{image.height}}">
-						<img src="{{image.url}}" itemprop="thumbnail">
-					</a>
-					<figcaption itemprop="brown-text caption description"><strong>{{image.name}}</strong></figcaption>
-				</figure>
+			{% for lyric in object.lyrics %}
+				<a href="{{lyric.url}}" download>
+					<h4>{{lyric.name}}</h4>
+				</a>
 				{% empty %}
 					{% if request.path|length > 28 %}
 						<h2 class="brown-text text-center">No poseemos letras de canciones que empiecen con esta inicial.</h2>

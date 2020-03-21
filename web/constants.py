@@ -5,3 +5,4 @@ WEB_MESSAGES = {
 
 IMAGE_EXTENSION_PATTERN = r'(.+)\.(png|jpg|PNG|JPG)$'
 MP4_EXTENSION_PATTERN = r'(.+)\.mp4$'
+PDF_EXTENSION_PATTERN = r'(.+)\.pdf$'
