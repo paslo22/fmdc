@@ -54,7 +54,7 @@
 		</div>
 		<div id="my-gallery" class="my-gallery" style="margin-top:20px;" itemscope itemtype="http://schema.org/ImageGallery">
 			{% for lyric in object.lyrics %}
-				<a href="{{lyric.url}}" download>
+				<a download="{{lyric.name}}" href="{{lyric.url}}">
 					<h4>{{lyric.name}}</h4>
 				</a>
 				{% empty %}
