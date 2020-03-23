@@ -1,17 +1,8 @@
 {% extends "web/base.html" %}
 {% load staticfiles %}
 
-{% block headPlus %}
-	<link rel="stylesheet" href="{% static 'web/css/photoswipe.css' %}">
-	<link rel="stylesheet" href="{% static 'web/css/default-skin/default-skin.css' %}">
-	<link rel="stylesheet" href="{% static 'web/css/galeria.css' %}">
-{% endblock headPlus %}
-
 {% block scriptPlus %}
-	<script src="{% static 'web/js/photoswipe.min.js' %}"></script>
-	<script src="{% static 'web/js/photoswipe-ui-default.min.js' %}"></script>
 	<script src="{% static 'web/js/loading.js' %}"></script>
-	<script src="{% static 'web/js/galeria.js' %}"></script>
 	<script src="{% static 'web/js/lazy-loading.js' %}"></script>
 {% endblock scriptPlus %}
 
@@ -52,7 +43,7 @@
 				<a type="button" class="btn btn-primary" href="{% url 'letrasC' 'Z/' %}">Z</a>
 			</div>
 		</div>
-		<div id="my-gallery" class="my-gallery" style="margin-top:20px;" itemscope itemtype="http://schema.org/ImageGallery">
+		<div id="my-gallery" class="my-gallery" style="margin-top:20px;">
 			{% for lyric in object.lyrics %}
 				<a download="{{lyric.name}}" href="{{lyric.url}}">
 					<h4>{{lyric.name}}</h4>
