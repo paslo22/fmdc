@@ -10,7 +10,6 @@ urlpatterns = [
 	url(r'^material/$', views.material, name='material'),
 	url(r'^partituras/(?P<path>[\w\d/ ]+/)?$', views.PartiturasCView.as_view(), name='partiturasC'),
 	url(r'^letras/(?P<path>[\w\d/ ]+/)?$', views.LetrasCView.as_view(), name='letrasC'),
-	url(r'^contacto/$', views.contacto, name='contacto'),
 	url(r'^construccion/$', views.construccion, name='construccion'),
 	url(r'^actividades/(?P<filtro>[\w ]+/)?$', views.ActividadView.as_view(), name='actividades'),
 	url(r'^actividad/(?P<pk>[0-9]+)/$', views.ActividadDetailView.as_view(), name='actividad'),

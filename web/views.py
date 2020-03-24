@@ -1,19 +1,20 @@
 # -*- coding: utf-8 -*-
-from django.shortcuts import render, redirect
-from django.http import Http404, HttpResponse
-from django.views import generic
-from datetime import datetime
-from django.core.mail import EmailMessage
-from django.core.serializers.json import DjangoJSONEncoder
-from PIL import Image
 import os
-import re
 import json
 import random
+
+from django.core.serializers.json import DjangoJSONEncoder
+from datetime import datetime
+from django.http import Http404, HttpResponse
+from django.shortcuts import render, redirect
+from django.views import generic
+
 from .models import Biografia, Efemeride, Discoteca, EfemerideMes, Artista, Actividad
 from django.db.models import Q
 from .forms import ContactForm
 from django.conf import settings
+from web.constants import IMAGE_EXTENSION_PATTERN, MP4_EXTENSION_PATTERN, PDF_EXTENSION_PATTERN
+from web.helpers import get_files_from_folder_path
 
 
 def index(request):
@@ -42,30 +43,13 @@ class GaleriaCView(generic.DetailView):
 
     def get_object(self):
         obj = {}
-        img = []
-        pat = re.compile(ur'(.+)\.(?:png|jpg|PNG|JPG)', re.UNICODE)
-        try:
-            path = self.kwargs['path']
-        except:
-            raise Http404("Galeria no existe")
-        if path == None:
-            path = ''
-        path = unicode(path)
-        for url in os.listdir((settings.MEDIA_ROOT + '/archive/Galeria/Fotos/Fotos Chamameseros/' + path).encode('utf-8')):
-            try:
-                url = unicode(url.decode('utf-8'))
-                im = Image.open((settings.MEDIA_ROOT + 'archive/Galeria/Fotos/Fotos Chamameseros/' +
-                                 path + url).encode('utf-8'))
-                re.match(pat, url).group(1)
-            except:
-                continue
-            img.append({'url': settings.MEDIA_URL + 'archive/Galeria/Fotos/Fotos Chamameseros/' + path + url,
-                        'width': im.size[0],
-                        'height': im.size[1],
-                        'name': re.match(pat, url).group(1)
-                        })
-        obj['images'] = img[0:4]
-        obj['lazyImages'] = img[4:]
+        folder_letter = self.kwargs['path']
+        if folder_letter is None:
+            return obj
+        path = '/archive/Galeria/Fotos/Fotos Chamameseros/' + folder_letter
+        music_sheet_images = get_files_from_folder_path(path=path, pattern=IMAGE_EXTENSION_PATTERN)
+        obj['images'] = music_sheet_images[0:4]
+        obj['lazyImages'] = music_sheet_images[4:]
         return obj
 
 
@@ -74,30 +58,15 @@ class GaleriaDetailView(generic.DetailView):
 
     def get_object(self):
         obj = {}
-        img = []
-        pat = re.compile(ur'(.+)\.(?:png|jpg|PNG|JPG)', re.UNICODE)
-        try:
-            path = self.kwargs['path']
-        except:
-            raise Http404("Galeria no existe")
-        if path == None:
-            path = ''
-        path = unicode(path)
-        for url in os.listdir((settings.MEDIA_ROOT + '/archive/Galeria/Fotos/' + path).encode('utf-8')):
-            try:
-                url = unicode(url.decode('utf-8'))
-                im = Image.open((settings.MEDIA_ROOT + 'archive/Galeria/Fotos/' + path + url).encode('utf-8'))
-                re.match(pat, url).group(1)
-            except:
-                continue
-            img.append({'url': settings.MEDIA_URL + 'archive/Galeria/Fotos/' + path + url,
-                        'width': im.size[0],
-                        'height': im.size[1],
-                        'name': re.match(pat, url).group(1)
-                        })
-        obj['images'] = img[0:4]
-        obj['lazyImages'] = img[4:]
-        obj['name'] = path.replace('/', '')
+        obj = {}
+        folder_letter = self.kwargs['path']
+        if folder_letter is None:
+            return obj
+        path = '/archive/Galeria/Fotos/' + folder_letter
+        gallery_images = get_files_from_folder_path(path=path, pattern=IMAGE_EXTENSION_PATTERN)
+        obj['images'] = gallery_images[0:4]
+        obj['lazyImages'] = gallery_images[4:]
+        obj['name'] = folder_letter.replace('/', '')
         return obj
 
 
@@ -106,25 +75,12 @@ class VideoView(generic.DetailView):
 
     def get_object(self):
         obj = {}
-        img = []
-        pat = re.compile(ur'(.+)\.mp4', re.UNICODE)
-        try:
-            path = self.kwargs['path']
-        except:
-            raise Http404("Videos no existe")
-        if path == None:
-            path = ''
-        path = unicode(path)
-        for url in os.listdir((settings.MEDIA_ROOT + 'archive/Galeria/Videos/' + path).encode('utf-8')):
-            try:
-                url = unicode(url.decode('utf-8'))
-                re.match(pat, url).group(1)
-            except:
-                continue
-            img.append({'url': settings.MEDIA_URL + 'archive/Galeria/Videos/' + path + '/' + url,
-                        'name': re.match(pat, url).group(1)
-                        })
-        obj['videos'] = img
+        folder_letter = self.kwargs['path']
+        if folder_letter is None:
+            return obj
+        path = '/archive/Galeria/Videos/' + folder_letter
+        videos = get_files_from_folder_path(path=path, pattern=MP4_EXTENSION_PATTERN)
+        obj['videos'] = videos
         return obj
 
 
@@ -197,29 +153,12 @@ class PartiturasCView(generic.DetailView):
 
     def get_object(self):
         obj = {}
-        img = []
-        pat = re.compile(ur'(.+)\.(?:png|jpg|PNG|JPG)', re.UNICODE)
-        try:
-            path = self.kwargs['path']
-        except:
-            raise Http404("Galeria no existe")
-        if path == None:
-            path = ''
-        path = unicode(path)
-        for url in os.listdir((settings.MEDIA_ROOT + '/archive/Material/Partituras/' + path).encode('utf-8')):
-            try:
-                url = unicode(url.decode('utf-8'))
-                im = Image.open((settings.MEDIA_ROOT + 'archive/Material/Partituras/' + path + url).encode('utf-8'))
-                re.match(pat, url).group(1)
-            except:
-                continue
-            img.append({'url': settings.MEDIA_URL + 'archive/Material/Partituras/' + path + url,
-                        'width': im.size[0],
-                        'height': im.size[1],
-                        'name': re.match(pat, url).group(1)
-                        })
-        obj['images'] = img[0:4]
-        obj['lazyImages'] = img[4:]
+        folder_letter = self.kwargs['path']
+        if folder_letter is None:
+            return obj
+        path = '/archive/Material/Partituras/' + folder_letter
+        music_sheet_images = get_files_from_folder_path(path=path, pattern=IMAGE_EXTENSION_PATTERN)
+        obj['images'] = music_sheet_images
         return obj
 
 
@@ -228,29 +167,12 @@ class LetrasCView(generic.DetailView):
 
     def get_object(self):
         obj = {}
-        img = []
-        pat = re.compile(ur'(.+)\.(?:png|jpg|PNG|JPG)', re.UNICODE)
-        try:
-            path = self.kwargs['path']
-        except:
-            raise Http404("Galeria no existe")
-        if path == None:
-            path = ''
-        path = unicode(path)
-        for url in os.listdir((settings.MEDIA_ROOT + '/archive/Material/Letras/' + path).encode('utf-8')):
-            try:
-                url = unicode(url.decode('utf-8'))
-                im = Image.open((settings.MEDIA_ROOT + 'archive/Material/Letras/' + path + url).encode('utf-8'))
-                re.match(pat, url).group(1)
-            except:
-                continue
-            img.append({'url': settings.MEDIA_URL + 'archive/Material/Letras/' + path + url,
-                        'width': im.size[0],
-                        'height': im.size[1],
-                        'name': re.match(pat, url).group(1)
-                        })
-        obj['images'] = img[0:4]
-        obj['lazyImages'] = img[4:]
+        folder_letter = self.kwargs['path']
+        if folder_letter is None:
+            return obj
+        path = '/archive/Material/Letras/' + folder_letter
+        lyrics = get_files_from_folder_path(path=path, pattern=PDF_EXTENSION_PATTERN)
+        obj['lyrics'] = lyrics
         return obj
 
 
@@ -278,37 +200,24 @@ class ActividadDetailView(generic.DetailView):
     template_name = 'web/actividad.html'
 
 
-def quienesSomos(request):
+def consejoAdm(request):
     return render(request, 'web/quienesSomos.html')
 
+def consejoCon(request):
+    return render(request, 'web/consejoCon.html')
+
+def miembros(request):
+    return render(request, 'web/miembros.html')
 
 def objetivos(request):
     return render(request, 'web/objetivos.html')
 
 
-def contacto(request):
-    form_class = ContactForm
-    if request.method == 'POST':
-        form = form_class(data=request.POST)
-        if form.is_valid():
-            contact_name = request.POST.get(
-                'nombre', '')
-            contact_email = request.POST.get(
-                'email', '')
-            form_content = request.POST.get('mensaje', '')
-            texto = form_content + ' correo enviado por: ' + contact_email
-            email = EmailMessage(
-                "Nuevo Mensaje desde la web de Fundacion Memorias del chamame",
-                texto,
-                contact_email,
-                [settings.DEFAULT_FROM_EMAIL]
+def quienesSomos(request):
+    return render(request, 'web/quienesSomos.html')
 
-            )
-            email.send()
-            return redirect('contacto')
-    return render(request, 'web/contacto.html', {
-        'form': form_class,
-    })
+def objetivos(request):
+    return render(request, 'web/objetivos.html')
 
 
 def efemerides(request):
