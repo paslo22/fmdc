@@ -1,31 +1,3 @@
-Skip to content
-Search or jump to…
-
-Pull requests
-Issues
-Marketplace
-Explore
- 
-@manuel14 
-Learn Git and GitHub without any code!
-Using the Hello World guide, you’ll start a branch, write comments, and open a pull request.
-
-
-paslo22
-/
-fmdc
-2
-00
- Code Issues 0 Pull requests 1 Actions Projects 0 Wiki Security Insights
-fmdc/web/helpers.py / 
- Manuel Zubieta Uploading new sections and test
-3240187 5 minutes ago
-78 lines (62 sloc)  2.05 KB
- 
-Code navigation is available!
-Navigate your code with ease. Click on function and method calls to jump to their definitions or references in the same repository. Learn more
-
-
 import re
 import os
 from PIL import Image
