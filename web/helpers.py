@@ -69,16 +69,4 @@ def get_width_and_height_from_image(path):
 def copy_tmp_file_into_destination(tmp_file, destination_file):
     with open(destination_file, 'wb+') as destination:
         for chunk in tmp_file:
-            destination.write(chunk) 
-© 2020 GitHub, Inc.
-Terms
-Privacy
-Security
-Status
-Help
-Contact GitHub
-Pricing
-API
-Training
-Blog
-About
+            destination.write(chunk)
