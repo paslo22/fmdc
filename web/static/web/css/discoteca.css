@@ -5,3 +5,21 @@
 .lamina img{
 	width: 100%;
 }
+
+figcaption{
+	margin-bottom: 10px;
+}
+
+#tapaFigCaption{
+	margin-top: 10px;
+}
+
+.playAll{
+	margin:0px auto 15px auto;
+}
+
+@media(max-width: 375px){
+	.playAll{
+		margin-top: 10px;
+	}
+}

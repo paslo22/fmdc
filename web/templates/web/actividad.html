@@ -11,43 +11,46 @@
 	<script src="{% static 'web/js/photoswipe-ui-default.min.js' %}"></script>
 	<script src="{% static 'web/js/galeria.js' %}"></script>
 {% endblock scriptPlus %}
-{% block activeAct %}active{% endblock activeAct %}
+{% if actividad.tipo != 'P' %}
+	{% block activeAct %}active{% endblock activeAct %}
+{% else %}
+	{% block activePagoLista %}active{% endblock activePagoLista %}
+{% endif %}
 {% block content %}
 	{% include "web/photoswipe.html" %}
 	<div class="row">
 		<h1 class="brown-text text-center" style="text-decoration: 	underline;">Actividades de la Fundación</h1>
-				<div class="col-md-12 col-xs-12">
-					<h3 class="fecha text-left">{{actividad.fecha}}</h3>
-					<h2 class="text-center"><strong>{{actividad.name}}</strong></h2>
-					<h4 class="text-actividad">{{actividad.description|safe}}</h4>
-							{% if actividad.video_set %}
-								{% for video in actividad.video_set.all %}
-									<div class="thumbnail">
-										<h3>{{video.name}}</h3>
-										<video preload="metadata" controls style="max-width:100%;">
-											<source src="{{video.link.url}}" type="video/mp4">Su explorador es antiguo. Actualicelo para reproducir videos.
-										</video>
-									</div>
-								{% endfor %}
-							{% endif %}
-				</div>
-				<div class="contenedor col-sm-12 col-md-12 col-xs-12">
-						{% if actividad.actividadimage_set %}
-								<div class="my-gallery" itemscope itemtype="http://schema.org/ImageGallery">
-									{% for im in actividad.actividadimage_set.all|dictsort:'name' %}
+		<div class="col-md-12 col-xs-12">
+			<h3 class="fecha text-left">{{actividad.fecha}}</h3>
+			<h2 class="text-center"><strong>{{actividad.name}}</strong></h2>
+			<h4 class="text-actividad">{{actividad.description|safe}}</h4>
+					{% if actividad.video_set %}
+						{% for video in actividad.video_set.all %}
+							<div class="thumbnail">
+								<h3>{{video.name}}</h3>
+								<video preload="metadata" controls style="max-width:100%;">
+									<source src="{{video.link.url}}" type="video/mp4">Su explorador es antiguo. Actualicelo para reproducir videos.
+								</video>
+							</div>
+						{% endfor %}
+					{% endif %}
+		</div>
+		<div class="contenedor col-sm-12 col-md-12 col-xs-12">
+				{% if actividad.actividadimage_set %}
+						<div class="my-gallery" itemscope itemtype="http://schema.org/ImageGallery">
+							{% for im in actividad.actividadimage_set.all|dictsort:'name' %}
 
-											<figure class="ActividadImage col-md-3 col-xs-12 col-sm-3"  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject" >
-																	<a href="{{im.link.url}}" itemprop="contentUrl" data-size="{{im.link.width}}x{{im.link.height}}">
-																		<img src="{{im.link.url}}" itemprop="thumbnail">
-																	</a>
+									<figure class="ActividadImage col-md-3 col-xs-12 col-sm-3"  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject" >
+										<a href="{{im.link.url}}" itemprop="contentUrl" data-size="{{im.link.width}}x{{im.link.height}}">
+											<img src="{{im.link.url}}" itemprop="thumbnail">
+										</a>
 
-																	<figcaption itemprop="brown-text caption description"><strong>{{im.name}}</strong></figcaption>
-
-											</figure>
-									{% endfor %}
-									</div>
-						{% endif %}
-				</div>	
+										<figcaption class="text-center" itemprop="brown-text caption description"><strong>{{im.name}}</strong></figcaption>
+									</figure>
+							{% endfor %}
+							</div>
+				{% endif %}
+		</div>	
 	</div>
 
 {% endblock content %}

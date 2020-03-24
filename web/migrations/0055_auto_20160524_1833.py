@@ -3,7 +3,7 @@
 from __future__ import unicode_literals
 
 from django.db import migrations, models
-import web.validators
+from django.core.validators import FileExtensionValidator
 
 
 class Migration(migrations.Migration):
@@ -16,6 +16,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='video',
             name='link',
-            field=models.FileField(default='', upload_to='videos/', validators=[web.validators.validate_file_extension], verbose_name='Video'),
+            field=models.FileField(default='', upload_to='videos/', validators=[FileExtensionValidator(allowed_extensions='.mp4')], verbose_name='Video'),
         ),
     ]

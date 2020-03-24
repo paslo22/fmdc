@@ -1,0 +1,120 @@
+{% extends "web/base.html" %}
+{% load staticfiles %}
+
+{% block activeInst %}active{% endblock activeInst %}
+
+{% block headPlus %}
+<link rel="stylesheet" href="{% static 'web/css/consejo_consultivo.css' %}">
+	
+{% endblock headPlus %}
+	
+{% block content %}
+	<div class="row" style="padding: 0px 15px;">
+		<h2 class="text-center brown-text"><strong>Consejo Consultivo</strong></h2> 
+		<div class="col-sm-2 col-sm-offset-1">
+			<div class="thumbnail">
+				<img src="{% static 'web/img/ConsejoConsultivoJoaquinaMendez.jpg' %}">
+				<div class="caption">
+					<h3>Joaquina Mendez</h3>	      			
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-2">
+			<div class="thumbnail">
+				<img src="{% static 'web/img/ConsejoConsultivoGustavoOjeda.jpg' %}">
+				<div class="caption">
+					<h3>Gustavo Ojeda</h3>
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-2">
+			<div class="thumbnail">
+				<img src="{% static 'web/img/ConsejoConsultivo-CoquiOrtiz.jpg' %}">
+				<div class="caption">
+					<h3>Coqui Ortiz</h3>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-sm-2">
+			<div class="thumbnail">
+				<img src="{% static 'web/img/ConsejoConsultivo-DanielOsuna.jpg' %}">
+				<div class="caption">
+					<h3>Daniel Osuna</h3>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-sm-2">
+			<div class="thumbnail">
+				<img src="{% static 'web/img/ConsejoConsultivo-RaulDiaz.jpg' %}">
+				<div class="caption">
+					<h3>Raul Diaz</h3>
+				</div>
+			</div>
+		</div>
+		
+	</div>
+	<div class="row">
+		<div class="col-sm-2 col-sm-offset-1">
+			<div class="thumbnail">
+				<img src="{% static 'web/img/ConsejoConsultivoCarlosLezcano.jpg' %}">
+					<div class="caption">
+						<h3>Carlos Lezcano</h3>
+					</div>
+			</div>
+		</div>
+		
+		<div class="col-sm-2">
+			<div class="thumbnail">
+				<img src="{% static 'web/img/ConsejoConsultivoCarlosMaciel.jpg' %}">
+				<div class="caption">
+					<h3>Carlos Maciel</h3>
+				</div>
+			</div>
+		</div>
+		
+		<div class="col-sm-2">
+			<div class="thumbnail">
+				<img src="{% static 'web/img/ConsejoConsultivoCarlunchoZubieta.jpg' %}">
+				<div class="caption">
+					<h3>Carluncho Zubieta</h3>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-sm-2">
+			<div class="thumbnail">
+				<img src="{% static 'web/img/ConsejoConsultivoFerminYbarra.jpg' %}">
+				<div class="caption">
+					<h3>Fermín Ybarra</h3>
+				</div>
+			</div>
+		</div>
+
+		
+
+		<div class="col-sm-2">
+			<div class="thumbnail">
+				<img src="{% static 'web/img/ConsejoConsultivoFlorenciadePompert.jpg' %}">
+				<div class="caption">
+					<h3>Florencia de Pompert</h3>
+				</div>
+			</div>
+		</div>
+		
+
+	</div>
+
+	<div class="row">
+		<div class="col-sm-2 col-sm-offset-1">
+			<div class="thumbnail">
+				<img src="{% static 'web/img/ConsejoConsultivoCachoFerreyra.png' %}">
+				<div class="caption">
+					<h3>Cacho Ferrerya</h3>
+				</div>
+			</div>
+		</div>
+	</div>
+		
+	{% endblock %}

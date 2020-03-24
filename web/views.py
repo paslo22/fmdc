@@ -3,16 +3,17 @@ import os
 import json
 import random
 
-from django.core.serializers.json import DjangoJSONEncoder
-from datetime import datetime
-from django.http import Http404, HttpResponse
 from django.shortcuts import render, redirect
+from django.http import Http404, HttpResponse
 from django.views import generic
-
-from .models import Biografia, Efemeride, Discoteca, EfemerideMes, Artista, Actividad
+from datetime import datetime
+from django.core.mail import EmailMessage
+from django.core.serializers.json import DjangoJSONEncoder
 from django.db.models import Q
-from .forms import ContactForm
 from django.conf import settings
+
+from .forms import ContactForm
+from .models import Biografia, Efemeride, Discoteca, EfemerideMes, Artista, Actividad, PagoActividad
 from web.constants import IMAGE_EXTENSION_PATTERN, MP4_EXTENSION_PATTERN, PDF_EXTENSION_PATTERN
 from web.helpers import get_files_from_folder_path
 
@@ -24,7 +25,7 @@ def index(request):
 def imgLaterales(request):
     if not request.is_ajax():
         raise Http404('No se puede acceder a esta url.')
-    urls = [os.path.join(settings.MEDIA_URL+'Laterales/', fn) for fn in os.listdir(settings.MEDIA_ROOT+'Laterales/')]
+    urls = [os.path.join(settings.MEDIA_URL + 'Laterales/', fn) for fn in os.listdir(settings.MEDIA_ROOT+'Laterales/')]
     return HttpResponse(json.dumps(random.sample(urls, 12), cls=DjangoJSONEncoder, ensure_ascii=False))
 
 
@@ -33,8 +34,8 @@ class GaleriaView(generic.ListView):
 
     def get_queryset(self):
         return {
-            'images': os.listdir(settings.MEDIA_ROOT+'/archive/Galeria/Fotos'),
-            'videos': os.listdir(settings.MEDIA_ROOT+'/archive/Galeria/Videos'),
+            'images': os.listdir(settings.MEDIA_ROOT+'archive/Galeria/Fotos'),
+            'videos': os.listdir(settings.MEDIA_ROOT+'archive/Galeria/Videos'),
         }
 
 
@@ -88,19 +89,15 @@ class BiografiaView(generic.ListView):
     template_name = 'web/biografias.html'
 
     def get_queryset(self):
-        try:
-            filtro = self.kwargs['filtro']
-        except:
-            filtro = ''
-        if (filtro == '') | (filtro == None):
+        filtro = self.kwargs.get('filtro', None)
+        if filtro is None:
             return Biografia.objects.all().order_by('name__name')
-        else:
-            values = filtro[:-1].split()
-            queries = [Q(name__name__icontains=value) for value in values]
-            query = queries.pop()
-            for item in queries:
-                query &= item
-            return Biografia.objects.filter(query).order_by('name__name')
+        values = filtro[:-1].split()
+        queries = [Q(name__name__icontains=value) for value in values]
+        query = queries.pop()
+        for item in queries:
+            query &= item
+        return Biografia.objects.filter(query).order_by('name__name')
 
 
 class BiografiaDetailView(generic.DetailView):
@@ -112,11 +109,8 @@ class BusquedaView(generic.ListView):
     template_name = 'web/busqueda.html'
 
     def get_queryset(self):
-        try:
-            filtro = self.kwargs['filtro']
-        except:
-            filtro = ''
-        values = filtro.split()
+        lookup_filter = self.kwargs.get('filtro', None)
+        values = lookup_filter.split()
         queries = [Q(name__icontains=value) for value in values]
         query = queries.pop()
         for item in queries:
@@ -128,20 +122,14 @@ class DiscotecaView(generic.ListView):
     template_name = 'web/discotecas.html'
 
     def get_queryset(self):
-        try:
-            filtro = self.kwargs['filtro']
-        except:
-            filtro = ''
-        if (filtro == '') | (filtro == None):
+        lookup_filter = self.kwargs.get('filtro', None)
+        if lookup_filter is None:
             return Discoteca.objects.all().order_by('name__name')
-        else:
-            values = filtro[:-1].split()
-            queries = [Q(name__name__icontains=value) for value in values]
-            query = queries.pop()
-            for item in queries:
-                query &= item
-            return Discoteca.objects.filter(query).order_by('name__name')
-
+        filter_without_backslash = lookup_filter[:-1]
+        discotecas = Discoteca.objects.filter(Q(
+            name__name__icontains=filter_without_backslash) | 
+            Q(albumes__name__icontains=filter_without_backslash)).distinct().order_by('name__name')
+        return discotecas
 
 class DiscotecaDetailView(generic.DetailView):
     model = Discoteca
@@ -180,19 +168,12 @@ class ActividadView(generic.ListView):
     template_name = 'web/actividadesLista.html'
 
     def get_queryset(self):
-        try:
-            filtro = self.kwargs['filtro']
-        except:
-            filtro = ''
-        if (filtro == '') | (filtro == None):
-            return Actividad.objects.all().order_by('name')
-        else:
-            values = filtro[:-1].split()
-            queries = [Q(name__icontains=value) for value in values]
-            query = queries.pop()
-            for item in queries:
-                query &= item
-            return Actividad.objects.filter(query).order_by('name')
+        lookup_filter = self.kwargs.get('filtro', None)
+        if lookup_filter is None:
+            return Actividad.objects.exclude(tipo=Actividad.PAGO_ACTIVIDAD).order_by('name')
+        filter_without_backslash = lookup_filter[:-1].strip()
+        return Actividad.objects.filter(
+            name__icontains=filter_without_backslash).exclude(tipo=Actividad.PAGO_ACTIVIDAD).order_by('name')
 
 
 class ActividadDetailView(generic.DetailView):
@@ -213,11 +194,20 @@ def objetivos(request):
     return render(request, 'web/objetivos.html')
 
 
-def quienesSomos(request):
-    return render(request, 'web/quienesSomos.html')
+class ActividadesPagoView(generic.ListView):
+    template_name = 'web/PagoActividadesLista.html'
 
-def objetivos(request):
-    return render(request, 'web/objetivos.html')
+    def get_queryset(self):
+        lookup_filter = self.kwargs.get('filtro', None)
+        if lookup_filter is None:
+            return PagoActividad.objects.all().order_by('name')
+        filter_without_backslash = lookup_filter[:-1].strip()
+        return PagoActividad.objects.filter(
+            name__icontains=filter_without_backslash).order_by('name')
+
+
+def pago(request):
+    return render(request, 'web/pago.html')
 
 
 def efemerides(request):
@@ -234,11 +224,6 @@ def efemerides(request):
 def benefactores(request):
     return render(request, 'web/benefactores.html')
 
-
-def construccion(request):
-    return render(request, 'web/404.html')
-
-
 def material(request):
     return render(request, 'web/material.html')
 
@@ -251,9 +236,12 @@ def cancionero(request):
     return render(request, 'web/cancionero.html')
 
 
-def error404(request):
+def revistas(request):
+    pass
+
+def error404(request, exception=None):
     return render(request, 'web/404.html')
 
 
-def error500(request):
+def error500(request, exception=None):
     return render(request, 'web/500.html')

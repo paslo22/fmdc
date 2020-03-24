@@ -7,7 +7,7 @@ registerListener('resize', lazyLoad);
 
 function setLazy(){
     document.getElementById('my-gallery').removeChild(document.getElementById('viewMore'));
-    document.getElementById('nextPage').removeAttribute('class');
+    document.getElementById('nextPage').removeAttribute('class');  
     lazy = document.getElementsByClassName('lazy');
 } 
 
