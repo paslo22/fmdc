@@ -33,7 +33,11 @@ def get_files_from_folder_path(path, pattern):
                 'name': filename
             }
             if pattern == IMAGE_EXTENSION_PATTERN:
-                height, width = get_width_and_height_from_image(path=lookup_path + filepath)
+                try:
+                    height, width = get_width_and_height_from_image(path=lookup_path + filepath)
+                except Exception:
+                    # Could not read image
+                    continue
                 file_in_path['width'] = width
                 file_in_path['height'] = height
             files.append(file_in_path)
@@ -67,7 +71,7 @@ def get_width_and_height_from_image(path):
         opened_file = Image.open(path)
         width, height = opened_file.size
         return (height, width)
-    except FileNotFoundError:
+    except OSError:
         raise
 
 
