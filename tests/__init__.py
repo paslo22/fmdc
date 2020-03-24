@@ -1,1 +1,1 @@
-# tests go here
+from tests.test_helpers import *

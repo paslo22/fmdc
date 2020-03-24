@@ -22,46 +22,37 @@ def get_files_from_folder_path(path, pattern):
     files = []
     # Path where to look for files
     lookup_path = settings.MEDIA_ROOT + path
-    if get_or_create_folder_path(path=lookup_path):
-        for filepath in os.listdir(lookup_path):
-            image_extension_pattern_compiled = re.compile(pattern)
-            try:
-                filename = re.match(image_extension_pattern_compiled, filepath).group(1)
-                file_in_path = {
-                    'url': settings.MEDIA_URL + path + filepath,
-                    'name': filename
-                }
-                if pattern == IMAGE_EXTENSION_PATTERN:
-                    height, width = get_width_and_height_from_image(path=lookup_path + filepath)
-                    file_in_path['width'] = width
-                    file_in_path['height'] = height
-                files.append(file_in_path)
-            except AttributeError:
-                # file does not match the extension wanted so we ignore it
-                continue
-        return files
-    else:
-        return files
+    if not os.path.exists(lookup_path):
+        create_folder(path=lookup_path)
+    for filepath in os.listdir(lookup_path):
+        image_extension_pattern_compiled = re.compile(pattern)
+        try:
+            filename = re.match(image_extension_pattern_compiled, filepath).group(1)
+            file_in_path = {
+                'url': settings.MEDIA_URL + path + filepath,
+                'name': filename
+            }
+            if pattern == IMAGE_EXTENSION_PATTERN:
+                height, width = get_width_and_height_from_image(path=lookup_path + filepath)
+                file_in_path['width'] = width
+                file_in_path['height'] = height
+            files.append(file_in_path)
+        except AttributeError:
+            # file does not match the extension wanted so we ignore it
+            continue
+    return files
 
 
-def get_or_create_folder_path(path):
+def create_folder(path):
     """
     Args:
         path: str: path like object
 
-    Returns:
-        Boolean: True|False: whether the path exists or not
-
-    Checks if the path exist, if not it creates it
-    either way it returns the path
     """
-    if os.path.exists(path):
-        return True
     try:
         os.makedirs(path)
-        return True
     except PermissionError:
-        return False
+        raise
 
 
 def get_width_and_height_from_image(path):

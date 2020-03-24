@@ -64,7 +64,6 @@ class GaleriaDetailView(generic.DetailView):
         if folder_letter is None:
             return obj
         path = '/archive/Galeria/Fotos/' + folder_letter
-        print(folder_letter)
         gallery_images = get_files_from_folder_path(path=path, pattern=IMAGE_EXTENSION_PATTERN)
         obj['images'] = gallery_images[0:4]
         obj['lazyImages'] = gallery_images[4:]
@@ -126,10 +125,11 @@ class DiscotecaView(generic.ListView):
         lookup_filter = self.kwargs.get('filtro', None)
         if lookup_filter is None:
             return Discoteca.objects.all().order_by('name__name')
-        filter_without_backslash = lookup_filter[:-1].split()
-        return Discoteca.objects.filter(
-            name__name__icontains=filter_without_backslash).order_by('name__name')
-
+        filter_without_backslash = lookup_filter[:-1]
+        discotecas = Discoteca.objects.filter(Q(
+            name__name__icontains=filter_without_backslash) | 
+            Q(albumes__name__icontains=filter_without_backslash)).distinct().order_by('name__name')
+        return discotecas
 
 class DiscotecaDetailView(generic.DetailView):
     model = Discoteca
@@ -170,10 +170,10 @@ class ActividadView(generic.ListView):
     def get_queryset(self):
         lookup_filter = self.kwargs.get('filtro', None)
         if lookup_filter is None:
-            return Actividad.objects.all().order_by('name')
+            return Actividad.objects.exclude(tipo=Actividad.PAGO_ACTIVIDAD).order_by('name')
         filter_without_backslash = lookup_filter[:-1].strip()
         return Actividad.objects.filter(
-            name__icontains=filter_without_backslash).order_by('name')
+            name__icontains=filter_without_backslash).exclude(tipo=Actividad.PAGO_ACTIVIDAD).order_by('name')
 
 
 class ActividadDetailView(generic.DetailView):
@@ -194,28 +194,20 @@ def objetivos(request):
     return render(request, 'web/objetivos.html')
 
 
-def contacto(request):
-    form_class = ContactForm
-    if request.method == 'POST':
-        form = form_class(data=request.POST)
-        if form.is_valid():
-            contact_name = request.POST.get(
-                'nombre', '')
-            contact_email = request.POST.get(
-                'email', '')
-            form_content = request.POST.get('mensaje', '')
-            texto = form_content + ' correo enviado por: ' + contact_name
-            email = EmailMessage(
-                "Nuevo Mensaje desde la web de Fundacion Memorias del chamame",
-                texto,
-                contact_email,
-                [settings.DEFAULT_FROM_EMAIL]
-            )
-            email.send()
-            return redirect('contacto')
-    return render(request, 'web/contacto.html', {
-        'form': form_class,
-    })
+class ActividadesPagoView(generic.ListView):
+    template_name = 'web/PagoActividadesLista.html'
+
+    def get_queryset(self):
+        lookup_filter = self.kwargs.get('filtro', None)
+        if lookup_filter is None:
+            return PagoActividad.objects.all().order_by('name')
+        filter_without_backslash = lookup_filter[:-1].strip()
+        return PagoActividad.objects.filter(
+            name__icontains=filter_without_backslash).order_by('name')
+
+
+def pago(request):
+    return render(request, 'web/pago.html')
 
 
 def efemerides(request):
@@ -243,6 +235,9 @@ def partituras(request):
 def cancionero(request):
     return render(request, 'web/cancionero.html')
 
+
+def revistas(request):
+    pass
 
 def error404(request, exception=None):
     return render(request, 'web/404.html')

@@ -9,7 +9,11 @@ from django.core.validators import FileExtensionValidator
 from django.contrib.staticfiles.templatetags.staticfiles import static
 from tinymce import models as tinymce_models
 
+def album_song_path(instance, filename):
+    return f'archive/Discografias/{instance.album.artista.name}/{instance.album.name}/{filename}'
 
+def revista_image_path(instance, filename):
+    return f'images/{instance.numero}/{filename}'
 class Artista(models.Model):
     """
     Represents an artist
@@ -236,6 +240,14 @@ class Actividad(models.Model):
     name = models.CharField('Nombre', max_length=100)
     description = tinymce_models.HTMLField()
     fecha = models.DateField('Fecha', default=date.today)
+    ACTIVIDAD = "A"
+    PAGO_ACTIVIDAD = "P"
+    tipos = (
+        (ACTIVIDAD, "Pago actividad"),
+        (PAGO_ACTIVIDAD, "Actividad")
+    )
+    tipo = models.TextField(choices=tipos, default="A")
+
 
     def __str__(self):
         return self.name
@@ -275,3 +287,22 @@ class ActividadImage(models.Model):
     class Meta:
         verbose_name = 'Imagen'
         verbose_name_plural = 'Imagenes'
+
+    
+class PagoActividad(Actividad):
+    tipo = Actividad.PAGO_ACTIVIDAD
+    class Meta:
+        verbose_name = 'Actividad del pago'
+        verbose_name_plural = 'Actividades del pago'
+
+
+class Revista(models.Model):
+    fecha = models.DateField(auto_now=False, auto_now_add=False)
+    numero = models.IntegerField(null=False, blank=False)
+
+
+class RevistaImage(models.Model):
+    name = models.CharField(max_length=100)
+    revista = models.ForeignKey(Revista, default=None, on_delete=models.SET_NULL,
+                                null=True, blank=True, related_name="imagenes")
+    link = models.ImageField('Imagen Revista', upload_to=revista_image_path, default='')

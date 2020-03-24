@@ -13,3 +13,9 @@ class AdminSongForm(forms.ModelForm):
 		attrs={'multiple': True}), 
 		required=False
 	)
+
+class ImagesRevistaForm(forms.ModelForm):
+	imagenes = forms.FileField(widget=forms.FileInput(
+		attrs={'multiple': True}), 
+		required=True
+	) 
