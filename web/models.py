@@ -207,6 +207,18 @@ class Album(models.Model):
     def __str__(self):
         return self.name
 
+    @property
+    def template_title(self):
+        """
+        Returns the title for the album for the template
+        """
+        if self.year and self.yearEnd:
+            return f"{self.name} {self.year}-{self.yearEnd}"
+        elif self.year:
+            return f"{self.name} {self.year}"
+        else:
+            return self.name
+
 
 class AlbumSong(models.Model):
     name = models.CharField(max_length=100, default='ladero')

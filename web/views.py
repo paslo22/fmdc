@@ -136,6 +136,7 @@ class DiscotecaDetailView(generic.DetailView):
     template_name = 'web/discoteca.html'
 
 
+
 class PartiturasCView(generic.DetailView):
     template_name = 'web/partituras.html'
 

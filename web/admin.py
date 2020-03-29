@@ -108,7 +108,7 @@ class DiscotecaAdmin(nested_admin.NestedModelAdmin):
 
     def save_model(self, request, obj, form, change):
         for index, album in enumerate(obj.albumes.all()):
-            album_position = f'albumes-{index}-song'
+            album_position = f'albumes-{index}-canciones'
             album_songs = request.FILES.getlist(album_position)
             
             for album_song in album_songs:
@@ -119,7 +119,8 @@ class DiscotecaAdmin(nested_admin.NestedModelAdmin):
                     continue
 
                 full_path_folder = settings.MEDIA_ROOT + link
-                create_folder(path=full_path_folder)
+                if not os.path.exists(full_path_folder):
+                    create_folder(path=full_path_folder)
                 full_path_file = f'{full_path_folder}/{album_song.name}'
                 copy_tmp_file_into_destination(
                     tmp_file=album_song,

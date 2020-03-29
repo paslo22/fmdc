@@ -9,7 +9,7 @@ class ContactForm(forms.Form):
 
 
 class AdminSongForm(forms.ModelForm):
-	song = forms.FileField(widget=forms.FileInput(
+	canciones = forms.FileField(widget=forms.FileInput(
 		attrs={'multiple': True}), 
 		required=False
 	)
