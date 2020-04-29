@@ -27,13 +27,15 @@ html{
 	height: 100%
 }
 
-body{
-	background:#310900;
-	min-height: 100%
+body, .navbar, .jumbotron{
+	background: url('../img/fondo.jpg') no-repeat center center fixed;
+	-webkit-background-size: cover;
+  	-moz-background-size: cover;
+  	-o-background-size: cover;
+  	background-size: cover;
 }
 
 #main{
-	background: #ffffff;
 	margin-bottom: -80px;
 	margin-left: auto;
 	margin-right: auto;
@@ -44,15 +46,18 @@ body{
 }
 
 .navbar{
-	background: url('../img/fondo.jpg') no-repeat center;
 	margin:0px;
 	border:0px;
 }
 
-.navbar-default .navbar-nav>li>a{
-	color:white;
+.navbar-default .navbar-collapse, .navbar-default .navbar-form{
+	border-bottom: 5px solid;
+	border-color: rgb(218,157,56);
 }
 
+.navbar-default .navbar-nav > li > a {
+	color: white
+}
 
 #buscarArt{
 	margin-top: 58px;
@@ -182,7 +187,6 @@ p{
 
 #footer{
 	margin: 0px 15px;
-	background: rgb(100,49,18);
 	height: 80px;
 }
 
