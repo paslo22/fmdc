@@ -1,0 +1,56 @@
+{% extends "web/base.html" %}
+{% load staticfiles %}
+
+{% block headPlus %}
+	<link rel="stylesheet" href="{% static 'web/css/actividad.css' %}">
+	<link rel="stylesheet" href="{% static 'web/css/photoswipe.css' %}">
+	<link rel="stylesheet" href="{% static 'web/css/default-skin/default-skin.css' %}">
+{% endblock headPlus %}
+{% block scriptPlus %}
+	<script src="{% static 'web/js/photoswipe.min.js' %}"></script>
+	<script src="{% static 'web/js/photoswipe-ui-default.min.js' %}"></script>
+	<script src="{% static 'web/js/galeria.js' %}"></script>
+{% endblock scriptPlus %}
+{% if actividad.tipo != 'P' %}
+	{% block activeAct %}active{% endblock activeAct %}
+{% else %}
+	{% block activePagoLista %}active{% endblock activePagoLista %}
+{% endif %}
+{% block content %}
+	{% include "web/photoswipe.html" %}
+	<div class="row">
+		<h1 class="text-center white-text" style="text-decoration: 	underline;">Actividades de la Fundación</h1>
+		<div class="col-md-12 col-xs-12">
+			<h3 class="fecha text-left">{{object.fecha}}</h3>
+			<h2 class="text-center white-text"><strong>{{object.name}}</strong></h2>
+			<h4 class="text-actividad white-text">{{object.description|safe}}</h4>
+					{% if object.video_set %}
+						{% for video in object.video_set.all %}
+							<div>
+								<h3 class="white-text">{{video.name}}</h3>
+								<video preload="metadata" controls style="max-width:100%;">
+									<source src="{{video.link.url}}" type="video/mp4">Su explorador es antiguo. Actualicelo para reproducir videos.
+								</video>
+							</div>
+						{% endfor %}
+					{% endif %}
+		</div>
+		<div class="contenedor col-sm-12 col-md-12 col-xs-12">
+				{% if object.actividadimage_set %}
+						<div class="my-gallery" itemscope itemtype="http://schema.org/ImageGallery">
+							{% for im in object.actividadimage_set.all|dictsort:'name' %}
+
+									<figure class="ActividadImage col-md-3 col-xs-12 col-sm-3"  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject" >
+										<a href="{{im.link.url}}" itemprop="contentUrl" data-size="{{im.link.width}}x{{im.link.height}}">
+											<img src="{{im.link.url}}" itemprop="thumbnail">
+										</a>
+
+										<figcaption class="text-center white-text" itemprop="brown-text caption description"><strong>{{im.name}}</strong></figcaption>
+									</figure>
+							{% endfor %}
+							</div>
+				{% endif %}
+		</div>	
+	</div>
+
+{% endblock content %}

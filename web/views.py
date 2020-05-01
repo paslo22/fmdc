@@ -207,8 +207,9 @@ class ActividadesPagoView(generic.ListView):
             name__icontains=filter_without_backslash).order_by('name')
 
 
-def pago(request):
-    return render(request, 'web/pago.html')
+class PagoActividadDetailView(generic.DetailView):
+    model = PagoActividad
+    template_name = 'web/pago.html'
 
 
 def efemerides(request):

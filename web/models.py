@@ -277,7 +277,7 @@ class Video(models.Model):
     videos = models.ForeignKey(Actividad, default=None, on_delete=models.SET_NULL,
                                null=True, blank=True)
     link = models.FileField('Video', upload_to='videos/',
-                            validators=[FileExtensionValidator(allowed_extensions=['.mp4'])], 
+                            validators=[FileExtensionValidator(allowed_extensions=['mp4'])], 
                             default='')
 
     def __str__(self):
