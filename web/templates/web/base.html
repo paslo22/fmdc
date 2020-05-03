@@ -160,7 +160,7 @@
 			$(document).ready(function(){
 				$.getScript("{% static 'web/js/laterales.js' %}", function(data, textStatus, jqxhr ) {
 					loadLaterales()
-					setInterval(loadLaterales, 5000);
+					setInterval(loadLaterales, 10000);
 				});
 				$.getScript("{% static 'web/js/search.js' %}", function(){});
 				$('body').on('contextmenu', 'img', function(e){ return false; });
