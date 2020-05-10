@@ -9,11 +9,18 @@ from django.views import generic
 from datetime import datetime
 from django.core.mail import EmailMessage
 from django.core.serializers.json import DjangoJSONEncoder
-from django.db.models import Q
+from django.db.models import Q, F
 from django.conf import settings
 
 from .forms import ContactForm
-from .models import Biografia, Efemeride, Discoteca, EfemerideMes, Artista, Actividad, PagoActividad
+from .models import (
+    Actividad,
+    Artista,
+    Biografia,
+    Discoteca,
+    Efemeride,
+    EfemerideMes,
+)
 from web.constants import IMAGE_EXTENSION_PATTERN, MP4_EXTENSION_PATTERN, PDF_EXTENSION_PATTERN
 from web.helpers import get_files_from_folder_path
 
@@ -26,7 +33,7 @@ def imgLaterales(request):
     if not request.is_ajax():
         raise Http404('No se puede acceder a esta url.')
     urls = [os.path.join(settings.MEDIA_URL + 'Laterales/', fn) for fn in os.listdir(settings.MEDIA_ROOT+'Laterales/')]
-    return HttpResponse(json.dumps(random.sample(urls, 12), cls=DjangoJSONEncoder, ensure_ascii=False))
+    return HttpResponse(json.dumps(random.sample(urls, 6), cls=DjangoJSONEncoder, ensure_ascii=False))
 
 
 class GaleriaView(generic.ListView):
@@ -131,9 +138,11 @@ class DiscotecaView(generic.ListView):
             Q(albumes__name__icontains=filter_without_backslash)).distinct().order_by('name__name')
         return discotecas
 
-class DiscotecaDetailView(generic.DetailView):
-    model = Discoteca
-    template_name = 'web/discoteca.html'
+def discoteca(request, pk):
+    discoteca = Discoteca.objects.get(pk=pk)
+    albumes = discoteca.albumes.order_by(F('year').asc(nulls_last=True))
+    return render(request, 'web/discoteca.html',
+                  {"discoteca": discoteca, "albumes":albumes})
 
 
 
@@ -193,22 +202,6 @@ def miembros(request):
 
 def objetivos(request):
     return render(request, 'web/objetivos.html')
-
-
-class ActividadesPagoView(generic.ListView):
-    template_name = 'web/PagoActividadesLista.html'
-
-    def get_queryset(self):
-        lookup_filter = self.kwargs.get('filtro', None)
-        if lookup_filter is None:
-            return PagoActividad.objects.all().order_by('name')
-        filter_without_backslash = lookup_filter[:-1].strip()
-        return PagoActividad.objects.filter(
-            name__icontains=filter_without_backslash).order_by('name')
-
-
-def pago(request):
-    return render(request, 'web/pago.html')
 
 
 def efemerides(request):
