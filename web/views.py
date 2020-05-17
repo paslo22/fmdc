@@ -9,11 +9,20 @@ from django.views import generic
 from datetime import datetime
 from django.core.mail import EmailMessage
 from django.core.serializers.json import DjangoJSONEncoder
-from django.db.models import Q
+from django.db.models import Q, F
 from django.conf import settings
 
 from .forms import ContactForm
-from .models import Biografia, Efemeride, Discoteca, EfemerideMes, Artista, Actividad, PagoActividad
+from .models import (
+    Actividad,
+    Artista,
+    Biografia,
+    Discoteca,
+    Efemeride,
+    EfemerideMes,
+    PagoActividad,
+    Track
+)
 from web.constants import IMAGE_EXTENSION_PATTERN, MP4_EXTENSION_PATTERN, PDF_EXTENSION_PATTERN
 from web.helpers import get_files_from_folder_path
 
@@ -131,9 +140,11 @@ class DiscotecaView(generic.ListView):
             Q(albumes__name__icontains=filter_without_backslash)).distinct().order_by('name__name')
         return discotecas
 
-class DiscotecaDetailView(generic.DetailView):
-    model = Discoteca
-    template_name = 'web/discoteca.html'
+def discoteca(request, pk):
+    discoteca = Discoteca.objects.get(pk=pk)
+    albumes = discoteca.albumes.order_by(F('year').asc(nulls_last=True))
+    return render(request, 'web/discoteca.html',
+                  {"discoteca": discoteca, "albumes":albumes})
 
 
 
@@ -247,3 +258,9 @@ def error404(request, exception=None):
 
 def error500(request, exception=None):
     return render(request, 'web/500.html')
+
+def radio(request):
+    tracks = Track.objects.all()
+    print(tracks)
+    return render(request, 'web/programasRadio.html', {"tracks": tracks})
+    

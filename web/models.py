@@ -318,3 +318,8 @@ class RevistaImage(models.Model):
     revista = models.ForeignKey(Revista, default=None, on_delete=models.SET_NULL,
                                 null=True, blank=True, related_name="imagenes")
     link = models.ImageField('Imagen Revista', upload_to=revista_image_path, default='')
+
+
+class Track(models.Model):
+    name = models.CharField(max_length=100)
+    audio = models.FileField(upload_to='archive/radio')

@@ -4,10 +4,28 @@ from django.contrib import admin
 from django.conf import settings
 import nested_admin
 
-from web.models import Actividad, ActividadImage, Image, ImageAlbum, Song, Biografia, \
-    Artista, EfemerideMes, Discoteca, Album, Video, AlbumSong, PagoActividad, RevistaImage, Revista
-
-from .forms import AdminSongForm, ImagesRevistaForm
+from web.models import (
+    Actividad,
+    ActividadImage,
+    Album,
+    AlbumSong,
+    Artista,
+    Biografia,
+    Discoteca,
+    EfemerideMes,
+    Image,
+    ImageAlbum,
+    PagoActividad,
+    Revista,
+    RevistaImage,
+    Song,
+    Track,
+    Video
+)
+from .forms import (
+    AdminSongForm,
+    ImagesRevistaForm
+)
 from .helpers import create_folder, copy_tmp_file_into_destination
 
 
@@ -50,14 +68,14 @@ class BiografiaAdmin(admin.ModelAdmin):
     raw_id_fields = ('name',)
 
 
-admin.site.register(Biografia, BiografiaAdmin)
+
 
 
 class EfemerideMesAdmin(admin.ModelAdmin):
     exclude = ('monthNumber', 'texto')
 
 
-admin.site.register(EfemerideMes, EfemerideMesAdmin)
+
 
 
 class ArtistaAdmin(admin.ModelAdmin):
@@ -134,9 +152,6 @@ class DiscotecaAdmin(nested_admin.NestedModelAdmin):
                 )
         super().save_model(request, obj, form, change)
 
-admin.site.register(Discoteca, DiscotecaAdmin)
-
-
 class ActividadAdmin(nested_admin.NestedModelAdmin):
     inlines = [
         VideoInline,
@@ -167,7 +182,14 @@ class RevistaAdmin(nested_admin.NestedModelAdmin):
     ]
     search_fields = ('numero',)
 
+class TrackAdmin(admin.ModelAdmin):
+    search_fields = ('name',)
 
+admin.site.register(EfemerideMes, EfemerideMesAdmin)
+admin.site.register(Discoteca, DiscotecaAdmin)
+admin.site.register(Biografia, BiografiaAdmin)
 admin.site.register(Actividad, ActividadAdmin)
 admin.site.register(PagoActividad, PagoActividadAdmin)
 admin.site.register(Revista, RevistaAdmin)
+admin.site.register(Track, TrackAdmin)
+

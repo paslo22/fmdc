@@ -4,6 +4,7 @@ html {
 	color: #222;
 	font-size: 1em;
 	line-height: 1.4;
+	overflow-x: hidden;
 }
 
 audio,
@@ -186,7 +187,7 @@ p{
 }
 
 #footer{
-	margin: 0px 15px;
+	margin: 0 10px 15px 15px;
 	height: 80px;
 }
 

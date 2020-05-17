@@ -27,8 +27,8 @@
 {% block content %}
 	{% include "web/photoswipe.html" %}
 	<div class="row" style="padding:0px 15px;">
-		<h1 class="brown-text text-center"><strong>{{object.name.name}}</strong></h1>
-		{% for album in object.albumes.all %}
+		<h1 class="brown-text text-center"><strong>Discoteca de {{discoteca.name.name}}</strong></h1>
+		{% for album in albumes %}
 			{% if album.canciones.all  %}
 			<div>
 				<a 
