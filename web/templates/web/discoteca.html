@@ -27,74 +27,59 @@
 {% block content %}
 	{% include "web/photoswipe.html" %}
 	<div class="row" style="padding:0px 15px;">
-		<h1 class="brown-text text-center"><strong>Discoteca de {{discoteca.name.name}}</strong></h1>
+		<h1 class="brown-text text-center"><strong>Discoteca de {{discoteca.name.name}} </strong></h1>
 		{% for album in albumes %}
-			{% if album.canciones.all  %}
 			<div>
-				<a 
-					data-toggle="collapse" 
-					href="#collapseExample{{album.pk}}" 
-					aria-expanded="false" 
-					aria-controls="collapseExample">
-					<h3 class='brown-text'>
-						<strong>{{album.template_title}}
-						</strong>
-					</h3>
-				</a>
-			</div>
-			<div class="collapse" id="collapseExample{{album.pk}}">
-				<div class="well">
-					<div class="row">
-						<div class="col-xs-12 col-sm-9" id="album{{album.pk}}">
-						{% for song in album.canciones.all  %}
-								<figcaption>{{song.name}}</figcaption>
-								<audio
-									controls
-									src="{{song.link.url}}">
-									Your browser does not support the
-									<code>audio</code> element.
-								</audio>
-								{% endfor %}
-						</div>
-						<div class="col-sm-3 col-xs-12 text-center">
-							<button 
-								class="btn btn-primary playAll" 
-								data-albumId="album{{album.pk}}">Reproducir alb&uacute;m
-							</button>
-							{% if album.tapa or album.lamina %}
-							<div class="my-gallery{{album.pk}}" itemscope itemtype="http://schema.org/ImageGallery">
-								{% if album.tapa %}
-									<figure class="tapa" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject" >
-										<a href="{{album.tapa.url}}" itemprop="contentUrl" data-size="{{album.tapa.width}}x{{album.tapa.height}}">
-											<img src="{{album.tapa.url}}" itemprop="thumbnail">
-										</a>
-										<figcaption id="tapaFigCaption" itemprop="brown-text caption description"><strong>Tapa</strong></figcaption>
-									</figure>
-									{% endif %}
-								{% if album.lamina %}
-								<figure class="lamina col-xs-12 col-sm-3" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject" >
-									<a href="{{album.lamina.url}}" itemprop="contentUrl" data-size="{{album.lamina.width}}x{{album.lamina.height}}">
-										<img src="{{album.lamina.url}}" itemprop="thumbnail">
-												</a>
-												<figcaption itemprop="brown-text caption description"><strong>Lamina</strong></figcaption>
-											</figure>
-											{% endif %}
-											{% if album.imagealbum_set %}
-											{% for im in album.imagealbum_set.all %}
-											<figure class="lamina col-xs-12 col-sm-3" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject" >
-										<a href="{{im.image.url}}" itemprop="contentUrl" data-size="{{im.image.width}}x{{im.image.height}}">
-											<img src="{{im.image.url}}" itemprop="thumbnail">
-										</a>
-										<figcaption itemprop="brown-text caption description"><strong>{{im.description}}</strong></figcaption>
-									</figure>
-									{% endfor %}
-									{% endif %}
-								{% endif %}
+				{% if album.year %}
+					{% if album.yearEnd %}
+						<a data-toggle="collapse" href="#collapseExample{{album.pk}}" aria-expanded="false" aria-controls="collapseExample"><h3 class='brown-text'><strong>{{album.name}} {{album.year}} - {{album.yearEnd}}</strong></h3></a>
+					{% else %}
+						<a data-toggle="collapse" href="#collapseExample{{album.pk}}" aria-expanded="false" aria-controls="collapseExample"><h3 class='brown-text'><strong>{{album.name}} - {{album.year}}</strong></h3></a>
+					{% endif %}
+				{% else %}
+					<a data-toggle="collapse" href="#collapseExample{{album.pk}}" aria-expanded="false" aria-controls="collapseExample"><h3 class='brown-text'><strong>{{album.name}}</strong></h3></a>
+				{% endif %}
+				<div class="collapse" id="collapseExample{{album.pk}}">
+					<div class="well">
+						<div class="row clearfix">
+							<div class="col-xs-12 col-sm-9" id="album{{album.pk}}">
+								{{album.songString | safe}}
 							</div>
+							<div class="col-sm-3 col-xs-12 text-center">
+								<button class="btn btn-primary playAll" style="margin:15px auto" data-albumId="album{{album.pk}}">Reproducir alb&uacute;m</button>
+							</div>
+							{% if album.tapa or album.lamina %}
+								<div class="my-gallery{{album.pk}}" itemscope itemtype="http://schema.org/ImageGallery">
+									{% if album.tapa %}
+										<figure class="tapa col-xs-12 col-sm-3" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject" >
+											<a href="{{album.tapa.url}}" itemprop="contentUrl" data-size="{{album.tapa.width}}x{{album.tapa.height}}">
+												<img src="{{album.tapa.url}}" itemprop="thumbnail">
+											</a>
+											<figcaption itemprop="brown-text caption description"><strong>Tapa</strong></figcaption>
+										</figure>
+									{% endif %}
+									{% if album.lamina %}
+										<figure class="lamina col-xs-12 col-sm-3" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject" >
+											<a href="{{album.lamina.url}}" itemprop="contentUrl" data-size="{{album.lamina.width}}x{{album.lamina.height}}">
+												<img src="{{album.lamina.url}}" itemprop="thumbnail">
+											</a>
+											<figcaption itemprop="brown-text caption description"><strong>Lamina</strong></figcaption>
+										</figure>
+									{% endif %}
+									{% if album.imagealbum_set %}
+										{% for im in album.imagealbum_set.all %}
+											<figure class="lamina col-xs-12 col-sm-3" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject" >
+												<a href="{{im.image.url}}" itemprop="contentUrl" data-size="{{im.image.width}}x{{im.image.height}}">
+													<img src="{{im.image.url}}" itemprop="thumbnail">
+												</a>
+												<figcaption itemprop="brown-text caption description"><strong>{{im.description}}</strong></figcaption>
+											</figure>
+										{% endfor %}
+									{% endif %}
+								</div>
 							{% endif %}
 						</div>
 					</div>
-							
 				</div>
 			</div>
 		{% endfor %}

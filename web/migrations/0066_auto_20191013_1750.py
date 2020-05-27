@@ -7,7 +7,7 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('web', '0065_auto_20191013_1723'),
+        ('web', '0064_albumsong'),
     ]
 
     operations = [

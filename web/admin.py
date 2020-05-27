@@ -25,9 +25,8 @@ class ImageInline(admin.StackedInline):
 
 class SongInline(admin.StackedInline):
     model = Song
-    form = AdminSongForm
     extra = 1
-    exclude = ('link', 'song_string',)
+    exclude = ('link',)
     classes = ('grp-collapse grp-open',)
     inline_classes = ('grp-collapse grp-open',)
 

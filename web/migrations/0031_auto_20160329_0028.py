@@ -8,7 +8,7 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('web', '0030_remove_album_songstring'),
+        ('web', '0029_auto_20160328_2235'),
     ]
 
     operations = [

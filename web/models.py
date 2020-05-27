@@ -6,7 +6,6 @@ import re
 from django.db import models
 from django.conf import settings
 from django.core.validators import FileExtensionValidator
-from django.contrib.staticfiles.templatetags.staticfiles import static
 from tinymce import models as tinymce_models
 
 def album_song_path(instance, filename):
@@ -72,8 +71,7 @@ class Song(models.Model):
 
     def save(self, *args, **kwargs):
         pattern = re.compile(r'^\[audio:([\w\/\.]+)\]$', re.UNICODE)
-        url = static(settings.MEDIA_URL + 'archive/Biografias/' +
-                     re.match(pattern, self.link_org).group(1))
+        url = settings.MEDIA_URL + 'archive/Biografias' + re.match(pattern, self.link_org).group(1)
         self.link = r'<audio controls><source src="' + url + \
             '" type="audio/mpeg">Su explorador es antiguo. Actualicelo para reproducir audios.</audio>'
         super(Song, self).save(*args, **kwargs)
@@ -199,6 +197,19 @@ class Album(models.Model):
         'Lamina', upload_to='images/', default='', blank=True)
     year = models.IntegerField('Año (Periodo inicio)', null=True, blank=True)
     yearEnd = models.IntegerField('Año (Periodo final)', null=True, blank=True)
+    songString = models.TextField('Listado de canciones', blank=True)
+    songString_org = models.TextField('Listado de canciones', blank=True)
+
+    def formatHelper(self, matchobj):	
+        url = settings.MEDIA_URL + 'archive/Discografias/' + matchobj.group(1)
+        print(f"url: {url}")
+        return r'<audio controls preload="none"><source src="'+url+'" type="audio/mpeg">Su explorador es antiguo\. Actualicelo para reproducir audios\.</audio>'	
+
+    def save(self, *args, **kwargs):	
+        p = re.compile(r'\[audio:([\w\/\.]+)\]', re.UNICODE)	
+        self.songString = re.sub(p, self.formatHelper, self.songString_org)	
+        self.songString = self.songString.replace('\n', r'<br>')	
+        super(Album, self).save(*args, **kwargs)
 
     class Meta:
         verbose_name = 'Album'
