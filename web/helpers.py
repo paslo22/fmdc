@@ -22,21 +22,21 @@ def get_files_from_folder_path(path, pattern):
     files = []
     # Path where to look for files
     lookup_path = settings.MEDIA_ROOT + path
-    if not os.path.exists(lookup_path):
+    if not os.path.exists(lookup_path.encode()):
         create_folder(path=lookup_path)
-    for filepath in os.listdir(lookup_path):
+    for filepath in os.listdir(lookup_path.encode()):
         image_extension_pattern_compiled = re.compile(pattern)
         try:
-            filename = re.match(image_extension_pattern_compiled, filepath).group(1)
+            filename = re.match(image_extension_pattern_compiled, filepath.decode("utf-8")).group(1)
             file_in_path = {
-                'url': settings.MEDIA_URL + path + filepath,
+                'url': ''.join([settings.MEDIA_URL[0:-1], path, filepath.decode("utf-8")]),
                 'name': filename
             }
             if pattern == IMAGE_EXTENSION_PATTERN:
                 try:
-                    height, width = get_width_and_height_from_image(path=lookup_path + filepath)
+                    height, width = get_width_and_height_from_image(path=lookup_path + filepath.decode("utf-8"))
                 except Exception:
-                    # Could not read image
+                # could not read image
                     continue
                 file_in_path['width'] = width
                 file_in_path['height'] = height

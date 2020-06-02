@@ -41,8 +41,8 @@ class GaleriaView(generic.ListView):
 
     def get_queryset(self):
         return {
-            'images': os.listdir(settings.MEDIA_ROOT+'archive/Galeria/Fotos'),
-            'videos': os.listdir(settings.MEDIA_ROOT+'archive/Galeria/Videos'),
+            'images': os.listdir(settings.MEDIA_ROOT+'/archive/Galeria/Fotos'),
+            'videos': os.listdir(settings.MEDIA_ROOT+'/archive/Galeria/Videos'),
         }
 
 
