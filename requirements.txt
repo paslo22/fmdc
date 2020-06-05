@@ -1,4 +1,4 @@
-django==2.1.15
+django==2.2.13
 psycopg2==2.8.3
 django-bootstrap3==11.1.0
 django_cleanup==4.0.0
