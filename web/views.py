@@ -233,6 +233,24 @@ def cancionero(request):
 def revistas(request):
     pass
 
+def radio(request):
+    contents = {}
+    radio_contents_path = f"{settings.MEDIA_ROOT}/radio"
+    for folder in os.listdir(radio_contents_path):
+        folder_path = os.path.join(radio_contents_path, folder)
+        for file in os.listdir(folder_path):
+            if os.path.isfile(os.path.join(folder_path, file)):
+                relative_path = os.path.join(settings.MEDIA_URL, "radio", folder)
+                file_url = f"{relative_path}/{file}"
+                try:
+                    contents[folder].append({
+                        "name": file,
+                        "url": file_url
+                    })
+                except KeyError:
+                    contents[folder] = [ {"name": file, "url": file_url} ]
+    return render(request, 'web/radio.html', {"contents": contents})
+
 def error404(request, exception=None):
     return render(request, 'web/404.html')
 

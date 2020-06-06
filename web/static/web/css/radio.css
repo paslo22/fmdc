@@ -1,0 +1,35 @@
+.tracksCaption{
+    padding-left: 20px;
+    margin-bottom: 5px;
+
+}
+
+.tracksContainer{
+    display:flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+
+.track{
+    flex-grow: 0;
+    width: 33%;
+}
+
+audio {
+    margin-bottom: 5px;
+}
+
+@media (max-width: 425px) {
+    .track {
+        width: calc(100% - 40px);
+        flex-grow: 0;
+        margin-right: 10px;
+        margin-left: 10px;
+        left: 0;
+        right: 0;
+    }
+
+    audio {
+        width: 100%;
+    }
+}

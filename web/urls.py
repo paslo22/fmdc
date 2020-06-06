@@ -25,5 +25,6 @@ urlpatterns = [
     url(r'^videos/(?P<path>[\w\d/ ]+)?/?$', views.VideoView.as_view(), name='videos'),
     url(r'^busqueda/(?P<filtro>.+)?/$', views.BusquedaView.as_view(), name='busqueda'),
     url(r'^imagenesLaterales/$', views.imgLaterales, name='imagenesLaterales'),
+    url(r'^radio/$', views.radio, name='radio'),
     url(r'^tinymce/', include('tinymce.urls')),
 ]
