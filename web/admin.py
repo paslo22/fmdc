@@ -44,7 +44,6 @@ class BiografiaAdmin(admin.ModelAdmin):
         SongInline,
         ImageInline,
     ]
-    exclude = ('text',)
     search_fields = ('name__name',)
     raw_id_fields = ('name',)
 
