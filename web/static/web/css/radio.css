@@ -19,6 +19,14 @@ audio {
     margin-bottom: 5px;
 }
 
+.collapse-content{
+    display: none;
+}
+
+.collapsible{
+    margin-bottom: 10px;
+}
+
 @media (max-width: 425px) {
     .track {
         width: calc(100% - 40px);
