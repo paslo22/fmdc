@@ -33,22 +33,10 @@ class Biografia(models.Model):
     Represents an artist biography
     """
     name = models.OneToOneField(Artista, on_delete=models.SET_NULL, null=True, blank=True)
-    text = models.TextField('Texto')
-    text_org = models.TextField('Texto')
+    text = tinymce_models.HTMLField()
 
     def __str__(self):
         return self.name.name
-
-    def htmlText(self, txt):
-        texto = u'<p class="text-justify">'
-        texto += txt.replace(u'\n', u'</p><p class="text-justify">')
-        texto += u'\r</p>'
-        texto = texto.replace(u'<p class="text-justify">\r</p>', u'')
-        return texto
-
-    def save(self, *args, **kwargs):
-        self.text = self.htmlText(self.text_org)
-        super(Biografia, self).save(*args, **kwargs)
 
     class Meta:
         ordering = ['name']
