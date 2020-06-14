@@ -240,6 +240,7 @@ def radio(request):
         folder_path = os.path.join(radio_contents_path, folder)
         for file in os.listdir(folder_path):
             if os.path.isfile(os.path.join(folder_path, file)):
+                print(type(folder))
                 relative_path = os.path.join(settings.MEDIA_URL, "radio", folder)
                 file_url = f"{relative_path}/{file}"
                 try:
@@ -249,6 +250,9 @@ def radio(request):
                     })
                 except KeyError:
                     contents[folder] = [ {"name": file, "url": file_url} ]
+    for folder_name, folder_content in contents.items():
+        contents[folder_name] = sorted(folder_content, key=lambda item: item["name"])
+    contents = {k:v for k,v in sorted(contents.items(), key=lambda item: item[0])}
     return render(request, 'web/radio.html', {"contents": contents})
 
 def error404(request, exception=None):
