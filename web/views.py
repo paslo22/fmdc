@@ -237,19 +237,20 @@ def radio(request):
     contents = {}
     radio_contents_path = f"{settings.MEDIA_ROOT}/radio"
     for folder in os.listdir(radio_contents_path):
-        folder_path = os.path.join(radio_contents_path, folder)
+        # We need to add this hack to avoid UnicodeEncodeError with surrogates
+        encoded_folder = folder.encode('utf-8', 'surrogateescape').decode()
+        folder_path = os.path.join(radio_contents_path, encoded_folder)
         for file in os.listdir(folder_path):
             if os.path.isfile(os.path.join(folder_path, file)):
-                print(type(folder))
-                relative_path = os.path.join(settings.MEDIA_URL, "radio", folder)
+                relative_path = os.path.join(settings.MEDIA_URL, "radio", encoded_folder)
                 file_url = f"{relative_path}/{file}"
                 try:
-                    contents[folder].append({
+                    contents[encoded_folder].append({
                         "name": file,
-                        "url": file_url
+                        "url": file_url 
                     })
                 except KeyError:
-                    contents[folder] = [ {"name": file, "url": file_url} ]
+                    contents[encoded_folder] = [ {"name": file, "url": file_url} ]
     for folder_name, folder_content in contents.items():
         contents[folder_name] = sorted(folder_content, key=lambda item: item["name"])
     contents = {k:v for k,v in sorted(contents.items(), key=lambda item: item[0])}
