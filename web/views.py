@@ -247,11 +247,11 @@ def radio(request):
                 file_url = f"{relative_path}/{encoded_file}"
                 try:
                     contents[encoded_folder].append({
-                        "name": file.encode('utf-8', 'surrogateescape').decode(),
+                        "name": encoded_file,
                         "url": file_url 
                     })
                 except KeyError:
-                    contents[encoded_folder] = [ {"name": file.encode('utf-8', 'surrogateescape').decode(), "url": file_url} ]
+                    contents[encoded_folder] = [ {"name": encoded_file, "url": file_url} ]
     for folder_name, folder_content in contents.items():
         contents[folder_name] = sorted(folder_content, key=lambda item: item["name"])
     contents = {k:v for k,v in sorted(contents.items(), key=lambda item: item[0])}
