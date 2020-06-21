@@ -23,6 +23,7 @@ from .models import (
 )
 from web.constants import IMAGE_EXTENSION_PATTERN, MP4_EXTENSION_PATTERN, PDF_EXTENSION_PATTERN
 from web.helpers import get_files_from_folder_path
+from web.helpers import safe_unicode_str
 
 
 def index(request):
@@ -238,10 +239,10 @@ def radio(request):
     radio_contents_path = f"{settings.MEDIA_ROOT}/radio"
     for folder in os.listdir(radio_contents_path):
         # We need to add this hack to avoid UnicodeEncodeError with surrogates
-        encoded_folder = folder.encode('utf-8', 'surrogateescape').decode()
+        encoded_folder = safe_unicode_str(folder)
         folder_path = os.path.join(radio_contents_path, encoded_folder)
         for file in os.listdir(folder_path):
-            encoded_file = file.encode('utf-8', 'surrogateescape').decode()
+            encoded_file = safe_unicode_str(file)
             if os.path.isfile(os.path.join(folder_path, file)):
                 relative_path = os.path.join(settings.MEDIA_URL, "radio", encoded_folder)
                 file_url = f"{relative_path}/{encoded_file}"

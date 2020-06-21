@@ -80,3 +80,13 @@ def copy_tmp_file_into_destination(tmp_file, destination_file):
         for chunk in tmp_file:
             destination.write(chunk) 
 
+
+def safe_unicode_str(string):
+    """
+    Args
+        string: string you want to safe encode
+
+    Returns
+        str: safely converted string to avoid UnicodeEncodeErrors
+    """
+    return string.encode('utf-8', 'surrogateescape').decode()
