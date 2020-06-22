@@ -20,14 +20,14 @@
 {% block content %}
 	{% include "web/photoswipe.html" %}
 	<div class="row img" style="padding:0px 15px;">
-		<h1 class="brown-text text-center"><strong>Galeria de {{object.name}}</strong></h1>
+		<h1 class="white-text text-center"><strong>Galeria de {{object.name}}</strong></h1>
 		<div id="my-gallery" class="my-gallery" itemscope itemtype="http://schema.org/ImageGallery">
 			{% for image in object.images %}
 				<figure class="image col-xs-12 col-sm-3" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject" >
 					<a href="{{image.url}}" itemprop="contentUrl" data-size="{{image.width}}x{{image.height}}">
 						<img src="{{image.url}}" alt="{{image.name}}" itemprop="thumbnail">
 					</a>
-					<figcaption itemprop="brown-text caption description"><strong>{{image.name}}</strong></figcaption>
+					<figcaption itemprop="white-text caption description"><strong>{{image.name}}</strong></figcaption>
 				</figure>
 			{% endfor %}
 			<div id="viewMore"></div>
@@ -38,7 +38,7 @@
 						<a href="{{image.url}}" itemprop="contentUrl" data-size="{{image.width}}x{{image.height}}">
 							<img class="lazy" data-src="{{image.url}}" alt="{{image.name}}" itemprop="thumbnail">
 						</a>
-						<figcaption itemprop="brown-text caption description"><strong>{{image.name}}</strong></figcaption>
+						<figcaption itemprop="white-text caption description"><strong>{{image.name}}</strong></figcaption>
 					</figure>
 				{% endfor %}
 			</div>

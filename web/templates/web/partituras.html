@@ -20,7 +20,7 @@
 {% block content %}
 	{% include "web/photoswipe.html" %}
 	<div class="row img" style="padding:0px 15px;">
-		<h1 class="brown-text text-center"><strong>Partituras</strong></h1>
+		<h1 class="white-text text-center"><strong>Partituras</strong></h1>
 		<div class="btn-toolbar" role="toolbar">
 			<div class="btn-group"  role="group">
 				<a type="button" class="btn btn-primary" href="{% url 'partiturasC' 'A/' %}">A</a>
@@ -58,13 +58,13 @@
 					<a href="{{image.url}}" itemprop="contentUrl" data-size="{{image.width}}x{{image.height}}">
 						<img src="{{image.url}}" itemprop="thumbnail">
 					</a>
-					<figcaption itemprop="brown-text caption description"><strong>{{image.name}}</strong></figcaption>
+					<figcaption itemprop="white-text caption description"><strong>{{image.name}}</strong></figcaption>
 				</figure>
 				{% empty %}
 					{% if request.path|length > 28 %}
-						<h2 class="brown-text text-center">No poseemos partituras que empiecen con esta letra.</h2>
+						<h2 class="white-text text-center">No poseemos partituras que empiecen con esta letra.</h2>
 					{% else %}
-						<h2 class="brown-text text-center">Presione en cualquier letra para ver partituras cuyos nombres empiecen con esa letra. </h2>
+						<h2 class="white-text text-center">Presione en cualquier letra para ver partituras cuyos nombres empiecen con esa letra. </h2>
 					{% endif %}
 			{% endfor %}
 			<div id="viewMore"></div>
@@ -75,7 +75,7 @@
 						<a href="{{image.url}}" itemprop="contentUrl" data-size="{{image.width}}x{{image.height}}">
 							<img class="lazy" data-src="{{image.url}}" alt="{{image.name}}" itemprop="thumbnail">
 						</a>
-						<figcaption itemprop="brown-text caption description"><strong>{{image.name}}</strong></figcaption>
+						<figcaption itemprop="white-text caption description"><strong>{{image.name}}</strong></figcaption>
 					</figure>
 				{% endfor %}
 			</div>

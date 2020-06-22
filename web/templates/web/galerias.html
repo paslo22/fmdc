@@ -4,22 +4,22 @@
 {% block activeGal %}active{% endblock activeGal %}
 
 {% block content %}
-	<h1 class="text-center brown-text"><strong>Galerias</strong></h1>
+	<h1 class="text-center white-text"><strong>Galerias</strong></h1>
 		<div class="row">
 			<ul class="col-sm-6">
-				<h2 class="text-center brown-text"><strong>Fotos</strong></h2>
+				<h2 class="text-center white-text"><strong>Fotos</strong></h2>
 				{% for foto in object_list.images %}
 					{% if foto == 'Fotos Chamameseros' %}
-						<a href="{% url 'galeriasC' %}" class="brown-text text-center"><h4><strong>{{ foto }}</strong></h4></a>
+						<a href="{% url 'galeriasC' %}" class="white-text text-center"><h4><strong>{{ foto }}</strong></h4></a>
 					{% else %}
-						<a href="{% url 'galeria' foto|add:'/' %}" class="brown-text text-center"><h4><strong>{{ foto }}</strong></h4></a>
+						<a href="{% url 'galeria' foto|add:'/' %}" class="white-text text-center"><h4><strong>{{ foto }}</strong></h4></a>
 					{% endif %}
 				{% empty %}
-					<p class="brown-text text-center">A&uacute;n no hay fotos cargadas.</p>
+					<p class="white-text text-center">A&uacute;n no hay fotos cargadas.</p>
 				{% endfor %}
 			</ul>
 			<ul class="col-sm-6">
-				<a href="{% url 'videos' %}"><h2 class="text-center brown-text"><strong>Videos</strong></h2></a>
+				<a href="{% url 'videos' %}"><h2 class="text-center white-text"><strong>Videos</strong></h2></a>
 			</ul>
 		</div>
 {% endblock content %}

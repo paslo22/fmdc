@@ -21,13 +21,13 @@
 {% block content %}
 	{% include "web/photoswipe.html" %}
 	<div class="row" id='content'>
-		<h1 class="brown-text text-center"><strong>{{object.name}}</strong></h1>
+		<h1 class="white-text text-center"><strong>{{object.name}}</strong></h1>
 		<div class="col-sm-12 col-md-8">
-			<div class="noselect">
+			<div class="noselect white-text">
 				{{object.text | safe}}
 			</div>
 			{% if object.image_set.all %}
-				<h3 class="brown-text"><strong>Imagenes</strong></h3>
+				<h3 class="white-text"><strong>Imagenes</strong></h3>
 			{% endif %}
 			<div class="my-gallery" itemscope itemtype="http://schema.org/ImageGallery">
 				{% for imagen in object.image_set.all %}
@@ -40,7 +40,7 @@
 				{% endfor %}
 			</div>
 			{% if object.song_set.all %}
-				<h3 class="brown-text"><strong>Canciones</strong></h3>
+				<h3 class="white-text"><strong>Canciones</strong></h3>
 			{% endif %}
 			{% for cancion in object.song_set.all %}
 				<h4>{{cancion.name}}</h4>
@@ -49,11 +49,11 @@
 			{% endfor %}
 		</div>
 		<div class="col-sm-12 col-md-4">
-			<h3 class="brown-text"><strong>Discograf&iacute;a</strong></h3>
+			<h3 class="white-text"><strong>Discograf&iacute;a</strong></h3>
 			{% if object.name.discoteca %}
-				<a href="{% url 'discoteca' object.name.discoteca.id %}"><h4>{{object.name.discoteca}}</h4></a>
+				<a class="white-text" href="{% url 'discoteca' object.name.discoteca.id %}"><h4>{{object.name.discoteca}}</h4></a>
 			{% else %}
-				<h4>No existen datos en la discoteca de este artista a&uacute;n.</h4>
+				<h4 class="white-text">No existen datos en la discoteca de este artista a&uacute;n.</h4>
 			{% endif %}
 
 		</div>

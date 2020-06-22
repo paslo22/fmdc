@@ -10,7 +10,7 @@
 {% block content %}
 	<div class="row" style="padding:0px 15px;">
 		<div class="row">
-			<h1 class="text-center brown-text col-sm-3 col-md-4 col-sm-offset-4"><strong>Biograf&iacute;as</strong></h1>
+			<h1 class="text-center white-text col-sm-3 col-md-4 col-sm-offset-4"><strong>Biograf&iacute;as</strong></h1>
 			<form class="col-sm-5 col-md-4 form-inline searchForm" data-source="biografias">
 				<div class="form-group">
 					<input name="searchInput" type="text"  class="form-control" placeholder="Buscar">
@@ -21,9 +21,9 @@
 		<div class="row">
 			<ul class="col-sm-12">
 				{% for biografia in object_list %}
-					<a href="{% url 'biografia' biografia.id %}" class="brown-text text-center"><h4><strong>{{ biografia.name }}</strong></h4></a>
+					<a href="{% url 'biografia' biografia.id %}" class="white-text text-center"><h4><strong>{{ biografia.name }}</strong></h4></a>
 					{% empty %}
-					<p class="brown-text text-center">Su b&uacute;squeda no arroj&oacute; resultados.</p>
+					<p class="white-text text-center">Su b&uacute;squeda no arroj&oacute; resultados.</p>
 				{% endfor %}
 			</ul>
 		</div>
