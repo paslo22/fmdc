@@ -43,8 +43,8 @@
 				<h3 class="white-text"><strong>Canciones</strong></h3>
 			{% endif %}
 			{% for cancion in object.song_set.all %}
-				<h4>{{cancion.name}}</h4>
-				<h5>{{cancion.extraInfo}}</h5>
+				<h4 class="white-text">{{cancion.name}}</h4>
+				<h5 class="white-text">{{cancion.extraInfo}}</h5>
 				{{cancion.link | safe}}
 			{% endfor %}
 		</div>

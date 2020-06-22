@@ -18,7 +18,7 @@
 	<div class="row" style="padding:0px 15px;">
 		<h1 class="text-center white-text"><strong>Un d&iacute;a como hoy</strong></h1>
 		{% for efe in efemerides %}
-			<h3 class="noselect">{{efe.date.year}}: {{efe.event}}</h3>
+			<h3 class="noselect white-text">{{efe.date.year}}: {{efe.event}}</h3>
 			{% empty %}
 			<h3 class="white-text text-center">No hay efemerides para hoy.</h3>
 		{% endfor %}
