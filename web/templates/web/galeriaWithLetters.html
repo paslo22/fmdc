@@ -24,7 +24,7 @@
 {% block content %}
 	{% include "web/photoswipe.html" %}
 	<div class="row img" style="padding:0px 15px;">
-		<h1 class="brown-text text-center"><strong>Galeria</strong></h1>
+		<h1 class="white-text text-center"><strong>Galeria</strong></h1>
 		<div class="btn-toolbar" role="toolbar">
 			<div class="btn-group"  role="group">
 				<a type="button" class="btn btn-primary" href="{% url 'galeriasC' 'A/' %}">A</a>
@@ -62,7 +62,7 @@
 					<a href="{{image.url}}" itemprop="contentUrl" data-size="{{image.width}}x{{image.height}}">
 						<img src="{{image.url}}" itemprop="thumbnail">
 					</a>
-					<figcaption itemprop="brown-text caption description"><strong>{{image.name}}</strong></figcaption>
+					<figcaption class="white-text" itemprop="caption description"><strong>{{image.name}}</strong></figcaption>
 				</figure>
 				<div id="viewMore"></div>
 				<span id="nextPage" class="hidden">
@@ -72,15 +72,15 @@
 							<a href="{{image.url}}" itemprop="contentUrl" data-size="{{image.width}}x{{image.height}}">
 								<img class="lazy" data-src="{{image.url}}" alt="{{image.name}}" itemprop="thumbnail">
 							</a>
-							<figcaption itemprop="brown-text caption description"><strong>{{image.name}}</strong></figcaption>
+							<figcaption class="white-text" itemprop="brown-text caption description"><strong>{{image.name}}</strong></figcaption>
 						</figure>
 					{% endfor %}
 				</div>
 				{% empty %}
 					{% if request.path|length > 28 %}
-						<h2 class="brown-text text-center">No poseemos imagenes de artistas que empiecen con esta letra.</h2>
+						<h2 class="white-text text-center">No poseemos imagenes de artistas que empiecen con esta letra.</h2>
 					{% else %}
-						<h2 class="brown-text text-center">Presione en cualquier letra para ver imagenes de artistas cuyos nombres empiecen con esa letra. </h2>
+						<h2 class="white-text text-center">Presione en cualquier letra para ver imagenes de artistas cuyos nombres empiecen con esa letra. </h2>
 					{% endif %}
 			{% endfor %}
 		</div>
