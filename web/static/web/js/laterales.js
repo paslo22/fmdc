@@ -5,7 +5,6 @@ function loadLaterales() {
 		var newImg = new Image();
 		newImg.src = url;
 		newImg.className = 'lateral hidden-xs';
-		console.log(newImg)
 		return newImg;
 	}
 
@@ -24,12 +23,9 @@ function loadLaterales() {
 		type: 'GET',
 	})
 	.done(function(data) {
-		console.log(data)
 		$.each(JSON.parse(data), function(_, val) {
 			images.push(crearImagenes(val));
-			console.log(images)
 		});
-		console.log(images.length)
 		for (var i = 0; i < 3; i++) {
 			ubicarImagenes(images.pop(),images.pop(),200*i,'left')
 		}

@@ -1,5 +1,6 @@
 $(document).ready(function() {
 	
+	let events = []
 	leapYear = function(year){
 		return ((year % 4 == 0) && (year % 100 != 0)) || (year % 400 == 0);
 	}
@@ -7,11 +8,9 @@ $(document).ready(function() {
 	day_title = function(day_name){
 		return "<TD ALIGN=center>"+day_name+"</TD>"
 	}
-
 	getEventForDay = function(day,month) {
 		if (month in efem) {
 			var eventMonth = efem[month].efemerides
-			var events = ''
 			$.each(eventMonth, function(index, val) {
 				if (parseInt(val[0].split('-')[2])==day) {
 					events+= parseInt(val[0].split('-')[0]) + ': ' + val[1] + '<br>';
@@ -29,7 +28,7 @@ $(document).ready(function() {
 		var day=1
 		var out = ''
 		// begin the new month table
-		out += "<div class='hidden-xs col-sm-6 col-md-4' style='color:white; height:316px;'><table class='table table-bordered' style='border:1px #895b20 solid'><TR>"
+		out += "<div class='hidden-xs col-sm-6 col-md-4' style='height:316px;'><table class='table table-bordered' style='border:1px #895b20 solid'><TR>"
 		out +="<TD colspan=7 ALIGN=center><B>"+month+"   "+year+"</B><TR>"
 		// column headings
 		out += day_title("Dom")

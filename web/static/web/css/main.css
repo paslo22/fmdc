@@ -255,3 +255,15 @@ body>.container{
 .text-center {
 	text-align: center;
 }
+
+.table > td > a{
+	color: white
+}
+
+tr:first-child {
+	color: white
+}
+
+tr:nth-child(2) {
+	color: white
+}
