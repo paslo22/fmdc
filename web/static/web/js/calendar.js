@@ -1,30 +1,30 @@
 $(document).ready(function() {
 	
-	let events = []
 	leapYear = function(year){
 		return ((year % 4 == 0) && (year % 100 != 0)) || (year % 400 == 0);
 	}
-
-	day_title = function(day_name){
+	
+	function day_title(day_name) {
 		return "<TD ALIGN=center>"+day_name+"</TD>"
 	}
-	getEventForDay = function(day,month) {
+	
+	function getEventForDay(day, month) {
+		let events = []
 		if (month in efem) {
-			var eventMonth = efem[month].efemerides
-			$.each(eventMonth, function(index, val) {
-				if (parseInt(val[0].split('-')[2])==day) {
+			var monthEvents = efem[month].efemerides
+			$.each(monthEvents, function(index, val) {
+				if (parseInt(val[0].split('-')[2]) === day) {
 					events+= parseInt(val[0].split('-')[0]) + ': ' + val[1] + '<br>';
 				}
 			});
 		}
-		if (!events) {
-			events = 'No hay efemerides';
-		}
-		return '<a data-toggle="popover" data-html="true" data-content="'+events+'" data-placement="top" title="En este d&iacute;a:">'+day+'</a>'
+		const popoverHtml = events.length ? '<a data-toggle="popover" data-html="true" data-content="'+events+'" data-placement="top" title="En este d&iacute;a:">'+day+'</a>' : 
+			'<a data-toggle="popover" data-html="true" data-content="'+events+'" data-placement="top" title="No hay eventos este día">'+day+'</a>'
+		return popoverHtml
 	}
 
 	// fills the month table with numbers
-	fill_table = function(month,month_length,year){ 
+	function fill_table(month, month_length, year) { 
 		var day=1
 		var out = ''
 		// begin the new month table
