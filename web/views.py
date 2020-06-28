@@ -33,7 +33,7 @@ def index(request):
 def imgLaterales(request):
     if not request.is_ajax():
         raise Http404('No se puede acceder a esta url.')
-    urls = [os.path.join(settings.MEDIA_URL + 'Laterales/', fn) for fn in os.listdir(settings.MEDIA_ROOT+'Laterales/')]
+    urls = [os.path.join(settings.MEDIA_URL + 'Laterales/', safe_unicode_str(fn)) for fn in os.listdir(settings.MEDIA_ROOT+'Laterales/')]
     return HttpResponse(json.dumps(random.sample(urls, 6), cls=DjangoJSONEncoder, ensure_ascii=False))
 
 
