@@ -13,6 +13,7 @@ def album_song_path(instance, filename):
 
 def revista_image_path(instance, filename):
     return f'images/{instance.numero}/{filename}'
+
 class Artista(models.Model):
     """
     Represents an artist
@@ -32,7 +33,7 @@ class Biografia(models.Model):
     """
     Represents an artist biography
     """
-    name = models.OneToOneField(Artista, on_delete=models.SET_NULL, null=True, blank=True)
+    name = models.OneToOneField(Artista, on_delete=models.CASCADE, null=True, blank=True)
     text = tinymce_models.HTMLField()
 
     def __str__(self):
@@ -73,7 +74,7 @@ class Image(models.Model):
     """
     Represents an Image
     """
-    bio = models.ForeignKey(Biografia, default=None, on_delete=models.SET_NULL, null=True, blank=True)
+    bio = models.ForeignKey(Biografia, default=None, on_delete=models.CASCADE, null=True, blank=True)
     image = models.ImageField('Imagen', upload_to='images/', default='')
     description = models.CharField('Descripcion', max_length=200, blank=True)
 
@@ -158,7 +159,7 @@ class Discoteca(models.Model):
     """
     name = models.OneToOneField(
         Artista,
-        on_delete=models.SET_NULL,
+        on_delete=models.CASCADE,
         blank=True,
         null=True
     )
@@ -273,7 +274,7 @@ class Video(models.Model):
     Represents a video
     """
     name = models.CharField(max_length=100)
-    videos = models.ForeignKey(Actividad, default=None, on_delete=models.SET_NULL,
+    videos = models.ForeignKey(Actividad, default=None, on_delete=models.CASCADE,
                                null=True, blank=True)
     link = models.FileField('Video', upload_to='videos/',
                             validators=[FileExtensionValidator(allowed_extensions=['.mp4'])], 
@@ -288,7 +289,7 @@ class ActividadImage(models.Model):
     Represents an event's image
     """
     name = models.CharField(max_length=100)
-    act = models.ForeignKey(Actividad, default=None, on_delete=models.SET_NULL,
+    act = models.ForeignKey(Actividad, default=None, on_delete=models.CASCADE,
                             null=True, blank=True)
     link = models.ImageField('Imagen', upload_to='images/', default='')
 
@@ -314,6 +315,6 @@ class Revista(models.Model):
 
 class RevistaImage(models.Model):
     name = models.CharField(max_length=100)
-    revista = models.ForeignKey(Revista, default=None, on_delete=models.SET_NULL,
+    revista = models.ForeignKey(Revista, default=None, on_delete=models.CASCADE,
                                 null=True, blank=True, related_name="imagenes")
     link = models.ImageField('Imagen Revista', upload_to=revista_image_path, default='')
