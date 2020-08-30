@@ -17,7 +17,3 @@
 .my-gallery figcaption {
   display: none;
 }
-
-.noselect > p > span *{
-  color: white;
-}

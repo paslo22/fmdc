@@ -8,11 +8,14 @@ from django.conf import settings
 from django.core.validators import FileExtensionValidator
 from tinymce import models as tinymce_models
 
+
 def album_song_path(instance, filename):
     return f'archive/Discografias/{instance.album.artista.name}/{instance.album.name}/{filename}'
 
+
 def revista_image_path(instance, filename):
     return f'images/{instance.numero}/{filename}'
+
 
 class Artista(models.Model):
     """
@@ -33,11 +36,16 @@ class Biografia(models.Model):
     """
     Represents an artist biography
     """
-    name = models.OneToOneField(Artista, on_delete=models.CASCADE, null=True, blank=True)
+    name = models.OneToOneField(
+        Artista, on_delete=models.CASCADE, null=True, blank=True)
     text = tinymce_models.HTMLField()
 
     def __str__(self):
         return self.name.name
+
+    def save(self, *args, **kwargs):
+        self.text = self.text.replace("color:", "")
+        super(Biografia, self).save(*args, **kwargs)
 
     class Meta:
         ordering = ['name']
@@ -49,7 +57,8 @@ class Song(models.Model):
     """
     Represents a song related to a biography
     """
-    songs = models.ForeignKey(Biografia, default=None, on_delete=models.SET_NULL, null=True, blank=True)
+    songs = models.ForeignKey(Biografia, default=None,
+                              on_delete=models.SET_NULL, null=True, blank=True)
     name = models.CharField('Nombre', max_length=70)
     extraInfo = models.TextField('Informacion extra', blank=True)
     link = models.CharField('Enlace', max_length=300)
@@ -60,7 +69,8 @@ class Song(models.Model):
 
     def save(self, *args, **kwargs):
         pattern = re.compile(r'^\[audio:([\w\/\.]+)\]$', re.UNICODE)
-        url = settings.MEDIA_URL + 'archive/Biografias/' + re.match(pattern, self.link_org).group(1)
+        url = settings.MEDIA_URL + 'archive/Biografias/' + \
+            re.match(pattern, self.link_org).group(1)
         self.link = r'<audio controls><source src="' + url + \
             '" type="audio/mpeg">Su explorador es antiguo. Actualicelo para reproducir audios.</audio>'
         super(Song, self).save(*args, **kwargs)
@@ -74,7 +84,8 @@ class Image(models.Model):
     """
     Represents an Image
     """
-    bio = models.ForeignKey(Biografia, default=None, on_delete=models.CASCADE, null=True, blank=True)
+    bio = models.ForeignKey(Biografia, default=None,
+                            on_delete=models.CASCADE, null=True, blank=True)
     image = models.ImageField('Imagen', upload_to='images/', default='')
     description = models.CharField('Descripcion', max_length=200, blank=True)
 
@@ -173,8 +184,8 @@ class Album(models.Model):
     Represents an album
     """
     discoteca = models.ForeignKey(
-        Discoteca, 
-        on_delete=models.CASCADE, 
+        Discoteca,
+        on_delete=models.CASCADE,
         null=True,
         blank=True,
         related_name='albumes'
@@ -189,15 +200,15 @@ class Album(models.Model):
     songString = models.TextField('Listado de canciones', blank=True)
     songString_org = models.TextField('Listado de canciones', blank=True)
 
-    def formatHelper(self, matchobj):	
+    def formatHelper(self, matchobj):
         url = settings.MEDIA_URL + 'archive/Discografias/' + matchobj.group(1)
         print(f"url: {url}")
-        return r'<audio controls preload="none"><source src="'+url+'" type="audio/mpeg">Su explorador es antiguo\. Actualicelo para reproducir audios\.</audio>'	
+        return r'<audio controls preload="none"><source src="'+url+'" type="audio/mpeg">Su explorador es antiguo\. Actualicelo para reproducir audios\.</audio>'
 
-    def save(self, *args, **kwargs):	
-        p = re.compile(r'\[audio:([\w\/\.]+)\]', re.UNICODE)	
-        self.songString = re.sub(p, self.formatHelper, self.songString_org)	
-        self.songString = self.songString.replace('\n', r'<br>')	
+    def save(self, *args, **kwargs):
+        p = re.compile(r'\[audio:([\w\/\.]+)\]', re.UNICODE)
+        self.songString = re.sub(p, self.formatHelper, self.songString_org)
+        self.songString = self.songString.replace('\n', r'<br>')
         super(Album, self).save(*args, **kwargs)
 
     class Meta:
@@ -223,11 +234,12 @@ class Album(models.Model):
 class AlbumSong(models.Model):
     name = models.CharField(max_length=100, default='ladero')
     album = models.ForeignKey(
-        Album, 
-        on_delete=models.CASCADE, 
+        Album,
+        on_delete=models.CASCADE,
         related_name='canciones'
     )
     link = models.FileField(upload_to=album_song_path)
+
 
 class ImageAlbum(models.Model):
     """
@@ -260,7 +272,6 @@ class Actividad(models.Model):
     )
     tipo = models.TextField(choices=tipos, default="A")
 
-
     def __str__(self):
         return self.name
 
@@ -277,7 +288,8 @@ class Video(models.Model):
     videos = models.ForeignKey(Actividad, default=None, on_delete=models.CASCADE,
                                null=True, blank=True)
     link = models.FileField('Video', upload_to='videos/',
-                            validators=[FileExtensionValidator(allowed_extensions=['mp4'])], 
+                            validators=[FileExtensionValidator(
+                                allowed_extensions=['mp4'])],
                             default='')
 
     def __str__(self):
@@ -300,9 +312,10 @@ class ActividadImage(models.Model):
         verbose_name = 'Imagen'
         verbose_name_plural = 'Imagenes'
 
-    
+
 class PagoActividad(Actividad):
     tipo = Actividad.PAGO_ACTIVIDAD
+
     class Meta:
         verbose_name = 'Actividad del pago'
         verbose_name_plural = 'Actividades del pago'
@@ -317,4 +330,5 @@ class RevistaImage(models.Model):
     name = models.CharField(max_length=100)
     revista = models.ForeignKey(Revista, default=None, on_delete=models.CASCADE,
                                 null=True, blank=True, related_name="imagenes")
-    link = models.ImageField('Imagen Revista', upload_to=revista_image_path, default='')
+    link = models.ImageField(
+        'Imagen Revista', upload_to=revista_image_path, default='')
