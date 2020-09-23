@@ -39,7 +39,7 @@
 								<a href="{% url 'index' %}" class="pull-left" id="logo"><img src="{% static 'web/img/logo.png' %}" alt=""></a>
 							</div>
 							<div class="sadaic-col col-sm-6 col-md-6 col-xs-3">
-								<a  href="http://www.sadaic.org.ar/" target="_blank" class="pull-right" id="sadaic"><img  src="{% static 'web/img/sadaic.webp' %}" alt=""></a>
+								<a  href="http://www.sadaic.org.ar/" target="_blank" class="pull-right" id="sadaic"><img  src="{% static 'web/img/sadaic.jpg' %}" alt=""></a>
 							</div>
 						</div>
 						<div class="row">
@@ -157,6 +157,7 @@
 					setInterval(loadLaterales, 5000);
 				});
 				$.getScript("{% static 'web/js/search.js' %}", function(){});
+				$.getScript("{% static 'web/js/facebook.js' %}", function(){});
 				$('body').on('contextmenu', 'img', function(e){ return false; });
 			})
 		</script>

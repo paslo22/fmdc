@@ -28,7 +28,7 @@ html{
 }
 
 body, .navbar, .jumbotron{
-	background: url('../img/fondo.webp') no-repeat center center fixed;
+	background: url('../img/fondo.jpg') no-repeat center center fixed;
 	-webkit-background-size: cover;
   	-moz-background-size: cover;
   	-o-background-size: cover;
