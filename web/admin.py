@@ -104,33 +104,6 @@ class DiscotecaAdmin(nested_admin.NestedModelAdmin):
     search_fields = ('name__name',)
     raw_id_fields = ('name',)
 
-    def save_model(self, request, obj, form, change):
-        for index, album in enumerate(obj.albumes.all()):
-            album_position = f'albumes-{index}-canciones'
-            album_songs = request.FILES.getlist(album_position)
-            
-            for album_song in album_songs:
-                name = album_song.name.split(".")[0]
-                link = album_song_path(album=album)
-                relative_path_file = f'{link}/{album_song.name}'
-                if AlbumSong.objects.filter(link=relative_path_file):
-                    continue
-
-                full_path_folder = settings.MEDIA_ROOT + link
-                if not os.path.exists(full_path_folder):
-                    create_folder(path=full_path_folder)
-                full_path_file = f'{full_path_folder}/{album_song.name}'
-                copy_tmp_file_into_destination(
-                    tmp_file=album_song,
-                    destination_file=full_path_file
-                )
-
-                AlbumSong.objects.create(
-                    name=name,
-                    album=album,
-                    link=relative_path_file
-                )
-        super().save_model(request, obj, form, change)
 
 admin.site.register(Discoteca, DiscotecaAdmin)
 
