@@ -13,9 +13,6 @@ def album_song_path(instance, filename):
     return f'archive/Discografias/{instance.album.artista.name}/{instance.album.name}/{filename}'
 
 
-def revista_image_path(instance, filename):
-    return f'images/{instance.numero}/{filename}'
-
 
 class Artista(models.Model):
     """
@@ -231,16 +228,6 @@ class Album(models.Model):
             return self.name
 
 
-class AlbumSong(models.Model):
-    name = models.CharField(max_length=100, default='ladero')
-    album = models.ForeignKey(
-        Album,
-        on_delete=models.CASCADE,
-        related_name='canciones'
-    )
-    link = models.FileField(upload_to=album_song_path)
-
-
 class ImageAlbum(models.Model):
     """
     Represents an image for an album
@@ -320,15 +307,3 @@ class PagoActividad(Actividad):
         verbose_name = 'Actividad del pago'
         verbose_name_plural = 'Actividades del pago'
 
-
-class Revista(models.Model):
-    fecha = models.DateField(auto_now=False, auto_now_add=False)
-    numero = models.IntegerField(null=False, blank=False)
-
-
-class RevistaImage(models.Model):
-    name = models.CharField(max_length=100)
-    revista = models.ForeignKey(Revista, default=None, on_delete=models.CASCADE,
-                                null=True, blank=True, related_name="imagenes")
-    link = models.ImageField(
-        'Imagen Revista', upload_to=revista_image_path, default='')
