@@ -27,11 +27,6 @@ class Migration(migrations.Migration):
             field=models.OneToOneField(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='web.Artista'),
         ),
         migrations.AlterField(
-            model_name='revistaimage',
-            name='revista',
-            field=models.ForeignKey(blank=True, default=None, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='imagenes', to='web.Revista'),
-        ),
-        migrations.AlterField(
             model_name='video',
             name='videos',
             field=models.ForeignKey(blank=True, default=None, null=True, on_delete=django.db.models.deletion.CASCADE, to='web.Actividad'),

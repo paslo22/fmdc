@@ -5,9 +5,9 @@ from django.conf import settings
 import nested_admin
 
 from web.models import Actividad, ActividadImage, Image, ImageAlbum, Song, Biografia, \
-    Artista, EfemerideMes, Discoteca, Album, Video, AlbumSong, PagoActividad, RevistaImage, Revista
+    Artista, EfemerideMes, Discoteca, Album, Video, PagoActividad
 
-from .forms import AdminSongForm, ImagesRevistaForm
+from .forms import AdminSongForm
 from .helpers import create_folder, copy_tmp_file_into_destination
 
 
@@ -16,9 +16,10 @@ def album_song_path(album):
     path = f'archive/Discografias/{discoteca_name}/{album.name}'
     return path
 
+
 class ImageInline(admin.StackedInline):
     model = Image
-    extra = 1   
+    extra = 1
     classes = ('grp-collapse grp-open',)
     inline_classes = ('grp-collapse grp-open',)
 
@@ -30,14 +31,6 @@ class SongInline(admin.StackedInline):
     classes = ('grp-collapse grp-open',)
     inline_classes = ('grp-collapse grp-open',)
 
-
-class AlbumSongInline(admin.StackedInline):
-    model = AlbumSong
-    form = AdminSongForm
-    extra = 1
-    exclude = ('link',)
-    classes = ('grp-collapse grp-open',)
-    inline_classes = ('grp-collapse grp-open',)
 
 class BiografiaAdmin(admin.ModelAdmin):
     inlines = [
@@ -83,6 +76,7 @@ class AlbumInline(nested_admin.NestedStackedInline):
     classes = ('grp-collapse grp-open',)
     inline_classes = ('grp-collapse grp-open',)
 
+
 class VideoInline(nested_admin.NestedStackedInline):
     model = Video
     extra = 1
@@ -116,6 +110,7 @@ class ActividadAdmin(nested_admin.NestedModelAdmin):
     exclude = ('text',)
     search_fields = ('title__title',)
 
+
 class PagoActividadAdmin(nested_admin.NestedModelAdmin):
     inlines = [
         VideoInline,
@@ -124,21 +119,6 @@ class PagoActividadAdmin(nested_admin.NestedModelAdmin):
     exclude = ('text',)
     search_fields = ('title__title',)
 
-class RevistaImageInline(nested_admin.NestedStackedInline):
-    model = RevistaImage
-    exclude = ('name', 'link',)
-    extra = 1
-    form = ImagesRevistaForm
-    classes = ('grp-collapse grp-open',)
-    inline_classes = ('grp-collapse grp-open',)
-
-class RevistaAdmin(nested_admin.NestedModelAdmin):
-    inlines = [
-        RevistaImageInline,
-    ]
-    search_fields = ('numero',)
-
 
 admin.site.register(Actividad, ActividadAdmin)
 admin.site.register(PagoActividad, PagoActividadAdmin)
-admin.site.register(Revista, RevistaAdmin)

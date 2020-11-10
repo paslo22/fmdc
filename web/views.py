@@ -231,9 +231,6 @@ def cancionero(request):
     return render(request, 'web/cancionero.html')
 
 
-def revistas(request):
-    pass
-
 def radio(request):
     contents = {}
     radio_contents_path = f"{settings.MEDIA_ROOT}/radio"
