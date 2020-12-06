@@ -27,6 +27,18 @@ audio {
     margin-bottom: 10px;
 }
 
+.track > audio { width: 100% }
+@media screen and (-webkit-min-device-pixel-ratio:0)
+  and (min-resolution:.001dpcm) {
+    .track {
+           overflow: hidden;width: 390px; 
+    }
+
+    .track > audio { 
+      width: 420px; 
+    }
+}
+
 @media (max-width: 425px) {
     .track {
         width: calc(100% - 40px);

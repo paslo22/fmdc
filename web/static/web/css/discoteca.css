@@ -18,6 +18,18 @@ figcaption{
 	margin:0px auto 15px auto;
 }
 
+.album > audio { width: 100% }
+@media screen and (-webkit-min-device-pixel-ratio:0)
+  and (min-resolution:.001dpcm) {
+    .album {
+           overflow: hidden;width: 390px; 
+    }
+
+    .album > audio { 
+      width: 420px; 
+    }
+}
+
 @media(max-width: 375px){
 	.playAll{
 		margin-top: 10px;
