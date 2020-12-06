@@ -11,8 +11,8 @@
 }
 
 .track{
-    flex-grow: 0;
     width: 33%;
+    flex-grow: 0;
 }
 
 audio {
@@ -27,15 +27,10 @@ audio {
     margin-bottom: 10px;
 }
 
-.track > audio { width: 100% }
 @media screen and (-webkit-min-device-pixel-ratio:0)
   and (min-resolution:.001dpcm) {
     .track {
-           overflow: hidden;width: 390px; 
-    }
-
-    .track > audio { 
-      width: 420px; 
+           overflow: hidden;width: 33%; 
     }
 }
 
