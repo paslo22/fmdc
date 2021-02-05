@@ -68,7 +68,7 @@ class Song(models.Model):
         pattern = re.compile(r'^\[audio:([\w\/\.]+)\]$', re.UNICODE)
         url = settings.MEDIA_URL + 'archive/Biografias/' + \
             re.match(pattern, self.link_org).group(1)
-        self.link = r'<audio controls><source src="' + url + \
+        self.link = r'<audio controls controlsList="nodownload"><source src="' + url + \
             '" type="audio/mpeg">Su explorador es antiguo. Actualicelo para reproducir audios.</audio>'
         super(Song, self).save(*args, **kwargs)
 
