@@ -1,0 +1,49 @@
+{% extends "web/base.html" %}
+{% load staticfiles %}
+
+{% block headPlus %}
+	<link rel="stylesheet" href="{% static 'web/css/photoswipe.css' %}">
+	<link rel="stylesheet" href="{% static 'web/css/default-skin/default-skin.css' %}">
+	<link rel="stylesheet" href="{% static 'web/css/revistas.css' %}">
+{% endblock headPlus %}
+
+{% block scriptPlus %}
+	<script src="{% static 'web/js/photoswipe.min.js' %}"></script>
+	<script src="{% static 'web/js/photoswipe-ui-default.min.js' %}"></script>
+	<script src="{% static 'web/js/loading.js' %}"></script>
+	<script src="{% static 'web/js/single-gallery.js' %}"></script>
+	<script src="{% static 'web/js/lazy-loading.js' %}"></script>
+{% endblock scriptPlus %}
+
+{% block activeRevistas %}active{% endblock activeRevistas %}
+
+{% block content %}
+	{% include "web/photoswipe.html" %}
+	<div class="row img" style="padding:0px 15px;">
+		<h1 id='title' class="white-text text-center"><strong>Revistas Ibera</strong></h1>
+        {% for revista in revistas %}
+            <div class='col-md-4' id="my-gallery" class="{{revista.nombre}}" itemscope itemtype="http://schema.org/ImageGallery">
+                    <figure id='tapa'>
+                        <a href="{{revista.tapa.url}}" itemprop="contentUrl" data-size="{{revista.tapa.width}}x{{revista.tapa.height}}">
+                            <img src="{{revista.tapa.url}}" alt="{{revista.numero}}" itemprop="thumbnail">
+                        </a>
+                        <figcaption class="white-text text-center" itemprop="caption description"><strong>{{revista.nombre}}</strong></figcaption>
+                    </figure>
+                
+                {% for image in revista.imagenes_revista.all %}
+                    <figure id='hidden' class="image col-xs-12 col-sm-3" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject" >
+                        <a href="{{image.link.url}}" itemprop="contentUrl" data-size="{{image.link.swidth}}x{{image.link.height}}">
+                            <img src="{{image.link.url}}" alt="{{image.name}}" itemprop="thumbnail">
+                        </a>
+                        <figcaption class='white-text' itemprop="caption description"><strong>{{image.name}}</strong></figcaption>
+                    </figure>
+                {% endfor %}
+            </div>
+        {% endfor %}
+		{% if object.images %}		
+			<div class="loading text-center">
+				<h1 class="white-text">CARGANDO...</h1>
+			</div>
+		{% endif %}
+	</div>
+{% endblock content %}

@@ -110,6 +110,11 @@
 							<li class="{% block activeRadio %}{% endblock activeRadio %} seven text-center">
 								<a href="{% url 'radio' %}">Contenidos radio chamamé</a>
 							</li>
+							{% if SHOW_REVISTAS_VIEW %}
+							<li class="{% block activeRevistas %}{% endblock activeRevistas %} seven text-center">
+								<a href="{% url 'revistas' %}">Revistas Ibera</a>
+							</li>
+							{% endif %}
 						</ul>
 					</div>
 				</nav>

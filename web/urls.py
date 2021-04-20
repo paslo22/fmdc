@@ -25,5 +25,6 @@ urlpatterns = [
     url(r'^busqueda/(?P<filtro>.+)?/$', views.BusquedaView.as_view(), name='busqueda'),
     url(r'^imagenesLaterales/$', views.imgLaterales, name='imagenesLaterales'),
     url(r'^radio/$', views.radio, name='radio'),
+    url(r'^revistas/$', views.revistas, name='revistas'),
     url(r'^tinymce/', include('tinymce.urls')),
 ]

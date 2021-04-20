@@ -13,7 +13,6 @@ def album_song_path(instance, filename):
     return f'archive/Discografias/{instance.album.artista.name}/{instance.album.name}/{filename}'
 
 
-
 class Artista(models.Model):
     """
     Represents an artist
@@ -307,3 +306,30 @@ class PagoActividad(Actividad):
         verbose_name = 'Actividad del pago'
         verbose_name_plural = 'Actividades del pago'
 
+
+class Revista(models.Model):
+    class Meta:
+        verbose_name = 'Revista'
+        verbose_name_plural = 'Revistas'
+
+    nombre = models.TextField()
+    fecha = models.DateField('Fecha', auto_now=False, auto_now_add=False)
+    tapa = models.ImageField('Tapa revista', upload_to='images/', default='')
+
+    def __str__(self):
+        return self.nombre
+
+class RevistaImage(models.Model):
+    """
+    Represents an event's image
+    """
+    revista = models.ForeignKey(Revista, default=None, on_delete=models.CASCADE,
+                            null=True, blank=True, related_name='imagenes_revista')
+    link = models.ImageField('Revista Imagen', upload_to='images/', default='')
+
+    def __str__(self):
+        return self.revista.nombre
+
+    class Meta:
+        verbose_name = 'Imagen'
+        verbose_name_plural = 'Imagenes'

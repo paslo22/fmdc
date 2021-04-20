@@ -29,6 +29,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'web.context_processors.show_revistas'
             ],
         },
     },
@@ -79,3 +80,5 @@ MEDIA_ROOT = os.path.join(BASE_DIR, '../media/')
 MEDIA_URL = '/media/'
 
 GRAPPELLI_ADMIN_TITLE = 'Fundacion memoria del chamame'
+
+SHOW_REVISTAS_VIEW = True

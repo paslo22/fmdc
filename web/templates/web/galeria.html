@@ -27,7 +27,7 @@
 					<a href="{{image.url}}" itemprop="contentUrl" data-size="{{image.width}}x{{image.height}}">
 						<img src="{{image.url}}" alt="{{image.name}}" itemprop="thumbnail">
 					</a>
-					<figcaption itemprop="white-text caption description"><strong>{{image.name}}</strong></figcaption>
+					<figcaption class="white-text" itemprop="caption description"><strong>{{image.name}}</strong></figcaption>
 				</figure>
 			{% endfor %}
 			<div id="viewMore"></div>
@@ -50,4 +50,3 @@
 		{% endif %}
 	</div>
 {% endblock content %}
-

@@ -20,6 +20,7 @@ from .models import (
     Discoteca,
     Efemeride,
     EfemerideMes,
+    Revista
 )
 from web.constants import IMAGE_EXTENSION_PATTERN, MP4_EXTENSION_PATTERN, PDF_EXTENSION_PATTERN
 from web.helpers import get_files_from_folder_path
@@ -39,11 +40,17 @@ def imgLaterales(request):
 
 class GaleriaView(generic.ListView):
     template_name = 'web/galerias.html'
-
+    
     def get_queryset(self):
+        images = [folder for folder in os.listdir(settings.MEDIA_ROOT+'/archive/Galeria/Fotos')
+                if os.listdir(settings.MEDIA_ROOT+'/archive/Galeria/Fotos/'+folder)
+        ]
+        videos = [folder for folder in os.listdir(settings.MEDIA_ROOT+'/archive/Galeria/Videos')
+                if os.listdir(settings.MEDIA_ROOT+'/archive/Galeria/Videos/'+folder)
+        ]
         return {
-            'images': os.listdir(settings.MEDIA_ROOT+'/archive/Galeria/Fotos'),
-            'videos': os.listdir(settings.MEDIA_ROOT+'/archive/Galeria/Videos'),
+            'images': images,
+            'videos': videos
         }
 
 
@@ -254,6 +261,11 @@ def radio(request):
         contents[folder_name] = sorted(folder_content, key=lambda item: item["name"])
     contents = {k:v for k,v in sorted(contents.items(), key=lambda item: item[0])}
     return render(request, 'web/radio.html', {"contents": contents})
+
+def revistas(request):
+    revistas = Revista.objects.all()
+    return render(request, 'web/revistas.html', {'revistas': revistas})
+
 
 def error404(request, exception=None):
     return render(request, 'web/404.html')

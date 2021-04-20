@@ -1,0 +1,14 @@
+#tapa img {
+    width: 15vmax;
+    height: 15vmax;
+    margin: 0 auto;
+    display: block;
+}
+
+#hidden {
+    display: none;
+}
+
+#title {
+    margin-bottom: 20px;
+}
