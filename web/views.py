@@ -263,7 +263,7 @@ def radio(request):
     return render(request, 'web/radio.html', {"contents": contents})
 
 def revistas(request):
-    revistas = Revista.objects.all()
+    revistas = Revista.objects.all().order_by('-fecha')
     return render(request, 'web/revistas.html', {'revistas': revistas})
 
 

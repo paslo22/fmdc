@@ -1,5 +1,4 @@
 var initPhotoSwipeFromDOM = function(gallerySelector) {
-    console.log(gallerySelector)
 	// parse slide data (url, title, size ...) from DOM elements 
 	// (children of gallerySelector)
 	var parseThumbnailElements = function(el) {
@@ -10,7 +9,6 @@ var initPhotoSwipeFromDOM = function(gallerySelector) {
 			linkEl,
 			size,
 			item;
-        console.log(thumbElements)
 		for(var i = 0; i < numNodes; i++) {
 
 			figureEl = thumbElements[i]; // <figure> element
@@ -132,8 +130,7 @@ var initPhotoSwipeFromDOM = function(gallerySelector) {
 			gallery,
 			options,
 			items;
-        console.log(galleryElement)
-		items = parseThumbnailElements(galleryElement);
+        items = parseThumbnailElements(galleryElement);
 
 		// define options (if needed)
 		options = {
@@ -148,8 +145,8 @@ var initPhotoSwipeFromDOM = function(gallerySelector) {
 					rect = thumbnail.getBoundingClientRect(); 
 
 				return {x:rect.left, y:rect.top + pageYScroll, w:rect.width};
-			}
-
+			},
+            shareEl: false
 		};
 
 		// PhotoSwipe opened from URL
