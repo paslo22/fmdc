@@ -20,9 +20,8 @@
 {% block content %}
 	{% include "web/photoswipe.html" %}
 	<div class="row img" style="padding:0px 15px;">
-		<h1 id='title' class="white-text text-center"><strong>Revistas Ibera</strong></h1>
         {% for revista in revistas %}
-            <div class='col-md-4' id="my-gallery" class="{{revista.nombre}}" itemscope itemtype="http://schema.org/ImageGallery">
+            <div style='margin-top:15px;' class='col-md-4' id="my-gallery" class="{{revista.nombre}}" itemscope itemtype="http://schema.org/ImageGallery">
                     <figure id='tapa'>
                         <a href="{{revista.tapa.url}}" itemprop="contentUrl" data-size="{{revista.tapa.width}}x{{revista.tapa.height}}">
                             <img src="{{revista.tapa.url}}" alt="{{revista.numero}}" itemprop="thumbnail">
