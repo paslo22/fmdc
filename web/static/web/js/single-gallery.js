@@ -12,7 +12,11 @@ var initPhotoSwipeFromDOM = function(gallerySelector) {
 		for(var i = 0; i < numNodes; i++) {
 
 			figureEl = thumbElements[i]; // <figure> element
-
+            if (figureEl.id == 'tapa'){
+                figure_caption = figureEl.children[1];
+                figure_caption.style.display = 'none';
+                figure_caption.children[0].style.display = 'none';
+            }
 			// include only element nodes 
 			if(figureEl.nodeType !== 1) {
 				continue;

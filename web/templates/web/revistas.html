@@ -29,12 +29,11 @@
                         <figcaption class="white-text text-center" itemprop="caption description"><strong>{{revista.nombre}}</strong></figcaption>
                     </figure>
                 
-                {% for image in revista.imagenes_revista.all %}
-                    <figure id='hidden' class="image col-xs-12 col-sm-3" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject" >
+                {% for image in revista.imagenes %}
+                    <figure class='hidden' id='{{image.link_name}}' class="image col-xs-12 col-sm-3" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject" >
                         <a href="{{image.link.url}}" itemprop="contentUrl" data-size="{{image.link.swidth}}x{{image.link.height}}">
-                            <img src="{{image.link.url}}" alt="{{image.name}}" itemprop="thumbnail">
+                            <img src="{{image.link.url}}" alt="{{image.link_name}}" itemprop="thumbnail">
                         </a>
-                        <figcaption class='white-text' itemprop="caption description"><strong>{{image.name}}</strong></figcaption>
                     </figure>
                 {% endfor %}
             </div>

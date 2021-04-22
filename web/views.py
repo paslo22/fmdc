@@ -264,6 +264,8 @@ def radio(request):
 
 def revistas(request):
     revistas = Revista.objects.all().order_by('-fecha')
+    for revista in revistas:
+        revista.imagenes = sorted(revista.imagenes_revista.all(), key=lambda r: r.link.name)
     return render(request, 'web/revistas.html', {'revistas': revistas})
 
 
