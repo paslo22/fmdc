@@ -122,6 +122,7 @@ class PagoActividadAdmin(nested_admin.NestedModelAdmin):
 class RevistaAdmin(nested_admin.NestedModelAdmin):
     exclude = ()
     search_fields = ()
+    ordering = ('fecha',)
 
     def save_model(self, request, obj, form, change):
         obj.save()

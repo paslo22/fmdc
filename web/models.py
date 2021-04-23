@@ -317,7 +317,7 @@ class Revista(models.Model):
     tapa = models.ImageField('Tapa revista', upload_to='images/', default='')
 
     def __str__(self):
-        return self.nombre
+        return f'{self.nombre} {str(self.fecha)}'
 
 class RevistaImage(models.Model):
     """
