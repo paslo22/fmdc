@@ -266,7 +266,8 @@ def revistas(request):
     revistas = Revista.objects.all().order_by('fecha')
     for revista in revistas:
         revista.imagenes = sorted(revista.imagenes_revista.all(), key=lambda r: r.link.name)
-    return render(request, 'web/revistas.html', {'revistas': revistas})
+    context = {'revistas': revistas[0:5], 'lazy_revistas': revistas[5:]}
+    return render(request, 'web/revistas.html', context)
 
 
 def error404(request, exception=None):

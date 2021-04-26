@@ -12,7 +12,7 @@
 	<script src="{% static 'web/js/photoswipe-ui-default.min.js' %}"></script>
 	<script src="{% static 'web/js/loading.js' %}"></script>
 	<script src="{% static 'web/js/single-gallery.js' %}"></script>
-	<script src="{% static 'web/js/lazy-loading.js' %}"></script>
+	<script src="{% static 'web/js/lazy-loading-single-gallery.js' %}"></script>
 {% endblock scriptPlus %}
 
 {% block activeRevistas %}active{% endblock activeRevistas %}
@@ -20,28 +20,47 @@
 {% block content %}
 	{% include "web/photoswipe.html" %}
 	<div class="row img" style="padding:0px 15px;">
-        {% for revista in revistas %}
-            <div style='margin-top:15px;' class='col-md-4' id="my-gallery" class="{{revista.nombre}}" itemscope itemtype="http://schema.org/ImageGallery">
-                    <figure id='tapa'>
-                        <a href="{{revista.tapa.url}}" itemprop="contentUrl" data-size="{{revista.tapa.width}}x{{revista.tapa.height}}">
-                            <img src="{{revista.tapa.url}}" alt="{{revista.numero}}" itemprop="thumbnail">
-                        </a>
-                        <figcaption class="white-text text-center" itemprop="caption description"><strong>{{revista.nombre}}</strong></figcaption>
-                    </figure>
-                
-                {% for image in revista.imagenes %}
-                    <figure class='hidden' id='{{image.link_name}}' class="image col-xs-12 col-sm-3" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject" >
-                        <a href="{{image.link.url}}" itemprop="contentUrl" data-size="{{image.link.swidth}}x{{image.link.height}}">
-                            <img src="{{image.link.url}}" alt="{{image.link_name}}" itemprop="thumbnail">
-                        </a>
-                    </figure>
-                {% endfor %}
-            </div>
-        {% endfor %}
-		{% if object.images %}		
-			<div class="loading text-center">
-				<h1 class="white-text">CARGANDO...</h1>
-			</div>
-		{% endif %}
-	</div>
+        <div id='mi_galeria'>
+            {% for revista in revistas %}
+                <div style='margin-top:15px;' class='col-md-4' id="my-gallery" class="{{revista.nombre}}" itemscope itemtype="http://schema.org/ImageGallery">
+                        <figure id='tapa'>
+                            <a href="{{revista.tapa.url}}" itemprop="contentUrl" data-size="{{revista.tapa.width}}x{{revista.tapa.height}}">
+                                <img src="{{revista.tapa.url}}" alt="{{revista.numero}}" itemprop="thumbnail">
+                            </a>
+                            <figcaption class="white-text text-center" itemprop="caption description"><strong>{{revista.nombre}}</strong></figcaption>
+                        </figure>
+                    
+                    {% for image in revista.imagenes %}
+                        <figure class='hidden_figure' id='{{image.link_name}}' class="image col-xs-12 col-sm-3" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject" >
+                            <a href="{{image.link.url}}" itemprop="contentUrl" data-size="{{image.link.width}}x{{image.link.height}}">
+                                <img src="{{image.link.url}}" alt="{{image.link_name}}" itemprop="thumbnail">
+                            </a>
+                        </figure>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+            <div id="viewMore"></div>
+                <span id="nextPage" class="hidden">
+                <div id="lazy">
+                    {% for revista in lazy_revistas %}
+                        <div style='margin-top:15px;' class='col-md-4' id="my-gallery" class="{{revista.nombre}}" itemscope itemtype="http://schema.org/ImageGallery">
+                                <figure id='tapa'>
+                                    <a href="{{revista.tapa.url}}" itemprop="contentUrl" data-size="{{revista.tapa.width}}x{{revista.tapa.height}}">
+                                        <img src="{{revista.tapa.url}}" alt="{{revista.numero}}" itemprop="thumbnail">
+                                    </a>
+                                    <figcaption class="white-text text-center" itemprop="caption description"><strong>{{revista.nombre}}</strong></figcaption>
+                                </figure>
+                            
+                            {% for image in revista.imagenes %}
+                                <figure class='hidden_figure' id='{{image.link_name}}' class="image col-xs-12 col-sm-3" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject" >
+                                    <a href="{{image.link.url}}" itemprop="contentUrl" data-size="{{image.link.width}}x{{image.link.height}}">
+                                        <img src="{{image.link.url}}" alt="{{image.link_name}}" itemprop="thumbnail">
+                                    </a>
+                                </figure>
+                            {% endfor %}
+                        </div>
+                    {% endfor %}
+                </div>
+	    </div>
+    </div>
 {% endblock content %}
