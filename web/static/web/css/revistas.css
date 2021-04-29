@@ -1,12 +1,15 @@
-#tapa img {
+figure > a > img {
     width: 15vmax;
     height: 15vmax;
     margin: 0 auto;
     display: block;
 }
 
-.hidden_figure {
+#hidden_figure {
     display: none;
+    width: 15vmax;
+    height: 15vmax;
+    margin: 0 auto;
 }
 
 #title {

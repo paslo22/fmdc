@@ -201,10 +201,41 @@ var initPhotoSwipeFromDOM = function(gallerySelector) {
 	}
 };
 
+function createImages(node, data){
+	data.forEach(element => {
+		var figure = document.createElement("figure");
+		figure.className = 'image col-xs-12 col-sm-3'
+		figure.id = 'hidden_figure'
+		
+		var a = document.createElement("a")
+		a.href = element.url
+		a.setAttribute('data-size', element.width.toString() + 'x' + element.height.toString());
+		
+		var img = document.createElement("img")
+		img.src = element.url
+		
+		figure.appendChild(a)
+		a.appendChild(img)
+		node.appendChild(figure)
+	});
+
+}
+
 $(document).ready(function() {
-	galleries = document.querySelectorAll("[id='my-gallery']");
-	$.each(galleries, function(index, val) {
-		initPhotoSwipeFromDOM(`.${this.className}`);
-		 /* iterate through array or object */
+	$("figure").click(function(event) {
+		event.preventDefault();
+		var pk = event.target.dataset.pk;
+		$.ajax({
+			url: '/imagenes_revistas/' + pk,
+			dataType: 'json',
+			success: function (data) {
+			  createImages(event.target.parentNode.parentNode.parentNode, data)
+			  galleries = document.querySelectorAll("[id='my-gallery']");
+			  $.each(galleries, function(index, val) {
+					initPhotoSwipeFromDOM(`.${this.className}`);
+					$(this).trigger(event);
+				});
+			}
+		  });
 	});
 });
