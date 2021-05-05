@@ -91,9 +91,6 @@ var initPhotoSwipeFromDOM = function(gallerySelector) {
 			}
 			nodeIndex++;
 		}
-
-
-
 		if(index >= 0) {
 			// open PhotoSwipe if valid index found
 			openPhotoSwipe( index, clickedGallery );
@@ -184,6 +181,9 @@ var initPhotoSwipeFromDOM = function(gallerySelector) {
 		// Pass data to PhotoSwipe and initialize it
 		gallery = new PhotoSwipe( pswpElement, PhotoSwipeUI_Default, items, options);
 		gallery.init();
+		gallery.listen('destroy', function() {
+			galleryElement.onclick = null;
+		});
 	};
 
 	// loop through all gallery elements and bind events
@@ -206,19 +206,23 @@ function createImages(node, data){
 		var figure = document.createElement("figure");
 		figure.className = 'image col-xs-12 col-sm-3'
 		figure.id = 'hidden_figure'
+		figure.itemprop = 'associatedMedia'
+		figure.itemtype = "http://schema.org/ImageObject"
+
 		
 		var a = document.createElement("a")
 		a.href = element.url
 		a.setAttribute('data-size', element.width.toString() + 'x' + element.height.toString());
-		
+		a.setAttribute('itemprop', 'contentUrl')
+
 		var img = document.createElement("img")
 		img.src = element.url
+		img.itemprop = "thumbnail"
 		
 		figure.appendChild(a)
 		a.appendChild(img)
 		node.appendChild(figure)
 	});
-
 }
 
 $(document).ready(function() {
@@ -230,7 +234,7 @@ $(document).ready(function() {
 			dataType: 'json',
 			success: function (data) {
 			  createImages(event.target.parentNode.parentNode.parentNode, data)
-			  galleries = document.querySelectorAll("[id='my-gallery']");
+			  galleries = $(`[id="${pk}"]`)
 			  $.each(galleries, function(index, val) {
 					initPhotoSwipeFromDOM(`.${this.className}`);
 					$(this).trigger(event);
