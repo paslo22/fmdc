@@ -263,7 +263,7 @@ def radio(request):
     return render(request, 'web/radio.html', {"contents": contents})
 
 def revistas(request):
-    revistas = Revista.objects.all().order_by('fecha')
+    revistas = Revista.objects.exclude(imagenes_revista__isnull=True).order_by('fecha')
     context = {'revistas': revistas}
     return render(request, 'web/revistas.html', context)
 
