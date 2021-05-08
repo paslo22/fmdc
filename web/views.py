@@ -264,18 +264,17 @@ def radio(request):
 
 def revistas(request):
     revistas = Revista.objects.all().order_by('fecha')
-    context = {'revistas': revistas[0:5], 'lazy_revistas': revistas[5:]}
+    context = {'revistas': revistas}
     return render(request, 'web/revistas.html', context)
 
-
-def imagenes_revistas(request, pk):
+def revista(request, pk):
     revista = Revista.objects.get(pk=pk)
     revista_imagenes = sorted(revista.imagenes_revista.all(), key=lambda r: r.link.name)
-    imagenes = []
-    for imagen in revista_imagenes:
-        new_img = {'url': imagen.link.url, 'width': imagen.link.width, 'height': imagen.link.height}
-        imagenes.append(new_img)
-    return HttpResponse(json.dumps(imagenes, cls=DjangoJSONEncoder, ensure_ascii=False))
+    return render(
+        request,
+        'web/revista.html',
+        {'imagenes': revista_imagenes, 'total': len(revista_imagenes)}
+    )
 
 def error404(request, exception=None):
     return render(request, 'web/404.html')

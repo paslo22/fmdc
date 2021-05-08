@@ -2,49 +2,28 @@
 {% load staticfiles %}
 
 {% block headPlus %}
-	<link rel="stylesheet" href="{% static 'web/css/photoswipe.css' %}">
-	<link rel="stylesheet" href="{% static 'web/css/default-skin/default-skin.css' %}">
 	<link rel="stylesheet" href="{% static 'web/css/revistas.css' %}">
 {% endblock headPlus %}
 
 {% block scriptPlus %}
-	<script src="{% static 'web/js/photoswipe.min.js' %}"></script>
-	<script src="{% static 'web/js/photoswipe-ui-default.min.js' %}"></script>
 	<script src="{% static 'web/js/loading.js' %}"></script>
-	<script src="{% static 'web/js/single-gallery.js' %}"></script>
-	<script src="{% static 'web/js/lazy-loading-single-gallery.js' %}"></script>
 {% endblock scriptPlus %}
 
 {% block activeRevistas %}active{% endblock activeRevistas %}
 
 {% block content %}
-	{% include "web/photoswipe.html" %}
 	<div class="row img" style="padding:0px 15px;">
         <div id='mi_galeria'>
             {% for revista in revistas %}
-                <div style='margin-top:15px;' class='col-md-4' id="{{revista.pk}}" itemscope itemtype="http://schema.org/ImageGallery">
+                <div style='margin-top:15px;' class='col-md-12' id="{{revista.pk}}" itemscope itemtype="http://schema.org/ImageGallery">
                     <figure>
-                        <a href='{{revista.tapa.url}}' itemprop="contentUrl" data-size="{{revista.tapa.width}}x{{revista.tapa.height}}">
+                        <a href='/revista/{{revista.pk}}' itemprop="contentUrl" data-size="{{revista.tapa.width}}x{{revista.tapa.height}}">
                             <img data-pk="{{revista.pk}}" src="{{revista.tapa.url}}" alt="{{revista.nombre}}" itemprop="thumbnail">
                         </a>
                         <figcaption class="white-text text-center" itemprop="caption description"><strong>{{revista.nombre}}</strong></figcaption>
                     </figure>
                 </div>
             {% endfor %}
-            <div id="viewMore"></div>
-                <span id="nextPage" class="hidden">
-                <div id="lazy">
-                    {% for revista in lazy_revistas %}
-                        <div style='margin-top:15px;' class='col-md-4' id="{{revista.pk}}" itemscope itemtype="http://schema.org/ImageGallery">
-                            <figure id='tapa'>
-                                <a href='{{revista.tapa.url}}' itemprop="contentUrl" data-size="{{revista.tapa.width}}x{{revista.tapa.height}}">
-                                    <img class='lazy' data-pk="{{revista.pk}}" data-src="{{revista.tapa.url}}" alt="{{revista.nombre}}" itemprop="thumbnail">
-                                </a>
-                                <figcaption class="white-text text-center" itemprop="caption description"><strong>{{revista.nombre}}</strong></figcaption>
-                            </figure>
-                        </div>
-                    {% endfor %}
-                </div>
 	    </div>
     </div>
 {% endblock content %}
