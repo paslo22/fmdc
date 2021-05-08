@@ -38,7 +38,7 @@
                         <div style='margin-top:15px;' class='col-md-4' id="{{revista.pk}}" itemscope itemtype="http://schema.org/ImageGallery">
                             <figure id='tapa'>
                                 <a href='{{revista.tapa.url}}' itemprop="contentUrl" data-size="{{revista.tapa.width}}x{{revista.tapa.height}}">
-                                    <img class='lazy' data-pk="{{revista.pk}}" src="{{revista.tapa.url}}" alt="{{revista.nombre}}" itemprop="thumbnail">
+                                    <img class='lazy' data-pk="{{revista.pk}}" data-src="{{revista.tapa.url}}" alt="{{revista.nombre}}" itemprop="thumbnail">
                                 </a>
                                 <figcaption class="white-text text-center" itemprop="caption description"><strong>{{revista.nombre}}</strong></figcaption>
                             </figure>
