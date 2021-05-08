@@ -12,20 +12,13 @@
 {% block activeRevistas %}active{% endblock activeRevistas %}
 
 {% block content %}
-
-    <!-- Slideshow container -->
     <div class="slideshow-container" style='margin-top: 10px;'>
-
-        <!-- Full-width images with number and caption text -->
         {% for image in imagenes %}
             <div class="mySlides col-12">
                 <div class="numbertext">{{forloop.counter}}/{{total}}</div>
                 <img class='ivera_img' src="{{image.link.url}}">
             </div>
         {% endfor %}
-    
-
-        <!-- Next and previous buttons -->
         <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
         <a class="next" onclick="plusSlides(1)">&#10095;</a>
     </div>
